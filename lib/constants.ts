@@ -36,4 +36,4 @@ export const NAV_GROUPS: NavGroup[] = [
   },
 ]
 
-export const APP_NAME = "SaaS Admin"
+export const APP_NAME = "Next SaaS"

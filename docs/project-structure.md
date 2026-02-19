@@ -28,7 +28,8 @@ next-saas-admin-ui/
 │   │   └── user-dropdown.tsx # Avatar + account dropdown
 │   ├── providers/
 │   │   └── theme-provider.tsx
-│   └── ui/                   # shadcn/ui primitives (auto-generated)
+│   └── ui/                   # shadcn/ui primitives + custom components
+│       └── data-table.tsx    # Custom: sortable table, pagination, search, column toggle
 │
 ├── lib/
 │   ├── constants.ts          # NAV_GROUPS — sidebar navigation config

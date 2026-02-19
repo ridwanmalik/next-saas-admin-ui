@@ -74,7 +74,7 @@ Colors are defined as CSS variables in `app/globals.css`. Edit the `:root` block
 
 .dark {
   --primary: oklch(0.488 0.243 264.376);  /* and this */
-  --background: oklch(0.129 0.042 264.695);
+  --background: oklch(0.165 0.042 264.695);
 }
 ```
 
@@ -127,7 +127,57 @@ Or add it to `(auth)/` if it's login/signup/reset-password.
 
 ---
 
-## 8. Replace Mock User Data
+## 8. Use the DataTable Component
+
+`components/ui/data-table.tsx` is a custom reusable table with sorting, pagination, global search, and column visibility built in.
+
+```tsx
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table"
+
+type Item = { id: string; name: string; status: string }
+
+const columns: DataTableColumn<Item>[] = [
+  {
+    key: "name",
+    header: "Name",
+    sortable: true,
+    hideable: false,          // cannot be hidden via the Columns toggle
+  },
+  {
+    key: "status",
+    header: "Status",
+    sortable: true,
+    hideBelow: "md",          // hidden on screens below md breakpoint
+    render: row => <span>{row.status}</span>,
+  },
+]
+
+<DataTable
+  columns={columns}
+  data={items}
+  defaultPageSize={10}
+  pageSizeOptions={[5, 10, 25]}
+  searchPlaceholder="Search items..."
+/>
+```
+
+**Column options:**
+
+| Prop | Type | Description |
+|---|---|---|
+| `key` | `string` | Property name on the data object |
+| `header` | `string` | Column heading text |
+| `sortable` | `boolean` | Enable click-to-sort |
+| `align` | `"left" \| "center" \| "right"` | Cell alignment |
+| `hideBelow` | `"sm" \| "md" \| "lg"` | Responsive hiding breakpoint |
+| `hideable` | `boolean` | Show in the Columns visibility toggle (default `true`) |
+| `render` | `(row) => ReactNode` | Custom cell renderer |
+
+> Pages using custom `render` functions must include `"use client"` at the top.
+
+---
+
+## 9. Replace Mock User Data
 
 `components/layout/user-dropdown.tsx` uses a hardcoded `MOCK_USER` object. Replace it with your actual auth session:
 
