@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { StatCard } from "@/components/ui/stat-card"
 import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -156,29 +157,6 @@ const ACTIVITY: ActivityItem[] = [
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-const Sparkline = ({ data, positive }: { data: number[]; positive: boolean }) => {
-  const W = 72, H = 28
-  if (data.length < 2) return null
-  const min = Math.min(...data)
-  const max = Math.max(...data)
-  const range = max - min || 1
-  const pts = data
-    .map((v, i) => `${(i / (data.length - 1)) * W},${H - 2 - ((v - min) / range) * (H - 4)}`)
-    .join(" ")
-  return (
-    <svg width={W} height={H} className="overflow-visible shrink-0">
-      <polyline
-        points={pts}
-        fill="none"
-        stroke={positive ? "#10b981" : "#ef4444"}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 const RevenueChart = () => {
   const data = WEEKLY_REVENUE
   const n = data.length
@@ -295,27 +273,19 @@ export default function DashboardPage() {
 
       {/* ── Stat cards ────────────────────────────────────────────────────── */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {STATS.map((stat) => (
-          <Card key={stat.label}>
-            <CardContent>
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm text-muted-foreground leading-none">{stat.label}</p>
-                <div className={cn("flex items-center justify-center rounded-lg p-2 shrink-0", stat.iconBg)}>
-                  <stat.icon className={cn("h-3.5 w-3.5", stat.iconColor)} />
-                </div>
-              </div>
-              <p className="text-2xl font-bold tracking-tight mt-3">{stat.value}</p>
-              <div className="flex items-end justify-between mt-2 gap-2">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className={cn("text-xs font-semibold", stat.positive ? "text-emerald-500" : "text-red-500")}>
-                    {stat.change}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{stat.period}</span>
-                </div>
-                <Sparkline data={stat.sparkline} positive={stat.positive} />
-              </div>
-            </CardContent>
-          </Card>
+        {STATS.map(stat => (
+          <StatCard
+            key={stat.label}
+            label={stat.label}
+            value={stat.value}
+            change={stat.change}
+            positive={stat.positive}
+            period={stat.period}
+            sparkline={stat.sparkline}
+            icon={stat.icon}
+            iconBg={stat.iconBg}
+            iconColor={stat.iconColor}
+          />
         ))}
       </div>
 

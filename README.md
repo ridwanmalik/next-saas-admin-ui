@@ -1,36 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next SaaS Admin UI
 
-## Getting Started
+A clean, production-ready admin dashboard template for indie SaaS products. Built with Next.js 16, Tailwind CSS v4, and shadcn/ui v4.
 
-First, run the development server:
+Ship your admin panel in hours, not days.
+
+---
+
+## Features
+
+- **Sidebar + topbar layout** — collapsible, mobile-friendly
+- **Dark / light / system mode** — via `next-themes`, no flash on load
+- **6 accent color themes** — Zinc, Blue, Violet, Rose, Orange, Emerald; persisted to `localStorage`
+- **DataTable** — sorting, pagination, global search, column visibility, filter chips with keyboard navigation
+- **Settings page** — profile, appearance (theme + accent), preferences, notifications
+- **Reusable components** — `EmptyState`, `ErrorState`, stat cards, SVG charts
+- **404 + error boundary** — wired to Next.js `not-found.tsx` and `error.tsx`
+- **TypeScript throughout** — strict mode, no `any`
+
+---
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/ridwanmalik/next-saas-admin-ui.git
+cd next-saas-admin-ui
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — redirects to `/dashboard` automatically.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Requirements:** Node.js 20+, Yarn 4 (via Corepack)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Folder Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+├── (admin)/          # Authenticated pages — sidebar + topbar applied automatically
+│   ├── dashboard/
+│   ├── users/
+│   ├── analytics/
+│   ├── billing/
+│   ├── reports/
+│   ├── notifications/
+│   ├── security/
+│   ├── settings/
+│   ├── layout.tsx    # Wraps every admin page with sidebar + topbar
+│   └── error.tsx     # 500 error boundary (Next.js)
+├── (auth)/
+│   └── login/        # Public pages — no sidebar
+├── not-found.tsx     # 404 page
+├── layout.tsx        # Root layout: fonts, ThemeProvider, TooltipProvider
+├── globals.css       # Tailwind v4 config + CSS variables + color themes
+│
+components/
+├── layout/           # AdminSidebar, Topbar, ModeToggle, UserDropdown
+├── providers/        # ThemeProvider wrapper
+└── ui/               # shadcn primitives + custom components
+    ├── data-table.tsx # Sortable table with search, pagination, filters
+    ├── empty-state.tsx
+    └── error-state.tsx
+│
+hooks/
+├── use-color-theme.ts  # Accent color persistence
+└── use-mobile.ts
+│
+lib/
+├── constants.ts      # NAV_GROUPS — sidebar navigation config
+├── themes.ts         # Color theme definitions
+└── utils.ts          # cn() utility
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Customization
 
-## Deploy on Vercel
+### Add a page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create `app/(admin)/your-page/page.tsx` — the sidebar and topbar are applied automatically.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Add a nav item
+
+Edit `lib/constants.ts`:
+
+```ts
+import { YourIcon } from "lucide-react"
+
+{ icon: YourIcon, title: "Your Page", href: "/your-page" }
+// Optional badge:
+{ icon: YourIcon, title: "Your Page", href: "/your-page", badge: "3" }
+```
+
+### Change the accent color palette
+
+Each theme lives in `app/globals.css` as a `html[data-color-theme]` block. Only `--primary`, `--ring`, and `--sidebar-primary` are swapped — backgrounds stay neutral (60-30-10 rule).
+
+```css
+html[data-color-theme="blue"] {
+  --primary: oklch(0.546 0.245 262.881);
+}
+html.dark[data-color-theme="blue"] {
+  --primary: oklch(0.623 0.214 259.815);
+}
+```
+
+Add a new entry to `lib/themes.ts` to expose it in the Settings UI.
+
+### Change the app name
+
+```ts
+// lib/constants.ts
+export const APP_NAME = "Your App"
+```
+
+```ts
+// app/layout.tsx
+export const metadata = { title: "Your App" }
+```
+
+### Use EmptyState
+
+```tsx
+import { EmptyState } from "@/components/ui/empty-state"
+import { Users } from "lucide-react"
+
+<EmptyState
+  icon={Users}
+  title="No users yet"
+  description="Invite your first team member to get started."
+  actions={[{ label: "Invite user", onClick: () => {} }]}
+  size="md" // "sm" | "md" | "lg"
+/>
+```
+
+### Use DataTable
+
+```tsx
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table"
+
+const columns: DataTableColumn<Item>[] = [
+  { key: "name",    header: "Name",   sortable: true, hideable: false },
+  { key: "status",  header: "Status", sortable: true, hideBelow: "md",
+    render: row => <span>{row.status}</span> },
+]
+
+<DataTable
+  columns={columns}
+  data={items}
+  searchPlaceholder="Search..."
+  toolbarFilters={<YourFilterChip />}  // left of spacer
+  toolbarActions={<Button>Add</Button>} // right of Columns button
+/>
+```
+
+> Pages that pass `render` functions to DataTable must include `"use client"`.
+
+### Replace mock auth
+
+`components/layout/user-dropdown.tsx` uses a hardcoded `MOCK_USER`. Swap it for your auth session:
+
+```tsx
+// NextAuth
+const { data: session } = useSession()
+
+// Clerk
+const { user } = useUser()
+```
+
+---
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Styling | Tailwind CSS v4 |
+| Components | shadcn/ui v4 (new-york) |
+| Icons | Lucide React |
+| Dark mode | next-themes |
+| Language | TypeScript (strict) |
+
+---
+
+## Scripts
+
+```bash
+yarn dev      # Dev server with Turbopack
+yarn build    # Production build
+yarn lint     # ESLint
+```
+
+---
+
+## License
+
+MIT — use it for your product, no attribution required.

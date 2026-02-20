@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import {
   ChevronDown,
   ChevronLeft,
@@ -10,20 +10,178 @@ import {
   ChevronsRight,
   ChevronsUpDown,
   Columns3,
+  ListFilter,
   Search,
+  X,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+
+// ─── MultiSelectFilter ────────────────────────────────────────────────────────
+
+export interface MultiSelectOption {
+  value: string
+  label: string
+  count?: number
+}
+
+export interface MultiSelectFilterProps {
+  label: string
+  options: MultiSelectOption[]
+  value: Set<string>
+  onChange: (next: Set<string>) => void
+}
+
+export function MultiSelectFilter({ label, options, value, onChange }: MultiSelectFilterProps) {
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState("")
+  const [activeIndex, setActiveIndex] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Focus the search input every time the dropdown opens
+  useEffect(() => {
+    if (open) {
+      const t = setTimeout(() => inputRef.current?.focus(), 0)
+      return () => clearTimeout(t)
+    }
+  }, [open])
+
+  const toggle = (optValue: string) => {
+    const next = new Set(value)
+    if (next.has(optValue)) next.delete(optValue)
+    else next.add(optValue)
+    onChange(next)
+  }
+
+  const visible = options.filter(opt =>
+    opt.label.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  // Reset highlight to first item whenever the filtered list changes
+  useEffect(() => { setActiveIndex(0) }, [search])
+
+  const isActive = value.size > 0
+  const activeLabels = options.filter(opt => value.has(opt.value)).map(opt => opt.label)
+  const buttonLabel = isActive ? activeLabels.join(", ") : label
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault(); e.stopPropagation()
+        setActiveIndex(i => Math.min(i + 1, visible.length - 1))
+        break
+      case "ArrowUp":
+        e.preventDefault(); e.stopPropagation()
+        setActiveIndex(i => Math.max(i - 1, 0))
+        break
+      case "Enter":
+        e.preventDefault(); e.stopPropagation()
+        if (visible[activeIndex]) toggle(visible[activeIndex].value)
+        break
+      default:
+        e.stopPropagation()
+    }
+  }
+
+  return (
+    <DropdownMenu
+      open={open}
+      onOpenChange={o => {
+        setOpen(o)
+        if (!o) { setSearch(""); setActiveIndex(0) }
+      }}
+    >
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn(
+            "h-8 gap-1.5 text-xs font-normal",
+            isActive && "border-primary/60 bg-primary/5 text-primary hover:bg-primary/10",
+          )}
+        >
+          {isActive
+            ? <X className="h-3 w-3 shrink-0" onClick={e => { e.stopPropagation(); onChange(new Set()) }} />
+            : <ListFilter className="h-3 w-3 shrink-0" />
+          }
+          {buttonLabel}
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="start" className="w-48 p-0">
+
+        {/* Search — keeps DOM focus throughout */}
+        <div className="flex items-center gap-2 px-2 py-2 border-b">
+          <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          <input
+            ref={inputRef}
+            placeholder={`Search ${label.toLowerCase()}...`}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            onKeyDown={handleInputKeyDown}
+            className="flex-1 bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+          />
+        </div>
+
+        {/* Items — highlight driven by activeIndex, not DOM focus */}
+        <div className="py-1">
+          {visible.length === 0 ? (
+            <p className="px-3 py-2 text-xs text-muted-foreground">No results.</p>
+          ) : (
+            visible.map((opt, i) => (
+              <DropdownMenuItem
+                key={opt.value}
+                onSelect={e => { e.preventDefault(); toggle(opt.value) }}
+                onMouseEnter={() => setActiveIndex(i)}
+                className={cn(
+                  "gap-2.5 px-3 py-1.5",
+                  i === activeIndex && "bg-accent text-accent-foreground",
+                )}
+              >
+                <Checkbox
+                  checked={value.has(opt.value)}
+                  onCheckedChange={() => toggle(opt.value)}
+                  className="shrink-0"
+                  id={`filter-${label}-${opt.value}`}
+                />
+                <label htmlFor={`filter-${label}-${opt.value}`} className="flex-1 text-sm cursor-pointer">
+                  {opt.label}
+                </label>
+                {opt.count !== undefined && (
+                  <span className="tabular-nums text-xs text-muted-foreground">{opt.count}</span>
+                )}
+              </DropdownMenuItem>
+            ))
+          )}
+        </div>
+
+        {isActive && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onSelect={() => onChange(new Set())}
+              className="justify-center text-xs text-muted-foreground py-1.5"
+            >
+              Clear filter
+            </DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

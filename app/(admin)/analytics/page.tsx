@@ -2,6 +2,7 @@ import { Download, Monitor, Smartphone, Tablet } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { StatCard } from "@/components/ui/stat-card"
 import { cn } from "@/lib/utils"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -106,29 +107,6 @@ const bounceColor = (pct: number) => {
 }
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
-
-const Sparkline = ({ data, positive }: { data: number[]; positive: boolean }) => {
-  const W = 72, H = 28
-  if (data.length < 2) return null
-  const min = Math.min(...data)
-  const max = Math.max(...data)
-  const range = max - min || 1
-  const pts = data
-    .map((v, i) => `${(i / (data.length - 1)) * W},${H - 2 - ((v - min) / range) * (H - 4)}`)
-    .join(" ")
-  return (
-    <svg width={W} height={H} className="overflow-visible shrink-0" aria-hidden>
-      <polyline
-        points={pts}
-        fill="none"
-        stroke={positive ? "#10b981" : "#ef4444"}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
 
 const TrafficChart = () => {
   const n = ORGANIC.length
@@ -248,21 +226,15 @@ export default function AnalyticsPage() {
       {/* ── Trend cards ───────────────────────────────────────────────────── */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {TREND_CARDS.map(card => (
-          <Card key={card.label}>
-            <CardContent>
-              <p className="text-sm text-muted-foreground leading-none">{card.label}</p>
-              <p className="text-2xl font-bold tracking-tight mt-3">{card.value}</p>
-              <div className="flex items-end justify-between mt-2 gap-2">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className={cn("text-xs font-semibold", card.positive ? "text-emerald-500" : "text-red-500")}>
-                    {card.change}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{card.period}</span>
-                </div>
-                <Sparkline data={card.sparkline} positive={card.positive} />
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            key={card.label}
+            label={card.label}
+            value={card.value}
+            change={card.change}
+            positive={card.positive}
+            period={card.period}
+            sparkline={card.sparkline}
+          />
         ))}
       </div>
 
