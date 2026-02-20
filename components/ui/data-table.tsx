@@ -48,6 +48,10 @@ export interface DataTableProps<T> {
   defaultPageSize?: number
   pageSizeOptions?: number[]
   searchPlaceholder?: string
+  /** Filter chips rendered left of the spacer, after the search input */
+  toolbarFilters?: React.ReactNode
+  /** Action buttons rendered right of the spacer, before the Columns button */
+  toolbarActions?: React.ReactNode
   className?: string
 }
 
@@ -80,6 +84,8 @@ export function DataTable<T extends object>({
   defaultPageSize = 10,
   pageSizeOptions = [5, 10, 20, 50],
   searchPlaceholder = "Search...",
+  toolbarFilters,
+  toolbarActions,
   className,
 }: DataTableProps<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null)
@@ -157,8 +163,10 @@ export function DataTable<T extends object>({
     <div className={cn("flex flex-col gap-4", className)}>
 
       {/* ── Toolbar ───────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-2">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex items-center gap-2 flex-wrap">
+
+        {/* Left: search + filter chips */}
+        <div className="relative shrink-0 w-52">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
           <Input
             value={search}
@@ -168,9 +176,13 @@ export function DataTable<T extends object>({
           />
         </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="ml-auto shrink-0">
+        {toolbarFilters}
+
+        {/* Right: columns + actions */}
+        <div className="flex items-center gap-2 ml-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="shrink-0">
               <Columns3 className="h-3.5 w-3.5 mr-1.5" />
               Columns
             </Button>
@@ -193,7 +205,10 @@ export function DataTable<T extends object>({
               )
             })}
           </DropdownMenuContent>
-        </DropdownMenu>
+          </DropdownMenu>
+
+          {toolbarActions}
+        </div>{/* end right group */}
       </div>
 
       {/* ── Table ─────────────────────────────────────────────────────── */}

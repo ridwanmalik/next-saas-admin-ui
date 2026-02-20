@@ -1,5 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Bell } from "lucide-react"
+
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 
 const NOTIFICATIONS = [
   { title: "New user signup", description: "Carol White signed up for the Enterprise plan.", time: "5 min ago", read: false },
@@ -21,20 +24,29 @@ export default function NotificationsPage() {
           <CardDescription>{NOTIFICATIONS.filter((n) => !n.read).length} unread notifications</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="divide-y">
-            {NOTIFICATIONS.map((n, i) => (
-              <div key={i} className={`flex items-start justify-between gap-4 py-4 ${n.read ? "opacity-60" : ""}`}>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium">{n.title}</p>
-                    {!n.read && <Badge className="h-4 px-1 text-[10px]">New</Badge>}
+          {NOTIFICATIONS.length === 0 ? (
+            <EmptyState
+              icon={Bell}
+              title="All caught up"
+              description="No notifications right now. We'll let you know when something needs your attention."
+              size="sm"
+            />
+          ) : (
+            <div className="divide-y">
+              {NOTIFICATIONS.map((n, i) => (
+                <div key={i} className={`flex items-start justify-between gap-4 py-4 ${n.read ? "opacity-60" : ""}`}>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium">{n.title}</p>
+                      {!n.read && <Badge className="h-4 px-1 text-[10px]">New</Badge>}
+                    </div>
+                    <p className="text-xs text-muted-foreground">{n.description}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground">{n.description}</p>
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{n.time}</span>
                 </div>
-                <span className="text-xs text-muted-foreground whitespace-nowrap">{n.time}</span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

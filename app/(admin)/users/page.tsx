@@ -1,15 +1,29 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useRef, useState } from "react"
+import { ClipboardCopy, Eye, ListFilter, MoreHorizontal, Pencil, Search, ShieldOff, ShieldCheck, Trash2, UserPlus, X } from "lucide-react"
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { DataTable, type DataTableColumn } from "@/components/ui/data-table"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
 // ─── Types & Data ─────────────────────────────────────────────────────────────
 
-type Plan = "Free" | "Pro" | "Enterprise"
+type Plan   = "Free" | "Pro" | "Enterprise"
 type Status = "Active" | "Inactive" | "Suspended"
-type Role = "Admin" | "Member" | "Viewer"
+type Role   = "Admin" | "Member" | "Viewer"
 
 type User = {
   id: string
@@ -50,7 +64,7 @@ const USERS: User[] = [
   { id: "USR-025", name: "Nadia Petrov",    email: "nadia@techlab.ru",      plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 334, joined: "Sep 15, 2025" },
 ]
 
-// ─── Column helpers ───────────────────────────────────────────────────────────
+// ─── Style maps ───────────────────────────────────────────────────────────────
 
 const planVariant: Record<Plan, "default" | "outline" | "secondary"> = {
   Enterprise: "default",
@@ -72,6 +86,80 @@ const roleStyle: Record<Role, string> = {
 
 const initials = (name: string) =>
   name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2)
+
+// ─── Actions cell ─────────────────────────────────────────────────────────────
+
+const UserActions = ({ user }: { user: User }) => (
+  <div className="flex items-center justify-end gap-0.5">
+
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-foreground">
+          <Eye className="h-3.5 w-3.5" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>View profile</TooltipContent>
+    </Tooltip>
+
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-foreground">
+          <Pencil className="h-3.5 w-3.5" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>Edit user</TooltipContent>
+    </Tooltip>
+
+    <DropdownMenu>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-foreground">
+              <MoreHorizontal className="h-3.5 w-3.5" />
+            </Button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent>More actions</TooltipContent>
+      </Tooltip>
+
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuItem
+          onClick={() => navigator.clipboard.writeText(user.id)}
+          className="gap-2"
+        >
+          <ClipboardCopy className="h-3.5 w-3.5 text-muted-foreground" />
+          Copy user ID
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="gap-2">
+          <Eye className="h-3.5 w-3.5 text-muted-foreground" />
+          View profile
+        </DropdownMenuItem>
+        <DropdownMenuItem className="gap-2">
+          <Pencil className="h-3.5 w-3.5 text-muted-foreground" />
+          Edit user
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        {user.status === "Suspended" ? (
+          <DropdownMenuItem className="gap-2">
+            <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+            Unsuspend
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem className="gap-2 text-amber-600 dark:text-amber-400 focus:text-amber-600">
+            <ShieldOff className="h-3.5 w-3.5" />
+            Suspend user
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive">
+          <Trash2 className="h-3.5 w-3.5" />
+          Delete user
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+
+  </div>
+)
 
 // ─── Columns ──────────────────────────────────────────────────────────────────
 
@@ -143,13 +231,192 @@ const columns: DataTableColumn<User>[] = [
       <span className="text-muted-foreground">{row.joined}</span>
     ),
   },
+  {
+    key: "actions",
+    header: "",
+    hideable: false,
+    align: "right",
+    render: row => <UserActions user={row} />,
+  },
 ]
+
+// ─── Status filter chip ───────────────────────────────────────────────────────
+
+const ALL_STATUSES: Status[] = ["Active", "Inactive", "Suspended"]
+
+const statusCounts = ALL_STATUSES.reduce((acc, s) => {
+  acc[s] = USERS.filter(u => u.status === s).length
+  return acc
+}, {} as Record<Status, number>)
+
+function StatusFilter({
+  value,
+  onChange,
+}: {
+  value: Set<Status>
+  onChange: (next: Set<Status>) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState("")
+  const [activeIndex, setActiveIndex] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Focus the search input every time the dropdown opens
+  useEffect(() => {
+    if (open) {
+      const t = setTimeout(() => inputRef.current?.focus(), 0)
+      return () => clearTimeout(t)
+    }
+  }, [open])
+
+  const toggle = (s: Status) => {
+    const next = new Set(value)
+    if (next.has(s)) next.delete(s)
+    else next.add(s)
+    onChange(next)
+  }
+
+  const visible = ALL_STATUSES.filter(s =>
+    s.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  // Reset highlight to first item whenever the filtered list changes
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [search])
+
+  const isActive = value.size > 0
+  const label = isActive ? [...value].join(", ") : "Status"
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault()
+        e.stopPropagation()
+        setActiveIndex(i => Math.min(i + 1, visible.length - 1))
+        break
+      case "ArrowUp":
+        e.preventDefault()
+        e.stopPropagation()
+        setActiveIndex(i => Math.max(i - 1, 0))
+        break
+      case "Enter":
+        e.preventDefault()
+        e.stopPropagation()
+        if (visible[activeIndex]) toggle(visible[activeIndex])
+        break
+      default:
+        // Block Radix typeahead for all other keys
+        e.stopPropagation()
+    }
+  }
+
+  return (
+    <DropdownMenu
+      open={open}
+      onOpenChange={o => {
+        setOpen(o)
+        if (!o) { setSearch(""); setActiveIndex(0) }
+      }}
+    >
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn(
+            "h-8 gap-1.5 text-xs font-normal",
+            isActive && "border-primary/60 bg-primary/5 text-primary hover:bg-primary/10",
+          )}
+        >
+          {isActive
+            ? (
+              <X
+                className="h-3 w-3 shrink-0"
+                onClick={e => { e.stopPropagation(); onChange(new Set()) }}
+              />
+            )
+            : <ListFilter className="h-3 w-3 shrink-0" />
+          }
+          {label}
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="start" className="w-48 p-0">
+
+        {/* Search — keeps DOM focus throughout */}
+        <div className="flex items-center gap-2 px-2 py-2 border-b">
+          <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          <input
+            ref={inputRef}
+            placeholder="Search status..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            onKeyDown={handleInputKeyDown}
+            className="flex-1 bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+          />
+        </div>
+
+        {/* Items — highlight driven by activeIndex, not DOM focus */}
+        <div className="py-1">
+          {visible.length === 0 ? (
+            <p className="px-3 py-2 text-xs text-muted-foreground">No results.</p>
+          ) : (
+            visible.map((s, i) => (
+              <DropdownMenuItem
+                key={s}
+                onSelect={e => { e.preventDefault(); toggle(s) }}
+                onMouseEnter={() => setActiveIndex(i)}
+                className={cn(
+                  "gap-2.5 px-3 py-1.5",
+                  i === activeIndex && "bg-accent text-accent-foreground",
+                )}
+              >
+                <Checkbox
+                  checked={value.has(s)}
+                  onCheckedChange={() => toggle(s)}
+                  className="shrink-0"
+                  id={`status-${s}`}
+                />
+                <label htmlFor={`status-${s}`} className="flex-1 text-sm cursor-pointer">
+                  {s}
+                </label>
+                <span className="tabular-nums text-xs text-muted-foreground">
+                  {statusCounts[s]}
+                </span>
+              </DropdownMenuItem>
+            ))
+          )}
+        </div>
+
+        {isActive && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onSelect={() => onChange(new Set())}
+              className="justify-center text-xs text-muted-foreground py-1.5"
+            >
+              Clear filter
+            </DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function UsersPage() {
+  const [activeStatuses, setActiveStatuses] = useState<Set<Status>>(new Set())
+
+  const filteredUsers = activeStatuses.size === 0
+    ? USERS
+    : USERS.filter(u => activeStatuses.has(u.status))
+
   return (
     <div className="space-y-6">
+
+      {/* ── Header ──────────────────────────────────────────────── */}
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Users</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
@@ -157,11 +424,22 @@ export default function UsersPage() {
         </p>
       </div>
 
+      {/* ── Table ───────────────────────────────────────────────── */}
       <DataTable
         columns={columns}
-        data={USERS}
+        data={filteredUsers}
         defaultPageSize={10}
         pageSizeOptions={[5, 10, 25]}
+        searchPlaceholder="Search users..."
+        toolbarFilters={
+          <StatusFilter value={activeStatuses} onChange={setActiveStatuses} />
+        }
+        toolbarActions={
+          <Button size="sm" className="h-8 gap-1.5 text-xs">
+            <UserPlus className="h-3.5 w-3.5" />
+            Add user
+          </Button>
+        }
       />
     </div>
   )
