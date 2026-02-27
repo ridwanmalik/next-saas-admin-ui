@@ -1,68 +1,50 @@
-# Project: next-saas-admin-ui
+# next-saas-admin-ui
+Next.js 16 App Router, Tailwind v4, shadcn/ui v4 (new-york), TypeScript strict, Yarn 4.
 
-Next.js 16 SaaS admin template. Tailwind CSS v4, shadcn/ui v4 (new-york), TypeScript strict.
-Stack: Next.js App Router, Tailwind v4, shadcn/ui, lucide-react, next-themes, Yarn 4.
-
-## Route structure
-- `app/(admin)/` — all authenticated pages, sidebar + topbar auto-applied via layout.tsx
-- `app/(auth)/login/` — public pages, no sidebar
-- `app/not-found.tsx` — 404 (no sidebar, full screen)
-- `app/(admin)/error.tsx` — 500 boundary (`"use client"`, receives `error` + `reset` props)
-- Add a page: create `app/(admin)/your-page/page.tsx` — layout applied automatically
-- Add nav item: edit NAV_GROUPS in `lib/constants.ts`
-
-## Existing pages
-dashboard, users, analytics, billing, reports, notifications, security, settings
+## Routes
+- `app/(admin)/` — authenticated pages (sidebar+topbar via layout.tsx)
+- `app/(auth)/login/` — public, no sidebar
+- Add page: `app/(admin)/your-page/page.tsx` | Add nav: edit `lib/constants.ts` NAV_GROUPS
+- Pages: dashboard, users, analytics, billing, reports, notifications, security, settings, forms/*, components/*
 
 ## Key files
-- `lib/constants.ts` — NAV_GROUPS (sidebar nav config), APP_NAME
-- `lib/themes.ts` — COLOR_THEMES array (6 accent presets with OKLCH swatches)
-- `lib/utils.ts` — `cn()` (clsx + tailwind-merge). Always import cn from here.
-- `hooks/use-color-theme.ts` — reads/writes localStorage + sets data-color-theme on <html>
-- `app/globals.css` — CSS variables, `html[data-color-theme]` blocks for accent themes
-- `app/layout.tsx` — root layout: fonts, ThemeProvider, TooltipProvider, FOUC script
-- `components/layout/user-dropdown.tsx` — hardcoded MOCK_USER (replace with real auth)
-- `types/index.ts` — NavGroup, NavItem, LayoutProps shared types
-- `config/index.ts` — reads NEXT_PUBLIC_APP_NAME env var (separate from lib/constants APP_NAME)
+- `lib/constants.ts` — NAV_GROUPS, APP_NAME
+- `lib/themes.ts` — COLOR_THEMES (6 OKLCH presets)
+- `lib/utils.ts` — `cn()` always import from here
+- `app/globals.css` — CSS vars, `html[data-color-theme]` blocks
+- `app/layout.tsx` — fonts, ThemeProvider, TooltipProvider, FOUC script
+- `hooks/use-color-theme.ts` — localStorage + data-color-theme on `<html>`
+- `types/index.ts` — NavGroup, NavItem, LayoutProps
+- `components/layout/user-dropdown.tsx` — MOCK_USER (replace with real auth)
 
-## Reusable UI components (components/ui/)
-Custom components (not shadcn primitives):
-
-| Component | File | Props summary |
+## Custom UI components (components/ui/)
+| Component | File | Key props |
 |---|---|---|
 | DataTable | `data-table.tsx` | columns, data, toolbarFilters, toolbarActions |
-| MultiSelectFilter | `data-table.tsx` | label, options[], value: Set<string>, onChange |
-| Sparkline | `sparkline.tsx` | data: number[], positive?: boolean |
+| MultiSelectFilter | `data-table.tsx` | label, options[], value: Set\<string\>, onChange |
+| Sparkline | `sparkline.tsx` | data: number[], positive? |
 | StatCard | `stat-card.tsx` | label, value, change, positive, period?, sparkline?, icon? |
 | EmptyState | `empty-state.tsx` | icon, title, description, actions[], size: sm/md/lg |
 | ErrorState | `error-state.tsx` | code, title, description, actions[] |
 
-## Patterns — always follow these
-- **New filter chip** → `<MultiSelectFilter>` from `data-table.tsx` → pass to `toolbarFilters`
-- **Table action buttons** → pass to `toolbarActions` (renders after Columns toggle, far right)
-- **Toolbar layout**: `[Search 52px] [toolbarFilters] [ml-auto → [Columns] [toolbarActions]]`
-- **KPI/stat cards** → `<StatCard>` — never duplicate the card+sparkline pattern inline
-- **Sparklines** → `<Sparkline>` — never inline the SVG polyline again
-- **Empty states** → `<EmptyState size="sm">` inside cards, `"md"` for page sections
-- **"use client"** → required when: using hooks, render functions passed to DataTable, toolbar components with state, error.tsx
+## Code style
+- Always use arrow functions (`const Foo = () =>`) — never `function` declarations
 
-## Adding a new table page (recipe)
-1. `"use client"` at top (needed for DataTable render fns)
-2. Define columns as `DataTableColumn<YourType>[]`
-3. Use `MultiSelectFilter` for any enum/status filters
-4. Pass `toolbarActions` for the primary action button (e.g. Add)
-5. Use `EmptyState` for zero-data case (DataTable handles it automatically via its empty row)
+## Patterns
+- Filters → `<MultiSelectFilter>` passed to `toolbarFilters`
+- Table actions → `toolbarActions` (far right after Columns toggle)
+- KPI cards → `<StatCard>` | Sparklines → `<Sparkline>` | Empty → `<EmptyState size="sm/md">`
+- `"use client"` required for: hooks, DataTable render fns, toolbar state, error.tsx
 
-## Color theme system
-- 6 presets: Zinc (default), Blue, Violet, Rose, Orange, Emerald
-- Only `--primary`, `--ring`, `--sidebar-primary`, `--sidebar-ring` change per theme
-- Backgrounds/surfaces stay neutral (60-30-10 rule — never change bg per theme)
-- CSS specificity: `html[data-color-theme="x"]` (0,1,1) beats `:root` (0,1,0)
-- Zinc default = `data-color-theme` attribute ABSENT (not set to "zinc")
-- FOUC prevention: inline script in <head> applies theme before React hydrates
-- Settings page already has the color picker wired up
+## New table page
+1. `"use client"` · 2. `DataTableColumn<T>[]` · 3. `MultiSelectFilter` for enums · 4. `toolbarActions` for CTA · 5. `EmptyState` for zero-data
 
-## Known workarounds
-- Radix DropdownMenu intercepts keydown for typeahead → `e.stopPropagation()` on all non-arrow keys in any input inside a DropdownMenuContent
-- `onOpenAutoFocus` does NOT exist on shadcn's DropdownMenuContent → use `open` state + `useEffect` + `setTimeout(() => ref.current?.focus(), 0)` instead
-- Keyboard nav in dropdowns with an input: use `activeIndex` state for visual highlight, keep DOM focus on the input — never move DOM focus to items
+## Color themes
+- 6 presets: Zinc (default/absent), Blue, Violet, Rose, Orange, Emerald
+- Only `--primary --ring --sidebar-primary --sidebar-ring` change; backgrounds stay neutral
+- `html[data-color-theme="x"]` (0,1,1) beats `:root` (0,1,0)
+
+## Workarounds
+- Radix DropdownMenu typeahead: `e.stopPropagation()` on non-arrow keys inside any input in DropdownMenuContent
+- DropdownMenuContent focus on open: `open` state + `useEffect` + `setTimeout(() => ref.current?.focus(), 0)` (`onOpenAutoFocus` doesn't exist)
+- Dropdown keyboard nav with input: `activeIndex` for visual highlight, keep DOM focus on input — never move focus to items
