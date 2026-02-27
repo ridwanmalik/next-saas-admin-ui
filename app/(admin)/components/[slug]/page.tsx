@@ -8,7 +8,7 @@ import {
   Bold, Italic, Underline,
   AlignLeft, AlignCenter, AlignRight,
   Plus, Loader2, Search, Mail, Download,
-  Check, User, Terminal, Info, CalendarIcon,
+  Check, User, Terminal, Info, CalendarIcon, CheckCircle2, AlertCircle,
   ChevronRight, Home, Settings, LogOut,
   CreditCard, Cloud, Github, Keyboard,
   Users, LifeBuoy, Bluetooth, Trash2, Bell, BadgeCheck, ArrowUpRight, Dot,
@@ -281,35 +281,34 @@ const SHOWCASES: Record<string, {
     description: "Displays a callout for user attention.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Basic">
-          <Alert>
-            <Info className="size-4" />
-            <AlertTitle>Heads up!</AlertTitle>
-            <AlertDescription>You can add components to your app using the CLI.</AlertDescription>
+        <ShowCard title="Basic" description="A basic alert with an icon, title and description.">
+          <Alert className="max-w-md">
+            <CheckCircle2 />
+            <AlertTitle>Account updated successfully</AlertTitle>
+            <AlertDescription>Your profile information has been saved. Changes will be reflected immediately.</AlertDescription>
           </Alert>
         </ShowCard>
-        <ShowCard title="Destructive">
-          <Alert variant="destructive">
-            <Terminal className="size-4" />
+        <ShowCard title="Destructive" description='Use variant="destructive" to create a destructive alert.'>
+          <Alert variant="destructive" className="max-w-md">
+            <AlertCircle />
             <AlertTitle>Payment failed</AlertTitle>
             <AlertDescription>Your payment could not be processed. Please check your payment method and try again.</AlertDescription>
           </Alert>
         </ShowCard>
-        <ShowCard title="Action">
-          <Alert className="relative">
-            <Info className="size-4" />
+        <ShowCard title="Action" description="Use AlertAction to add a button or other action element to the alert.">
+          <Alert className="max-w-md">
             <AlertTitle>Dark mode is now available</AlertTitle>
             <AlertDescription>Enable it under your profile settings to get started.</AlertDescription>
             <AlertAction>
-              <Button size="sm" variant="outline">Enable</Button>
+              <Button size="sm" variant="default">Enable</Button>
             </AlertAction>
           </Alert>
         </ShowCard>
-        <ShowCard title="Custom Colors">
-          <Alert className="border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50">
-            <Info className="size-4" />
+        <ShowCard title="Custom Colors" description="You can customize the alert colors by adding custom classes such as bg-amber-50 dark:bg-amber-950 to the Alert component.">
+          <Alert className="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50">
+            <AlertTriangle />
             <AlertTitle>Your subscription will expire in 3 days.</AlertTitle>
-            <AlertDescription>Renew now to avoid service interruption or upgrade to a paid plan.</AlertDescription>
+            <AlertDescription>Renew now to avoid service interruption or upgrade to a paid plan to continue using the service.</AlertDescription>
           </Alert>
         </ShowCard>
       </div>
