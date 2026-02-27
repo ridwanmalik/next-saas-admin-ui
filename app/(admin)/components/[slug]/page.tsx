@@ -2277,40 +2277,65 @@ const SHOWCASES: Record<string, {
     description: "Displays keyboard key input, individually or grouped.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Group">
-          <div className="flex flex-wrap gap-4">
-            <KbdGroup><Kbd>⌘</Kbd><span>+</span><Kbd>K</Kbd></KbdGroup>
-            <KbdGroup><Kbd>Ctrl</Kbd><span>+</span><Kbd>Shift</Kbd><span>+</span><Kbd>P</Kbd></KbdGroup>
-            <KbdGroup><Kbd>Alt</Kbd><span>+</span><Kbd>F4</Kbd></KbdGroup>
-          </div>
+        <ShowCard title="Group" description="Use KbdGroup to group keyboard keys together.">
+          <p className="text-muted-foreground text-sm">
+            Use{" "}
+            <KbdGroup>
+              <Kbd>Ctrl + B</Kbd>
+              <Kbd>Ctrl + K</Kbd>
+            </KbdGroup>{" "}
+            to open the command palette
+          </p>
         </ShowCard>
-        <ShowCard title="Button">
-          <Button variant="outline" className="gap-3">
-            Search
-            <KbdGroup className="ml-auto">
-              <Kbd>⌘</Kbd><span>+</span><Kbd>K</Kbd>
-            </KbdGroup>
+        <ShowCard title="Button" description="Use Kbd inside a Button to display a keyboard shortcut.">
+          <Button variant="outline">
+            Accept{" "}
+            <Kbd data-icon="inline-end" className="translate-x-0.5">⏎</Kbd>
           </Button>
         </ShowCard>
-        <ShowCard title="Tooltip">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button size="icon" variant="outline"><Search /></Button>
-            </TooltipTrigger>
-            <TooltipContent className="flex items-center gap-1.5">
-              Search
-              <KbdGroup><Kbd>⌘</Kbd><span>+</span><Kbd>K</Kbd></KbdGroup>
-            </TooltipContent>
-          </Tooltip>
+        <ShowCard title="Tooltip" description="Use Kbd inside a Tooltip to display keyboard shortcuts.">
+          <div className="flex flex-wrap gap-4">
+            <ButtonGroup>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline">Save</Button>
+                </TooltipTrigger>
+                <TooltipContent className="pr-1.5">
+                  <div className="flex items-center gap-2">
+                    Save Changes <Kbd>S</Kbd>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline">Print</Button>
+                </TooltipTrigger>
+                <TooltipContent className="pr-1.5">
+                  <div className="flex items-center gap-2">
+                    Print Document{" "}
+                    <KbdGroup>
+                      <Kbd>Ctrl</Kbd>
+                      <Kbd>P</Kbd>
+                    </KbdGroup>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </ButtonGroup>
+          </div>
         </ShowCard>
-        <ShowCard title="Input Group">
-          <InputGroup className="w-64">
-            <InputGroupAddon><Search className="size-4 text-muted-foreground" /></InputGroupAddon>
-            <InputGroupInput placeholder="Search..." />
-            <InputGroupAddon>
-              <KbdGroup><Kbd>⌘</Kbd><span>+</span><Kbd>K</Kbd></KbdGroup>
-            </InputGroupAddon>
-          </InputGroup>
+        <ShowCard title="Input Group" description="Use Kbd inside an InputGroupAddon to display a keyboard shortcut.">
+          <div className="flex w-full max-w-xs flex-col gap-6">
+            <InputGroup>
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon>
+                <Search />
+              </InputGroupAddon>
+              <InputGroupAddon align="inline-end">
+                <Kbd>⌘</Kbd>
+                <Kbd>K</Kbd>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
         </ShowCard>
       </div>
     ),
