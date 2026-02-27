@@ -6423,6 +6423,7 @@ __metadata:
     react-resizable-panels: "npm:^4"
     recharts: "npm:2.15.4"
     shadcn: "npm:^3.8.5"
+    simple-icons: "npm:^16.9.0"
     sonner: "npm:^2.0.7"
     tailwind-merge: "npm:^3.5.0"
     tailwindcss: "npm:^4"
@@ -7798,6 +7799,13 @@ __metadata:
   version: 4.1.0
   resolution: "signal-exit@npm:4.1.0"
   checksum: 10c0/41602dce540e46d599edba9d9860193398d135f7ff72cab629db5171516cfae628d21e7bfccde1bbfdf11c48726bc2a6d1a8fb8701125852fbfda7cf19c6aa83
+  languageName: node
+  linkType: hard
+
+"simple-icons@npm:^16.9.0":
+  version: 16.9.0
+  resolution: "simple-icons@npm:16.9.0"
+  checksum: 10c0/f02b44a6034f451a1ee9eb09848ead9d8af791770aa7bf60ad1a07f9763510708daa1d3117c0bd4b4fe64dff405dd35baea93576dd41f6387972299a7177b028
   languageName: node
   linkType: hard
 

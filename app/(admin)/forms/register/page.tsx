@@ -1,29 +1,30 @@
 "use client"
 
-import { useState } from "react"
-import { Check, Eye, EyeOff, Github, Globe, Sparkles, UserPlus } from "lucide-react"
+import { useState, type ReactNode } from "react"
+import { Check, Eye, EyeOff, Sparkles, UserPlus } from "lucide-react"
+import { siGithub, siGoogle } from "simple-icons"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
+import { SimpleIconSvg } from "@/components/ui/simple-icon"
 
-function Variant({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-3">
-        <h3 className="text-sm font-semibold">{label}</h3>
-        <div className="h-px flex-1 bg-border" />
-      </div>
-      {children}
-    </section>
-  )
-}
+// ─── Shared helpers ────────────────────────────────────────────────────────────
 
-function PasswordStrength({ password }: { password: string }) {
+const Variant = ({ label, children }: { label: string; children: ReactNode }) => (
+  <section className="space-y-4">
+    <div className="flex items-center gap-3">
+      <h3 className="text-sm font-semibold">{label}</h3>
+      <div className="h-px flex-1 bg-border" />
+    </div>
+    {children}
+  </section>
+)
+
+const PasswordStrength = ({ password }: { password: string }) => {
   const score = Math.min(
     [/.{8,}/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((r) => r.test(password)).length * 25,
     100
@@ -40,7 +41,20 @@ function PasswordStrength({ password }: { password: string }) {
   ) : null
 }
 
-export default function RegisterFormsPage() {
+// ─── Static data ───────────────────────────────────────────────────────────────
+
+const FEATURES = [
+  { icon: "📊", label: "Real-time analytics" },
+  { icon: "🔒", label: "Enterprise security" },
+  { icon: "🤝", label: "Team collaboration" },
+  { icon: "⚡", label: "Instant setup" },
+]
+
+const TRIAL_PERKS = ["14-day free trial", "No credit card", "Cancel anytime"]
+
+// ─── Page ──────────────────────────────────────────────────────────────────────
+
+const RegisterFormsPage = () => {
   const [password, setPassword] = useState("")
   const [showPw, setShowPw] = useState(false)
 
@@ -117,16 +131,14 @@ export default function RegisterFormsPage() {
       {/* ── Variant 2: Gradient Accent ───────────────────────────────────── */}
       <Variant label="Gradient Accent">
         <div className="mx-auto max-w-md overflow-hidden rounded-xl border shadow-sm">
-          {/* Top gradient header */}
           <div className="bg-gradient-to-r from-violet-600 via-primary to-blue-600 p-6 text-white">
             <div className="flex items-center gap-2">
               <Sparkles className="size-5" />
               <span className="font-bold text-lg">Get started for free</span>
             </div>
             <p className="mt-1 text-sm text-white/80">Join thousands of teams already using Next SaaS.</p>
-
             <div className="mt-4 flex gap-4 text-xs text-white/70">
-              {["14-day free trial", "No credit card", "Cancel anytime"].map((f) => (
+              {TRIAL_PERKS.map((f) => (
                 <div key={f} className="flex items-center gap-1">
                   <Check className="size-3" />{f}
                 </div>
@@ -134,7 +146,6 @@ export default function RegisterFormsPage() {
             </div>
           </div>
 
-          {/* Form body */}
           <div className="bg-card p-6 space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
@@ -172,12 +183,7 @@ export default function RegisterFormsPage() {
           <div className="bg-muted p-6 flex flex-col justify-between">
             <div className="space-y-4">
               <h3 className="font-bold text-lg">Everything you need</h3>
-              {[
-                { icon: "📊", label: "Real-time analytics" },
-                { icon: "🔒", label: "Enterprise security" },
-                { icon: "🤝", label: "Team collaboration" },
-                { icon: "⚡", label: "Instant setup" },
-              ].map(({ icon, label }) => (
+              {FEATURES.map(({ icon, label }) => (
                 <div key={label} className="flex items-center gap-3 text-sm">
                   <span className="text-base">{icon}</span>
                   <span>{label}</span>
@@ -191,10 +197,12 @@ export default function RegisterFormsPage() {
           <div className="p-6 space-y-4 bg-card">
             <div className="space-y-2">
               <Button variant="outline" className="w-full gap-2">
-                <Github className="size-4" />Sign up with GitHub
+                <SimpleIconSvg icon={siGithub} className="size-4" />
+                Sign up with GitHub
               </Button>
               <Button variant="outline" className="w-full gap-2">
-                <Globe className="size-4" />Sign up with Google
+                <SimpleIconSvg icon={siGoogle} className="size-4" />
+                Sign up with Google
               </Button>
             </div>
 
@@ -227,3 +235,5 @@ export default function RegisterFormsPage() {
     </div>
   )
 }
+
+export default RegisterFormsPage
