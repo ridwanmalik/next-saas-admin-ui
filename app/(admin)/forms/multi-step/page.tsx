@@ -200,9 +200,9 @@ const Step4 = () => (
         </div>
       ))}
     </div>
-    <div className="flex items-start gap-2 rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground">
-      <Check className="mt-0.5 size-4 shrink-0 text-green-600" />
-      Your 14-day Pro trial starts today. No charges until the trial ends.
+    <div className="flex items-center gap-2 rounded-lg bg-muted/50 p-3 text-sm text-muted-foreground">
+      <Check className="size-4 shrink-0 text-green-600" />
+      Free trial starts today — no charges for 14 days.
     </div>
   </div>
 )
@@ -228,7 +228,7 @@ const Wizard = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="min-h-[290px]">{stepContent[step - 1]}</div>
+        <div className="min-h-[270px]">{stepContent[step - 1]}</div>
       </CardContent>
 
       <CardFooter className="flex justify-between border-t pt-5">
