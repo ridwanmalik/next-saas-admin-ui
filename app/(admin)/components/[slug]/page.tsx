@@ -2277,6 +2277,21 @@ const SHOWCASES: Record<string, {
     description: "Displays keyboard key input, individually or grouped.",
     Content: () => (
       <div className="space-y-4">
+        <ShowCard title="Basic">
+          <div className="flex flex-col items-center gap-4">
+            <KbdGroup>
+              <Kbd>⌘</Kbd>
+              <Kbd>⇧</Kbd>
+              <Kbd>⌥</Kbd>
+              <Kbd>⌃</Kbd>
+            </KbdGroup>
+            <KbdGroup>
+              <Kbd>Ctrl</Kbd>
+              <span>+</span>
+              <Kbd>B</Kbd>
+            </KbdGroup>
+          </div>
+        </ShowCard>
         <ShowCard title="Group" description="Use KbdGroup to group keyboard keys together.">
           <p className="text-muted-foreground text-sm">
             Use{" "}
