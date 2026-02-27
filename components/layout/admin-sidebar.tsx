@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard } from "lucide-react"
+import { ChevronRight, LayoutDashboard } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -14,8 +14,12 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { NAV_GROUPS, APP_NAME } from "@/lib/constants"
 
@@ -52,27 +56,59 @@ export const AdminSidebar = () => {
           <SidebarGroup key={group.label}>
             <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
             <SidebarMenu>
-              {group.items.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={isActive(item.href)}
-                    tooltip={item.title}
+              {group.items.map((item) =>
+                item.children ? (
+                  <Collapsible
+                    key={item.title}
+                    defaultOpen={item.children.some((child) => isActive(child.href))}
+                    className="group/collapsible"
                   >
-                    <Link href={item.href}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                  {item.badge && (
-                    <SidebarMenuBadge>
-                      <Badge variant="secondary" className="h-5 min-w-5 px-1 text-xs">
-                        {item.badge}
-                      </Badge>
-                    </SidebarMenuBadge>
-                  )}
-                </SidebarMenuItem>
-              ))}
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton tooltip={item.title}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                          <ChevronRight className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.children.map((child) => (
+                            <SidebarMenuSubItem key={child.href}>
+                              <SidebarMenuSubButton asChild isActive={isActive(child.href)}>
+                                <Link href={child.href}>
+                                  {child.icon && <child.icon />}
+                                  <span>{child.title}</span>
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ) : (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive(item.href!)}
+                      tooltip={item.title}
+                    >
+                      <Link href={item.href!}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                    {item.badge && (
+                      <SidebarMenuBadge>
+                        <Badge variant="secondary" className="h-5 min-w-5 px-1 text-xs">
+                          {item.badge}
+                        </Badge>
+                      </SidebarMenuBadge>
+                    )}
+                  </SidebarMenuItem>
+                )
+              )}
             </SidebarMenu>
           </SidebarGroup>
         ))}

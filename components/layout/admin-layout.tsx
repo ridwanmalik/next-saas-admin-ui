@@ -1,6 +1,7 @@
 "use client"
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { Toaster } from "@/components/ui/sonner"
 import { AdminSidebar } from "./admin-sidebar"
 import { Topbar } from "./topbar"
 import type { LayoutProps } from "@/types"
@@ -15,6 +16,7 @@ export const AdminLayout = ({ children }: LayoutProps) => {
           {children}
         </main>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   )
 }
