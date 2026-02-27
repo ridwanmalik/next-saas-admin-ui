@@ -227,7 +227,9 @@ const Wizard = () => {
         </div>
       </CardHeader>
 
-      <CardContent>{stepContent[step - 1]}</CardContent>
+      <CardContent>
+        <div className="min-h-[290px]">{stepContent[step - 1]}</div>
+      </CardContent>
 
       <CardFooter className="flex justify-between border-t pt-5">
         <Button
