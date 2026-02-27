@@ -306,7 +306,7 @@ const SHOWCASES: Record<string, {
           </Alert>
         </ShowCard>
         <ShowCard title="Custom Colors">
-          <Alert className="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50">
+          <Alert className="border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50">
             <Info className="size-4" />
             <AlertTitle>Your subscription will expire in 3 days.</AlertTitle>
             <AlertDescription>Renew now to avoid service interruption or upgrade to a paid plan.</AlertDescription>
