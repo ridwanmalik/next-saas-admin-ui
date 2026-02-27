@@ -253,13 +253,13 @@ const SHOWCASES: Record<string, {
           </ShowCard>
 
           <ShowCard title="Card" description="Wrap the accordion inside a Card component.">
-            <Card className="border-dashed shadow-none">
+            <Card className="w-full max-w-sm border-dashed shadow-none">
               <CardHeader>
                 <CardTitle>FAQ</CardTitle>
                 <CardDescription>Frequently asked questions.</CardDescription>
               </CardHeader>
               <CardContent className="p-0">
-                <Accordion type="single" collapsible>
+                <Accordion type="single" collapsible className="w-full">
                   {items.map((i) => (
                     <AccordionItem key={i.value} value={i.value} className="px-6">
                       <AccordionTrigger>{i.trigger}</AccordionTrigger>
