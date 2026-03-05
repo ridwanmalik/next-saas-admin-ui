@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
 import {
   ChevronDown,
   ChevronLeft,
@@ -14,10 +13,10 @@ import {
   Search,
   X,
 } from "lucide-react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 // ─── MultiSelectFilter ────────────────────────────────────────────────────────
@@ -65,12 +65,12 @@ export function MultiSelectFilter({ label, options, value, onChange }: MultiSele
     onChange(next)
   }
 
-  const visible = options.filter(opt =>
-    opt.label.toLowerCase().includes(search.toLowerCase()),
-  )
+  const visible = options.filter(opt => opt.label.toLowerCase().includes(search.toLowerCase()))
 
   // Reset highlight to first item whenever the filtered list changes
-  useEffect(() => { setActiveIndex(0) }, [search])
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [search])
 
   const isActive = value.size > 0
   const activeLabels = options.filter(opt => value.has(opt.value)).map(opt => opt.label)
@@ -79,15 +79,18 @@ export function MultiSelectFilter({ label, options, value, onChange }: MultiSele
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case "ArrowDown":
-        e.preventDefault(); e.stopPropagation()
+        e.preventDefault()
+        e.stopPropagation()
         setActiveIndex(i => Math.min(i + 1, visible.length - 1))
         break
       case "ArrowUp":
-        e.preventDefault(); e.stopPropagation()
+        e.preventDefault()
+        e.stopPropagation()
         setActiveIndex(i => Math.max(i - 1, 0))
         break
       case "Enter":
-        e.preventDefault(); e.stopPropagation()
+        e.preventDefault()
+        e.stopPropagation()
         if (visible[activeIndex]) toggle(visible[activeIndex].value)
         break
       default:
@@ -100,28 +103,35 @@ export function MultiSelectFilter({ label, options, value, onChange }: MultiSele
       open={open}
       onOpenChange={o => {
         setOpen(o)
-        if (!o) { setSearch(""); setActiveIndex(0) }
-      }}
-    >
+        if (!o) {
+          setSearch("")
+          setActiveIndex(0)
+        }
+      }}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           size="sm"
           className={cn(
             "h-8 gap-1.5 text-xs font-normal",
-            isActive && "border-primary/60 bg-primary/5 text-primary hover:bg-primary/10",
+            isActive && "border-primary/60 bg-primary/5 text-primary hover:bg-primary/10"
+          )}>
+          {isActive ? (
+            <X
+              className="h-3 w-3 shrink-0"
+              onClick={e => {
+                e.stopPropagation()
+                onChange(new Set())
+              }}
+            />
+          ) : (
+            <ListFilter className="h-3 w-3 shrink-0" />
           )}
-        >
-          {isActive
-            ? <X className="h-3 w-3 shrink-0" onClick={e => { e.stopPropagation(); onChange(new Set()) }} />
-            : <ListFilter className="h-3 w-3 shrink-0" />
-          }
           {buttonLabel}
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start" className="w-48 p-0">
-
         {/* Search — keeps DOM focus throughout */}
         <div className="flex items-center gap-2 px-2 py-2 border-b">
           <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
@@ -136,29 +146,27 @@ export function MultiSelectFilter({ label, options, value, onChange }: MultiSele
         </div>
 
         {/* Items — highlight driven by activeIndex, not DOM focus */}
-        <div className="py-1">
+        <div className="py-1 px-1">
           {visible.length === 0 ? (
             <p className="px-3 py-2 text-xs text-muted-foreground">No results.</p>
           ) : (
             visible.map((opt, i) => (
               <DropdownMenuItem
                 key={opt.value}
-                onSelect={e => { e.preventDefault(); toggle(opt.value) }}
+                onSelect={e => {
+                  e.preventDefault()
+                  toggle(opt.value)
+                }}
                 onMouseEnter={() => setActiveIndex(i)}
-                className={cn(
-                  "gap-2.5 px-3 py-1.5",
-                  i === activeIndex && "bg-accent text-accent-foreground",
-                )}
-              >
+                className={cn("gap-2.5 px-4 py-1.5 cursor-pointer", i === activeIndex && "bg-accent text-accent-foreground")}>
                 <Checkbox
                   checked={value.has(opt.value)}
-                  onCheckedChange={() => toggle(opt.value)}
-                  className="shrink-0"
-                  id={`filter-${label}-${opt.value}`}
+                  className="shrink-0 pointer-events-none"
+                  tabIndex={-1}
                 />
-                <label htmlFor={`filter-${label}-${opt.value}`} className="flex-1 text-sm cursor-pointer">
+                <span className="flex-1 text-sm">
                   {opt.label}
-                </label>
+                </span>
                 {opt.count !== undefined && (
                   <span className="tabular-nums text-xs text-muted-foreground">{opt.count}</span>
                 )}
@@ -170,12 +178,13 @@ export function MultiSelectFilter({ label, options, value, onChange }: MultiSele
         {isActive && (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onSelect={() => onChange(new Set())}
-              className="justify-center text-xs text-muted-foreground py-1.5"
-            >
-              Clear filter
-            </DropdownMenuItem>
+            <div className="px-1 pb-1">
+              <DropdownMenuItem
+                onSelect={() => onChange(new Set())}
+                className="justify-center text-xs text-muted-foreground py-1.5">
+                Clear filter
+              </DropdownMenuItem>
+            </div>
           </>
         )}
       </DropdownMenuContent>
@@ -272,10 +281,7 @@ export function DataTable<T extends object>({
     })
   }
 
-  const visibleColumns = useMemo(
-    () => columns.filter(col => !hiddenCols.has(col.key)),
-    [columns, hiddenCols],
-  )
+  const visibleColumns = useMemo(() => columns.filter(col => !hiddenCols.has(col.key)), [columns, hiddenCols])
 
   const filteredData = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -284,7 +290,7 @@ export function DataTable<T extends object>({
       columns.some(col => {
         const val = (row as Record<string, unknown>)[col.key]
         return val != null && String(val).toLowerCase().includes(q)
-      }),
+      })
     )
   }, [data, columns, search])
 
@@ -296,9 +302,7 @@ export function DataTable<T extends object>({
       if (aVal == null) return 1
       if (bVal == null) return -1
       const cmp =
-        typeof aVal === "number" && typeof bVal === "number"
-          ? aVal - bVal
-          : String(aVal).localeCompare(String(bVal))
+        typeof aVal === "number" && typeof bVal === "number" ? aVal - bVal : String(aVal).localeCompare(String(bVal))
       return sortDir === "asc" ? cmp : -cmp
     })
   }, [filteredData, sortKey, sortDir])
@@ -319,10 +323,8 @@ export function DataTable<T extends object>({
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-
       {/* ── Toolbar ───────────────────────────────────────────────────── */}
       <div className="flex items-center gap-2 flex-wrap">
-
         {/* Left: search + filter chips */}
         <div className="relative shrink-0 w-52">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
@@ -341,32 +343,32 @@ export function DataTable<T extends object>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="shrink-0">
-              <Columns3 className="h-3.5 w-3.5 mr-1.5" />
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-44">
-            <DropdownMenuLabel className="text-xs">Toggle columns</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {columns.map(col => {
-              const isHideable = col.hideable !== false
-              return (
-                <DropdownMenuCheckboxItem
-                  key={col.key}
-                  checked={!hiddenCols.has(col.key)}
-                  onCheckedChange={() => toggleCol(col.key)}
-                  disabled={!isHideable}
-                  className="text-sm"
-                >
-                  {col.header}
-                </DropdownMenuCheckboxItem>
-              )
-            })}
-          </DropdownMenuContent>
+                <Columns3 className="h-3.5 w-3.5 mr-1.5" />
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuLabel className="text-xs">Toggle columns</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {columns.map(col => {
+                const isHideable = col.hideable !== false
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={col.key}
+                    checked={!hiddenCols.has(col.key)}
+                    onCheckedChange={() => toggleCol(col.key)}
+                    disabled={!isHideable}
+                    className="text-sm">
+                    {col.header}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+            </DropdownMenuContent>
           </DropdownMenu>
 
           {toolbarActions}
-        </div>{/* end right group */}
+        </div>
+        {/* end right group */}
       </div>
 
       {/* ── Table ─────────────────────────────────────────────────────── */}
@@ -385,17 +387,18 @@ export function DataTable<T extends object>({
                       "px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-muted-foreground whitespace-nowrap",
                       ALIGN[align],
                       col.hideBelow && HIDE[col.hideBelow],
-                      col.sortable && "cursor-pointer select-none hover:text-foreground transition-colors group",
-                    )}
-                  >
+                      col.sortable && "cursor-pointer select-none hover:text-foreground transition-colors group"
+                    )}>
                     <span className={cn("inline-flex items-center gap-1.5", align === "right" && "flex-row-reverse")}>
                       {col.header}
                       {col.sortable && (
                         <span className="shrink-0">
                           {isSorted ? (
-                            sortDir === "asc"
-                              ? <ChevronUp className="h-3 w-3" />
-                              : <ChevronDown className="h-3 w-3" />
+                            sortDir === "asc" ? (
+                              <ChevronUp className="h-3 w-3" />
+                            ) : (
+                              <ChevronDown className="h-3 w-3" />
+                            )
                           ) : (
                             <ChevronsUpDown className="h-3 w-3 opacity-40 group-hover:opacity-70 transition-opacity" />
                           )}
@@ -411,10 +414,7 @@ export function DataTable<T extends object>({
           <tbody className="divide-y divide-border">
             {rows.length === 0 ? (
               <tr>
-                <td
-                  colSpan={visibleColumns.length}
-                  className="px-4 py-16 text-center text-sm text-muted-foreground"
-                >
+                <td colSpan={visibleColumns.length} className="px-4 py-16 text-center text-sm text-muted-foreground">
                   {search ? `No results for "${search}".` : "No results found."}
                 </td>
               </tr>
@@ -424,15 +424,8 @@ export function DataTable<T extends object>({
                   {visibleColumns.map(col => (
                     <td
                       key={col.key}
-                      className={cn(
-                        "px-4 py-3.5",
-                        ALIGN[col.align ?? "left"],
-                        col.hideBelow && HIDE[col.hideBelow],
-                      )}
-                    >
-                      {col.render
-                        ? col.render(row)
-                        : String((row as Record<string, unknown>)[col.key] ?? "—")}
+                      className={cn("px-4 py-3.5", ALIGN[col.align ?? "left"], col.hideBelow && HIDE[col.hideBelow])}>
+                      {col.render ? col.render(row) : String((row as Record<string, unknown>)[col.key] ?? "—")}
                     </td>
                   ))}
                 </tr>
@@ -444,30 +437,28 @@ export function DataTable<T extends object>({
 
       {/* ── Pagination ────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-1">
-
         {/* Entry count */}
         <p className="text-xs text-muted-foreground shrink-0 order-2 sm:order-1">
-          {total === 0
-            ? "No entries"
-            : `Showing ${from + 1}–${to} of ${total} entries`}
+          {total === 0 ? "No entries" : `Showing ${from + 1}–${to} of ${total} entries`}
         </p>
 
         <div className="flex items-center justify-between sm:justify-end gap-3 order-1 sm:order-2 flex-wrap">
-
           {/* Page number buttons */}
           <div className="flex items-center gap-1">
             <Button
-              variant="outline" size="icon-sm"
-              onClick={() => goTo(1)} disabled={safePage === 1}
-              aria-label="First page"
-            >
+              variant="outline"
+              size="icon-sm"
+              onClick={() => goTo(1)}
+              disabled={safePage === 1}
+              aria-label="First page">
               <ChevronsLeft className="h-3.5 w-3.5" />
             </Button>
             <Button
-              variant="outline" size="icon-sm"
-              onClick={() => goTo(safePage - 1)} disabled={safePage === 1}
-              aria-label="Previous page"
-            >
+              variant="outline"
+              size="icon-sm"
+              onClick={() => goTo(safePage - 1)}
+              disabled={safePage === 1}
+              aria-label="Previous page">
               <ChevronLeft className="h-3.5 w-3.5" />
             </Button>
 
@@ -475,8 +466,7 @@ export function DataTable<T extends object>({
               p === "..." ? (
                 <span
                   key={`ellipsis-${i}`}
-                  className="size-8 inline-flex items-center justify-center text-xs text-muted-foreground"
-                >
+                  className="size-8 inline-flex items-center justify-center text-xs text-muted-foreground">
                   …
                 </span>
               ) : (
@@ -486,25 +476,26 @@ export function DataTable<T extends object>({
                   variant={p === safePage ? "default" : "outline"}
                   onClick={() => goTo(p as number)}
                   aria-label={`Page ${p}`}
-                  aria-current={p === safePage ? "page" : undefined}
-                >
+                  aria-current={p === safePage ? "page" : undefined}>
                   {p}
                 </Button>
               )
             )}
 
             <Button
-              variant="outline" size="icon-sm"
-              onClick={() => goTo(safePage + 1)} disabled={safePage === totalPages}
-              aria-label="Next page"
-            >
+              variant="outline"
+              size="icon-sm"
+              onClick={() => goTo(safePage + 1)}
+              disabled={safePage === totalPages}
+              aria-label="Next page">
               <ChevronRight className="h-3.5 w-3.5" />
             </Button>
             <Button
-              variant="outline" size="icon-sm"
-              onClick={() => goTo(totalPages)} disabled={safePage === totalPages}
-              aria-label="Last page"
-            >
+              variant="outline"
+              size="icon-sm"
+              onClick={() => goTo(totalPages)}
+              disabled={safePage === totalPages}
+              aria-label="Last page">
               <ChevronsRight className="h-3.5 w-3.5" />
             </Button>
           </div>
@@ -514,15 +505,18 @@ export function DataTable<T extends object>({
             <span className="text-xs text-muted-foreground">Rows per page</span>
             <select
               value={pageSize}
-              onChange={e => { setPageSize(Number(e.target.value)); setPage(1) }}
-              className="h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
-            >
+              onChange={e => {
+                setPageSize(Number(e.target.value))
+                setPage(1)
+              }}
+              className="h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer">
               {pageSizeOptions.map(n => (
-                <option key={n} value={n}>{n}</option>
+                <option key={n} value={n}>
+                  {n}
+                </option>
               ))}
             </select>
           </div>
-
         </div>
       </div>
     </div>

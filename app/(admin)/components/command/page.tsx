@@ -60,7 +60,7 @@ const CommandPage = () => {
         <p className="text-muted-foreground">Command menu for search and quick actions.</p>
       </div>
       <div className="space-y-4">
-        <ShowCard title="Hero">
+        <ShowCard>
           <Command className="max-w-sm rounded-lg border">
             <CommandInput placeholder="Type a command or search..." />
             <CommandList>

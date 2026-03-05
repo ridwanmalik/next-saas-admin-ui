@@ -39,8 +39,8 @@ Sync `app/(admin)/components/[slug]/page.tsx` ShowCards to match shadcn docs exa
 - [x] Collapsible — `https://ui.shadcn.com/docs/components/radix/collapsible`
 - [x] Combobox — `https://ui.shadcn.com/docs/components/radix/combobox`
 - [x] Command — `https://ui.shadcn.com/docs/components/radix/command`
-- [ ] Context Menu — `https://ui.shadcn.com/docs/components/radix/context-menu`
-- [ ] Data Table — `https://ui.shadcn.com/docs/components/data-table`
+- [x] Context Menu — `https://ui.shadcn.com/docs/components/radix/context-menu`
+- [x] Data Table — `https://ui.shadcn.com/docs/components/data-table`
 - [ ] Date Picker — `https://ui.shadcn.com/docs/components/date-picker`
 - [ ] Dialog — `https://ui.shadcn.com/docs/components/radix/dialog`
 - [ ] Direction — `https://ui.shadcn.com/docs/components/direction`

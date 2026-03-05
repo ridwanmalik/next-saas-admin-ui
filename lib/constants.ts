@@ -74,6 +74,7 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Combobox", href: "/components/combobox" },
           { title: "Command", href: "/components/command" },
           { title: "Context Menu", href: "/components/context-menu" },
+          { title: "Data Table", href: "/components/data-table" },
           { title: "Date Picker", href: "/components/date-picker" },
           { title: "Dialog", href: "/components/dialog" },
           { title: "Drawer", href: "/components/drawer" },

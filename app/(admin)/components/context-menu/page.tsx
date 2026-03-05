@@ -2,81 +2,334 @@
 
 import { useState } from "react"
 import {
-  ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup,
-  ContextMenuItem, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem,
-  ContextMenuSeparator, ContextMenuShortcut,
-  ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger,
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import {
+  ClipboardPasteIcon,
+  CopyIcon,
+  PencilIcon,
+  ScissorsIcon,
+  ShareIcon,
+  TrashIcon,
+} from "lucide-react"
 import ShowCard from "../_components/show-card"
 
+const ContextMenuTriggerArea = () => (
+  <ContextMenuTrigger className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm">
+    <span className="hidden pointer-fine:inline-block">Right click here</span>
+    <span className="hidden pointer-coarse:inline-block">Long press here</span>
+  </ContextMenuTrigger>
+)
+
 const ContextMenuPage = () => {
-  const [showBookmarks, setShowBookmarks] = useState(true)
-  const [showUrls, setShowUrls] = useState(false)
-  const [person, setPerson] = useState("pedro")
+  const [user, setUser] = useState("pedro")
+  const [theme, setTheme] = useState("light")
+
   return (
     <div className="mx-auto w-full max-w-3xl space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Context Menu</h2>
-        <p className="text-muted-foreground">Displays a menu triggered by a right-click.</p>
+        <p className="text-muted-foreground">Displays a menu to the user — such as a set of actions or functions — triggered by a button.</p>
       </div>
       <div className="space-y-4">
-        <ShowCard title="Default" description="Items, separators, shortcuts, submenu, and destructive variant.">
+        <ShowCard>
           <ContextMenu>
-            <ContextMenuTrigger className="flex h-36 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground select-none">
-              Right click here
-            </ContextMenuTrigger>
-            <ContextMenuContent className="w-52">
+            <ContextMenuTriggerArea />
+            <ContextMenuContent className="w-48">
               <ContextMenuGroup>
-                <ContextMenuItem>Back <ContextMenuShortcut>⌘[</ContextMenuShortcut></ContextMenuItem>
-                <ContextMenuItem disabled>Forward <ContextMenuShortcut>⌘]</ContextMenuShortcut></ContextMenuItem>
-                <ContextMenuItem>Reload <ContextMenuShortcut>⌘R</ContextMenuShortcut></ContextMenuItem>
+                <ContextMenuItem>
+                  Back
+                  <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem disabled>
+                  Forward
+                  <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Reload
+                  <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+                </ContextMenuItem>
                 <ContextMenuSub>
                   <ContextMenuSubTrigger>More Tools</ContextMenuSubTrigger>
                   <ContextMenuSubContent className="w-44">
-                    <ContextMenuItem>Save Page...</ContextMenuItem>
-                    <ContextMenuItem>Create Shortcut...</ContextMenuItem>
+                    <ContextMenuGroup>
+                      <ContextMenuItem>Save Page...</ContextMenuItem>
+                      <ContextMenuItem>Create Shortcut...</ContextMenuItem>
+                      <ContextMenuItem>Name Window...</ContextMenuItem>
+                    </ContextMenuGroup>
                     <ContextMenuSeparator />
-                    <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+                    <ContextMenuGroup>
+                      <ContextMenuItem>Developer Tools</ContextMenuItem>
+                    </ContextMenuGroup>
+                    <ContextMenuSeparator />
+                    <ContextMenuGroup>
+                      <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+                    </ContextMenuGroup>
                   </ContextMenuSubContent>
                 </ContextMenuSub>
               </ContextMenuGroup>
               <ContextMenuSeparator />
-              <ContextMenuItem variant="destructive">Remove</ContextMenuItem>
+              <ContextMenuGroup>
+                <ContextMenuCheckboxItem checked>
+                  Show Bookmarks
+                </ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuRadioGroup value="pedro">
+                  <ContextMenuLabel>People</ContextMenuLabel>
+                  <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
+                </ContextMenuRadioGroup>
+              </ContextMenuGroup>
             </ContextMenuContent>
           </ContextMenu>
         </ShowCard>
 
-        <ShowCard title="Checkbox Items" description="ContextMenuCheckboxItem for toggleable boolean options.">
+        <ShowCard title="Basic" description="A simple context menu with a few actions.">
           <ContextMenu>
-            <ContextMenuTrigger className="flex h-28 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground select-none">
-              Right click here
-            </ContextMenuTrigger>
-            <ContextMenuContent className="w-52">
-              <ContextMenuLabel>View Options</ContextMenuLabel>
-              <ContextMenuSeparator />
-              <ContextMenuCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
-                Show Bookmarks Bar
-              </ContextMenuCheckboxItem>
-              <ContextMenuCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
-                Show Full URLs
-              </ContextMenuCheckboxItem>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuItem>Back</ContextMenuItem>
+                <ContextMenuItem disabled>Forward</ContextMenuItem>
+                <ContextMenuItem>Reload</ContextMenuItem>
+              </ContextMenuGroup>
             </ContextMenuContent>
           </ContextMenu>
         </ShowCard>
 
-        <ShowCard title="Radio Group" description="ContextMenuRadioGroup for mutually exclusive selection.">
+        <ShowCard title="Submenu" description="Use ContextMenuSub to nest secondary actions.">
           <ContextMenu>
-            <ContextMenuTrigger className="flex h-28 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground select-none">
-              Right click here
-            </ContextMenuTrigger>
-            <ContextMenuContent className="w-44">
-              <ContextMenuLabel>People</ContextMenuLabel>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  Copy
+                  <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Cut
+                  <ContextMenuShortcut>⌘X</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSub>
+                <ContextMenuSubTrigger>More Tools</ContextMenuSubTrigger>
+                <ContextMenuSubContent>
+                  <ContextMenuGroup>
+                    <ContextMenuItem>Save Page...</ContextMenuItem>
+                    <ContextMenuItem>Create Shortcut...</ContextMenuItem>
+                    <ContextMenuItem>Name Window...</ContextMenuItem>
+                  </ContextMenuGroup>
+                  <ContextMenuSeparator />
+                  <ContextMenuGroup>
+                    <ContextMenuItem>Developer Tools</ContextMenuItem>
+                  </ContextMenuGroup>
+                  <ContextMenuSeparator />
+                  <ContextMenuGroup>
+                    <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+                  </ContextMenuGroup>
+                </ContextMenuSubContent>
+              </ContextMenuSub>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Shortcuts" description="Add ContextMenuShortcut to show keyboard hints.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  Back
+                  <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem disabled>
+                  Forward
+                  <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Reload
+                  <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
               <ContextMenuSeparator />
-              <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
-                <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="shadcn">shadcn</ContextMenuRadioItem>
-              </ContextMenuRadioGroup>
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  Save
+                  <ContextMenuShortcut>⌘S</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Save As...
+                  <ContextMenuShortcut>⇧⌘S</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Groups" description="Group related actions and separate them with dividers.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuLabel>File</ContextMenuLabel>
+                <ContextMenuItem>
+                  New File
+                  <ContextMenuShortcut>⌘N</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Open File
+                  <ContextMenuShortcut>⌘O</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Save
+                  <ContextMenuShortcut>⌘S</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuLabel>Edit</ContextMenuLabel>
+                <ContextMenuItem>
+                  Undo
+                  <ContextMenuShortcut>⌘Z</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Redo
+                  <ContextMenuShortcut>⇧⌘Z</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  Cut
+                  <ContextMenuShortcut>⌘X</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Copy
+                  <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  Paste
+                  <ContextMenuShortcut>⌘V</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuItem variant="destructive">
+                  Delete
+                  <ContextMenuShortcut>⌫</ContextMenuShortcut>
+                </ContextMenuItem>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Icons" description="Combine icons with labels for quick scanning.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  <CopyIcon />
+                  Copy
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  <ScissorsIcon />
+                  Cut
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  <ClipboardPasteIcon />
+                  Paste
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuItem variant="destructive">
+                  <TrashIcon />
+                  Delete
+                </ContextMenuItem>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Checkboxes" description="Use ContextMenuCheckboxItem for toggleable boolean options.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuCheckboxItem defaultChecked>
+                  Show Bookmarks Bar
+                </ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem defaultChecked>
+                  Show Developer Tools
+                </ContextMenuCheckboxItem>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Radio" description="Use ContextMenuRadioGroup for mutually exclusive selection.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuLabel>People</ContextMenuLabel>
+                <ContextMenuRadioGroup value={user} onValueChange={setUser}>
+                  <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
+                </ContextMenuRadioGroup>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuLabel>Theme</ContextMenuLabel>
+                <ContextMenuRadioGroup value={theme} onValueChange={setTheme}>
+                  <ContextMenuRadioItem value="light">Light</ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="dark">Dark</ContextMenuRadioItem>
+                  <ContextMenuRadioItem value="system">System</ContextMenuRadioItem>
+                </ContextMenuRadioGroup>
+              </ContextMenuGroup>
+            </ContextMenuContent>
+          </ContextMenu>
+        </ShowCard>
+
+        <ShowCard title="Destructive" description="Use variant='destructive' to highlight dangerous actions.">
+          <ContextMenu>
+            <ContextMenuTriggerArea />
+            <ContextMenuContent>
+              <ContextMenuGroup>
+                <ContextMenuItem>
+                  <PencilIcon />
+                  Edit
+                </ContextMenuItem>
+                <ContextMenuItem>
+                  <ShareIcon />
+                  Share
+                </ContextMenuItem>
+              </ContextMenuGroup>
+              <ContextMenuSeparator />
+              <ContextMenuGroup>
+                <ContextMenuItem variant="destructive">
+                  <TrashIcon />
+                  Delete
+                </ContextMenuItem>
+              </ContextMenuGroup>
             </ContextMenuContent>
           </ContextMenu>
         </ShowCard>
