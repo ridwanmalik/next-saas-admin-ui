@@ -1,54 +1,167 @@
 "use client"
 
-import { Search, Plus } from "lucide-react"
-import {
-  Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyContent, EmptyMedia,
-} from "@/components/ui/empty"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { ArrowUpRightIcon, BellIcon, CloudIcon, FolderCodeIcon, PlusIcon, RefreshCcwIcon, SearchIcon } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Kbd } from "@/components/ui/kbd"
 import ShowCard from "../_components/show-card"
 
 const EmptyPage = () => (
   <div className="mx-auto w-full max-w-3xl space-y-6">
     <div>
       <h2 className="text-2xl font-bold tracking-tight">Empty</h2>
-      <p className="text-muted-foreground">A structured placeholder shown when there is no data to display.</p>
+      <p className="text-muted-foreground">A component for displaying empty states.</p>
     </div>
     <div className="space-y-4">
-      <ShowCard title="Basic">
-        <Empty className="w-full max-w-sm rounded-xl border p-8">
+      <ShowCard>
+        <Empty>
           <EmptyHeader>
-            <EmptyMedia><Search className="size-6 text-muted-foreground" /></EmptyMedia>
-            <EmptyTitle>No results found</EmptyTitle>
-            <EmptyDescription>Try adjusting your search or filters.</EmptyDescription>
+            <EmptyMedia variant="icon">
+              <FolderCodeIcon />
+            </EmptyMedia>
+            <EmptyTitle>No Projects Yet</EmptyTitle>
+            <EmptyDescription>
+              You haven&apos;t created any projects yet. Get started by creating
+              your first project.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent className="flex-row justify-center gap-2">
+            <Button>Create Project</Button>
+            <Button variant="outline">Import Project</Button>
+          </EmptyContent>
+          <Button variant="link" asChild className="text-muted-foreground" size="sm">
+            <a href="#">
+              Learn More <ArrowUpRightIcon />
+            </a>
+          </Button>
+        </Empty>
+      </ShowCard>
+
+      <ShowCard title="Outline" description="Use the border utility class to create an outline empty state.">
+        <Empty className="border border-dashed">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <CloudIcon />
+            </EmptyMedia>
+            <EmptyTitle>Cloud Storage Empty</EmptyTitle>
+            <EmptyDescription>
+              Upload files to your cloud storage to access them anywhere.
+            </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button size="sm" variant="outline">Clear filters</Button>
+            <Button variant="outline" size="sm">
+              Upload Files
+            </Button>
           </EmptyContent>
         </Empty>
       </ShowCard>
-      <ShowCard title="With Avatar">
-        <Empty className="w-full max-w-sm rounded-xl border p-8">
+
+      <ShowCard title="Background" description="Use bg-* and bg-gradient-* utilities to add a background to the empty state.">
+        <Empty className="h-full bg-muted/30">
           <EmptyHeader>
-            <EmptyMedia>
+            <EmptyMedia variant="icon">
+              <BellIcon />
+            </EmptyMedia>
+            <EmptyTitle>No Notifications</EmptyTitle>
+            <EmptyDescription className="max-w-xs text-pretty">
+              You&apos;re all caught up. New notifications will appear here.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button variant="outline">
+              <RefreshCcwIcon />
+              Refresh
+            </Button>
+          </EmptyContent>
+        </Empty>
+      </ShowCard>
+
+      <ShowCard title="Avatar" description="Use an avatar as the empty state media.">
+        <Empty>
+          <EmptyHeader>
+            <EmptyMedia variant="default">
               <Avatar className="size-12">
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarImage src="https://github.com/shadcn.png" className="grayscale" />
+                <AvatarFallback>LR</AvatarFallback>
               </Avatar>
             </EmptyMedia>
-            <EmptyTitle>No team members</EmptyTitle>
-            <EmptyDescription>Invite people to collaborate on this project.</EmptyDescription>
+            <EmptyTitle>User Offline</EmptyTitle>
+            <EmptyDescription>
+              This user is currently offline. You can leave a message to notify them
+              or try again later.
+            </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button size="sm"><Plus />Invite member</Button>
+            <Button size="sm">Leave Message</Button>
           </EmptyContent>
         </Empty>
       </ShowCard>
-      <ShowCard title="Minimal">
-        <Empty className="w-full max-w-sm p-8">
+
+      <ShowCard title="Avatar Group" description="Use a group of avatars as the empty state media.">
+        <Empty>
           <EmptyHeader>
-            <EmptyTitle>No notifications</EmptyTitle>
-            <EmptyDescription>You're all caught up! Check back later.</EmptyDescription>
+            <EmptyMedia>
+              <div className="flex -space-x-2 *:data-[slot=avatar]:size-12 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <Avatar>
+                  <AvatarImage src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                  <AvatarFallback>LR</AvatarFallback>
+                </Avatar>
+                <Avatar>
+                  <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                  <AvatarFallback>ER</AvatarFallback>
+                </Avatar>
+              </div>
+            </EmptyMedia>
+            <EmptyTitle>No Team Members</EmptyTitle>
+            <EmptyDescription>
+              Invite your team to collaborate on this project.
+            </EmptyDescription>
           </EmptyHeader>
+          <EmptyContent>
+            <Button size="sm">
+              <PlusIcon />
+              Invite Members
+            </Button>
+          </EmptyContent>
+        </Empty>
+      </ShowCard>
+
+      <ShowCard title="Input Group" description="Use an input group to create a search empty state.">
+        <Empty>
+          <EmptyHeader>
+            <EmptyTitle>404 - Not Found</EmptyTitle>
+            <EmptyDescription>
+              The page you&apos;re looking for doesn&apos;t exist. Try searching for
+              what you need below.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <InputGroup className="sm:w-3/4">
+              <InputGroupInput placeholder="Try searching for pages..." />
+              <InputGroupAddon>
+                <SearchIcon />
+              </InputGroupAddon>
+              <InputGroupAddon align="inline-end">
+                <Kbd>/</Kbd>
+              </InputGroupAddon>
+            </InputGroup>
+            <EmptyDescription>
+              Need help? <a href="#">Contact support</a>
+            </EmptyDescription>
+          </EmptyContent>
         </Empty>
       </ShowCard>
     </div>

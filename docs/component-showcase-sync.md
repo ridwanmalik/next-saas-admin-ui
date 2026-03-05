@@ -9,7 +9,7 @@ Sync `app/(admin)/components/[slug]/page.tsx` ShowCards to match shadcn docs exa
 3. **First "View Code" button is the hero/default example** at the top of the page (before Installation). Click it — render it as a `<ShowCard>` with no title (title is optional). Then click each example "View Code" under the Examples heading.
 4. Read current page.tsx; rewrite with new examples
 5. Add new lucide icons to existing import block (no `Icon` suffix)
-6. Mark `[x]` in the list below
+6. **Immediately after writing the page, mark `[x]` in the list below — do not batch updates**
 
 ## Rules
 
@@ -41,12 +41,12 @@ Sync `app/(admin)/components/[slug]/page.tsx` ShowCards to match shadcn docs exa
 - [x] Command — `https://ui.shadcn.com/docs/components/radix/command`
 - [x] Context Menu — `https://ui.shadcn.com/docs/components/radix/context-menu`
 - [x] Data Table — `https://ui.shadcn.com/docs/components/data-table`
-- [ ] Date Picker — `https://ui.shadcn.com/docs/components/date-picker`
-- [ ] Dialog — `https://ui.shadcn.com/docs/components/radix/dialog`
-- [ ] Direction — `https://ui.shadcn.com/docs/components/direction`
-- [ ] Drawer — `https://ui.shadcn.com/docs/components/radix/drawer`
-- [ ] Dropdown Menu — `https://ui.shadcn.com/docs/components/radix/dropdown-menu`
-- [ ] Empty — `https://ui.shadcn.com/docs/components/radix/empty`
+- [x] Date Picker — `https://ui.shadcn.com/docs/components/date-picker`
+- [x] Dialog — `https://ui.shadcn.com/docs/components/radix/dialog`
+- [x] Direction — `https://ui.shadcn.com/docs/components/direction`
+- [x] Drawer — `https://ui.shadcn.com/docs/components/radix/drawer`
+- [x] Dropdown Menu — `https://ui.shadcn.com/docs/components/radix/dropdown-menu`
+- [x] Empty — `https://ui.shadcn.com/docs/components/radix/empty`
 - [ ] Field — `https://ui.shadcn.com/docs/components/radix/field`
 - [ ] Hover Card — `https://ui.shadcn.com/docs/components/radix/hover-card`
 - [ ] Input — `https://ui.shadcn.com/docs/components/radix/input`
