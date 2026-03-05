@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import {
   Bold, Italic, Underline,
@@ -15,6 +16,7 @@ import {
   ArrowUp, ArrowLeft, MoreHorizontal, Archive, Clock, Tag,
   Minus, AudioLines, ChevronDown, VolumeX, Share2, Copy,
   UserX, AlertTriangle, Bot, MailCheck, CalendarPlus, ListFilter,
+  CircleFadingPlus, Bookmark,
 } from "lucide-react"
 import { toast } from "sonner"
 import { useForm } from "react-hook-form"
@@ -195,75 +197,96 @@ const SHOWCASES: Record<string, {
     title: "Accordion",
     description: "A vertically stacked set of interactive headings that each reveal a section of content.",
     Content: () => {
-      const items = [
-        { value: "q1", trigger: "Is it accessible?", content: "Yes. It adheres to the WAI-ARIA design pattern." },
-        { value: "q2", trigger: "Is it styled?", content: "Yes. It comes with default styles that match the other components." },
-        { value: "q3", trigger: "Is it animated?", content: "Yes. It's animated by default, but you can disable it if you prefer." },
+      const basicItems = [
+        { value: "item-1", trigger: "How do I reset my password?", content: "Click on 'Forgot Password' on the login page, enter your email address, and we'll send you a link to reset your password. The link will expire in 24 hours." },
+        { value: "item-2", trigger: "Can I change my subscription plan?", content: "Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes will be reflected in your next billing cycle." },
+        { value: "item-3", trigger: "What payment methods do you accept?", content: "We accept all major credit cards, PayPal, and bank transfers. All payments are processed securely through our payment partners." },
+      ]
+      const multipleItems = [
+        { value: "notifications", trigger: "Notification Settings", content: "Manage how you receive notifications. You can enable email alerts for updates or push notifications for mobile devices." },
+        { value: "privacy", trigger: "Privacy & Security", content: "Control your privacy settings and security preferences. Enable two-factor authentication, manage connected devices, review active sessions, and configure data sharing preferences. You can also download your data or delete your account." },
+        { value: "billing", trigger: "Billing & Subscription", content: "View your current plan, payment history, and upcoming invoices. Update your payment method, change your subscription tier, or cancel your subscription." },
+      ]
+      const bordersItems = [
+        { value: "billing", trigger: "How does billing work?", content: "We offer monthly and annual subscription plans. Billing is charged at the beginning of each cycle, and you can cancel anytime. All plans include automatic backups, 24/7 support, and unlimited team members." },
+        { value: "security", trigger: "Is my data secure?", content: "Yes. We use end-to-end encryption, SOC 2 Type II compliance, and regular third-party security audits. All data is encrypted at rest and in transit using industry-standard protocols." },
+        { value: "integration", trigger: "What integrations do you support?", content: "We integrate with 500+ popular tools including Slack, Zapier, Salesforce, HubSpot, and more. You can also build custom integrations using our REST API and webhooks." },
+      ]
+      const cardItems = [
+        { value: "plans", trigger: "What subscription plans do you offer?", content: "We offer three subscription tiers: Starter ($9/month), Professional ($29/month), and Enterprise ($99/month). Each plan includes increasing storage limits, API access, priority support, and team collaboration features." },
+        { value: "billing", trigger: "How does billing work?", content: "Billing occurs automatically at the start of each billing cycle. We accept all major credit cards, PayPal, and ACH transfers for enterprise customers. You'll receive an invoice via email after each payment." },
+        { value: "cancel", trigger: "How do I cancel my subscription?", content: "You can cancel your subscription anytime from your account settings. There are no cancellation fees or penalties. Your access will continue until the end of your current billing period." },
       ]
       return (
         <div className="space-y-4">
-          <ShowCard title="Basic" description="type='single' — only one item open at a time.">
-            <Accordion type="single" collapsible defaultValue="q1" className="w-full">
-              {items.map((i) => (
-                <AccordionItem key={i.value} value={i.value}>
-                  <AccordionTrigger>{i.trigger}</AccordionTrigger>
-                  <AccordionContent>{i.content}</AccordionContent>
+          <ShowCard title="Basic" description="A basic accordion that shows one item at a time. The first item is open by default.">
+            <Accordion type="single" collapsible defaultValue="item-1" className="max-w-lg">
+              {basicItems.map((item) => (
+                <AccordionItem key={item.value} value={item.value}>
+                  <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                  <AccordionContent>{item.content}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </ShowCard>
 
-          <ShowCard title="Multiple" description="type='multiple' — many items can be open simultaneously.">
-            <Accordion type="multiple" defaultValue={["q1", "q2"]} className="w-full">
-              {items.map((i) => (
-                <AccordionItem key={i.value} value={i.value}>
-                  <AccordionTrigger>{i.trigger}</AccordionTrigger>
-                  <AccordionContent>{i.content}</AccordionContent>
+          <ShowCard title="Multiple" description='Use type="multiple" to allow multiple items to be open at the same time.'>
+            <Accordion type="multiple" className="max-w-lg" defaultValue={["notifications"]}>
+              {multipleItems.map((item) => (
+                <AccordionItem key={item.value} value={item.value}>
+                  <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                  <AccordionContent>{item.content}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </ShowCard>
 
-          <ShowCard title="Disabled" description="Individual items can be disabled.">
+          <ShowCard title="Disabled" description="Use the disabled prop on AccordionItem to disable individual items.">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="q1">
-                <AccordionTrigger>Available item</AccordionTrigger>
-                <AccordionContent>This item can be opened and closed.</AccordionContent>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Can I access my account history?</AccordionTrigger>
+                <AccordionContent>
+                  Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.
+                </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="q2" disabled>
-                <AccordionTrigger>Disabled item</AccordionTrigger>
-                <AccordionContent>This is not reachable.</AccordionContent>
+              <AccordionItem value="item-2" disabled>
+                <AccordionTrigger>Premium feature information</AccordionTrigger>
+                <AccordionContent>
+                  This section contains information about premium features. Upgrade your plan to access this content.
+                </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="q3">
-                <AccordionTrigger>Another available item</AccordionTrigger>
-                <AccordionContent>This item can be opened and closed.</AccordionContent>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>How do I update my email address?</AccordionTrigger>
+                <AccordionContent>
+                  You can update your email address in your account settings. You&apos;ll receive a verification email at your new address to confirm the change.
+                </AccordionContent>
               </AccordionItem>
             </Accordion>
           </ShowCard>
 
-          <ShowCard title="Borders" description="Add a border around the entire accordion.">
-            <Accordion type="single" collapsible className="w-full rounded-lg border">
-              {items.map((i) => (
-                <AccordionItem key={i.value} value={i.value} className="px-4">
-                  <AccordionTrigger>{i.trigger}</AccordionTrigger>
-                  <AccordionContent>{i.content}</AccordionContent>
+          <ShowCard title="Borders" description="Add border to the Accordion and border-b last:border-b-0 to the AccordionItem to add borders to the items.">
+            <Accordion type="single" collapsible className="max-w-lg rounded-lg border" defaultValue="billing">
+              {bordersItems.map((item) => (
+                <AccordionItem key={item.value} value={item.value} className="border-b px-4 last:border-b-0">
+                  <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                  <AccordionContent>{item.content}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </ShowCard>
 
-          <ShowCard title="Card" description="Wrap the accordion inside a Card component.">
-            <Card className="w-full max-w-sm border-dashed shadow-none">
+          <ShowCard title="Card" description="Wrap the Accordion in a Card component.">
+            <Card className="w-full max-w-sm">
               <CardHeader>
-                <CardTitle>FAQ</CardTitle>
-                <CardDescription>Frequently asked questions.</CardDescription>
+                <CardTitle>Subscription & Billing</CardTitle>
+                <CardDescription>Common questions about your account, plans, payments and cancellations.</CardDescription>
               </CardHeader>
-              <CardContent className="p-0">
-                <Accordion type="single" collapsible className="w-full">
-                  {items.map((i) => (
-                    <AccordionItem key={i.value} value={i.value} className="px-6">
-                      <AccordionTrigger>{i.trigger}</AccordionTrigger>
-                      <AccordionContent>{i.content}</AccordionContent>
+              <CardContent>
+                <Accordion type="single" collapsible defaultValue="plans">
+                  {cardItems.map((item) => (
+                    <AccordionItem key={item.value} value={item.value}>
+                      <AccordionTrigger>{item.trigger}</AccordionTrigger>
+                      <AccordionContent>{item.content}</AccordionContent>
                     </AccordionItem>
                   ))}
                 </Accordion>
@@ -321,7 +344,7 @@ const SHOWCASES: Record<string, {
     description: "A modal dialog that interrupts the user with important content and expects a response.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Basic">
+        <ShowCard title="Basic" description="A basic alert dialog with a title, description, and cancel and continue buttons.">
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="outline">Show Dialog</Button>
@@ -341,50 +364,50 @@ const SHOWCASES: Record<string, {
           </AlertDialog>
         </ShowCard>
 
-        <ShowCard title="Small" description='size="sm" on AlertDialogContent.'>
+        <ShowCard title="Small" description='Use the size="sm" prop to make the alert dialog smaller.'>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="outline">Show Dialog</Button>
             </AlertDialogTrigger>
             <AlertDialogContent size="sm">
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                  Do you want to allow the USB accessory to connect to this device?
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
+                <AlertDialogCancel>Don&apos;t allow</AlertDialogCancel>
+                <AlertDialogAction>Allow</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </ShowCard>
 
-        <ShowCard title="Media" description="AlertDialogMedia renders an icon area inside the header.">
+        <ShowCard title="Media" description="Use the AlertDialogMedia component to add a media element such as an icon or image to the alert dialog.">
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="outline">Show Dialog</Button>
+              <Button variant="outline">Share Project</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogMedia>
-                  <Bluetooth />
+                  <CircleFadingPlus />
                 </AlertDialogMedia>
-                <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                <AlertDialogTitle>Share this project?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Do you want to allow the USB accessory to connect to this device?
+                  Anyone with the link will be able to view and edit this project.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Don&apos;t allow</AlertDialogCancel>
-                <AlertDialogAction>Allow</AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Share</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </ShowCard>
 
-        <ShowCard title="Small with Media">
+        <ShowCard title="Small with Media" description='Use the size="sm" prop to make the alert dialog smaller and the AlertDialogMedia component to add a media element such as an icon or image to the alert dialog.'>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="outline">Show Dialog</Button>
@@ -407,23 +430,24 @@ const SHOWCASES: Record<string, {
           </AlertDialog>
         </ShowCard>
 
-        <ShowCard title="Destructive" description="AlertDialogMedia + AlertDialogAction with destructive variant.">
+        <ShowCard title="Destructive" description="Use the AlertDialogAction component to add a destructive action button to the alert dialog.">
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">Delete Chat</Button>
             </AlertDialogTrigger>
             <AlertDialogContent size="sm">
               <AlertDialogHeader>
-                <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20">
+                <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
                   <Trash2 />
                 </AlertDialogMedia>
                 <AlertDialogTitle>Delete chat?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This will permanently delete this chat conversation. This action cannot be undone.
+                  This will permanently delete this chat conversation. View{" "}
+                  <a href="#">Settings</a> delete any memories saved during this chat.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
                 <AlertDialogAction variant="destructive">Delete</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -439,24 +463,17 @@ const SHOWCASES: Record<string, {
     description: "Displays content within a desired ratio.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="16 / 9" description="Standard widescreen ratio.">
-          <div className="max-w-sm">
-            <AspectRatio ratio={16 / 9}>
-              <div className="size-full rounded-md bg-muted flex items-center justify-center text-muted-foreground text-sm font-medium">16 / 9</div>
+        <ShowCard title="Square" description="A square aspect ratio component using the ratio={1 / 1} prop. This is useful for displaying images in a square format.">
+          <div className="w-full max-w-[12rem]">
+            <AspectRatio ratio={1 / 1} className="bg-muted rounded-lg">
+              <Image src="https://avatar.vercel.sh/shadcn1" alt="Photo" fill className="rounded-lg object-cover grayscale dark:brightness-20" />
             </AspectRatio>
           </div>
         </ShowCard>
-        <ShowCard title="1 / 1 — Square" description="Equal width and height, great for thumbnails.">
-          <div className="max-w-[200px]">
-            <AspectRatio ratio={1 / 1}>
-              <div className="size-full rounded-md bg-primary/10 flex items-center justify-center text-muted-foreground text-sm font-medium">1 / 1</div>
-            </AspectRatio>
-          </div>
-        </ShowCard>
-        <ShowCard title="9 / 16 — Portrait" description="Vertical orientation for mobile screenshots.">
-          <div className="max-w-[120px]">
-            <AspectRatio ratio={9 / 16}>
-              <div className="size-full rounded-md bg-secondary flex items-center justify-center text-muted-foreground text-sm font-medium">9 / 16</div>
+        <ShowCard title="Portrait" description="A portrait aspect ratio component using the ratio={9 / 16} prop. This is useful for displaying images in a portrait format.">
+          <div className="w-full max-w-[10rem]">
+            <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
+              <Image src="https://avatar.vercel.sh/shadcn1" alt="Photo" fill className="rounded-lg object-cover grayscale dark:brightness-20" />
             </AspectRatio>
           </div>
         </ShowCard>
@@ -467,23 +484,17 @@ const SHOWCASES: Record<string, {
   // ── Avatar ────────────────────────────────────────────────────────────────
   avatar: {
     title: "Avatar",
-    description: "An image element with a fallback for representing a user or entity.",
+    description: "An image element with a fallback for representing the user.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Basic" description="With image and fallback (shown when image fails to load).">
-          <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" className="grayscale" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarImage src="/broken.jpg" alt="broken" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </div>
+        <ShowCard title="Basic" description="A basic avatar component with an image and a fallback.">
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" className="grayscale" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
         </ShowCard>
 
-        <ShowCard title="Badge" description="AvatarBadge for online/status indicators.">
+        <ShowCard title="Badge" description="Use the AvatarBadge component to add a badge to the avatar. The badge is positioned at the bottom right of the avatar.">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
@@ -491,93 +502,104 @@ const SHOWCASES: Record<string, {
           </Avatar>
         </ShowCard>
 
-        <ShowCard title="Badge with Icon" description="Embed an icon inside AvatarBadge.">
+        <ShowCard title="Badge with Icon" description="You can also use an icon inside AvatarBadge.">
           <Avatar className="grayscale">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src="https://github.com/pranathip.png" alt="@pranathip" />
+            <AvatarFallback>PP</AvatarFallback>
             <AvatarBadge><Plus /></AvatarBadge>
           </Avatar>
         </ShowCard>
 
-        <ShowCard title="Avatar Group" description="Stacked avatars with ring overlap.">
+        <ShowCard title="Avatar Group" description="Use the AvatarGroup component to add a group of avatars.">
           <AvatarGroup className="grayscale">
-            {[
-              { src: "https://github.com/shadcn.png", alt: "@shadcn", fb: "CN" },
-              { src: "https://github.com/maxleiter.png", alt: "@maxleiter", fb: "LR" },
-              { src: "https://github.com/evilrabbit.png", alt: "@evilrabbit", fb: "ER" },
-            ].map((a) => (
-              <Avatar key={a.alt}>
-                <AvatarImage src={a.src} alt={a.alt} />
-                <AvatarFallback>{a.fb}</AvatarFallback>
-              </Avatar>
-            ))}
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/maxleiter.png" alt="@maxleiter" />
+              <AvatarFallback>LR</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+              <AvatarFallback>ER</AvatarFallback>
+            </Avatar>
           </AvatarGroup>
         </ShowCard>
 
-        <ShowCard title="Avatar Group Count" description="AvatarGroupCount shows the overflow number.">
+        <ShowCard title="Avatar Group Count" description="Use AvatarGroupCount to add a count to the group.">
           <AvatarGroup className="grayscale">
-            {[
-              { src: "https://github.com/shadcn.png", alt: "@shadcn", fb: "CN" },
-              { src: "https://github.com/maxleiter.png", alt: "@maxleiter", fb: "LR" },
-              { src: "https://github.com/evilrabbit.png", alt: "@evilrabbit", fb: "ER" },
-            ].map((a) => (
-              <Avatar key={a.alt}>
-                <AvatarImage src={a.src} alt={a.alt} />
-                <AvatarFallback>{a.fb}</AvatarFallback>
-              </Avatar>
-            ))}
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/maxleiter.png" alt="@maxleiter" />
+              <AvatarFallback>LR</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+              <AvatarFallback>ER</AvatarFallback>
+            </Avatar>
             <AvatarGroupCount>+3</AvatarGroupCount>
           </AvatarGroup>
         </ShowCard>
 
-        <ShowCard title="Avatar Group with Icon" description="AvatarGroupCount with an icon instead of text.">
+        <ShowCard title="Avatar Group with Icon" description="You can also use an icon inside AvatarGroupCount.">
           <AvatarGroup className="grayscale">
-            {[
-              { src: "https://github.com/shadcn.png", alt: "@shadcn", fb: "CN" },
-              { src: "https://github.com/maxleiter.png", alt: "@maxleiter", fb: "LR" },
-              { src: "https://github.com/evilrabbit.png", alt: "@evilrabbit", fb: "ER" },
-            ].map((a) => (
-              <Avatar key={a.alt}>
-                <AvatarImage src={a.src} alt={a.alt} />
-                <AvatarFallback>{a.fb}</AvatarFallback>
-              </Avatar>
-            ))}
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/maxleiter.png" alt="@maxleiter" />
+              <AvatarFallback>LR</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+              <AvatarFallback>ER</AvatarFallback>
+            </Avatar>
             <AvatarGroupCount><Plus /></AvatarGroupCount>
           </AvatarGroup>
         </ShowCard>
 
-        <ShowCard title="Sizes" description="sm, default, lg via the size prop.">
-          <div className="flex items-end gap-6">
-            {(["sm", "default", "lg"] as const).map((size) => (
-              <div key={size} className="flex flex-col items-center gap-2">
-                <Avatar size={size} className="grayscale">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <span className="text-xs text-muted-foreground">{size}</span>
-              </div>
-            ))}
+        <ShowCard title="Sizes" description="Use the size prop to change the size of the avatar.">
+          <div className="flex flex-wrap items-center gap-2 grayscale">
+            <Avatar size="sm">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Avatar size="lg">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
           </div>
         </ShowCard>
 
-        <ShowCard title="Dropdown" description="Avatar as a DropdownMenu trigger.">
+        <ShowCard title="Dropdown" description="You can use the Avatar component as a trigger for a dropdown menu.">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                <Avatar className="grayscale">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-              </button>
+              </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent className="w-32">
               <DropdownMenuGroup>
-                <DropdownMenuItem><BadgeCheck className="size-4" />Account</DropdownMenuItem>
-                <DropdownMenuItem><CreditCard className="size-4" />Billing</DropdownMenuItem>
-                <DropdownMenuItem><Bell className="size-4" />Notifications</DropdownMenuItem>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem><LogOut className="size-4" />Sign Out</DropdownMenuItem>
+              <DropdownMenuGroup>
+                <DropdownMenuItem variant="destructive">Log out</DropdownMenuItem>
+              </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
         </ShowCard>
@@ -588,45 +610,54 @@ const SHOWCASES: Record<string, {
   // ── Badge ─────────────────────────────────────────────────────────────────
   badge: {
     title: "Badge",
-    description: "Displays a small status descriptor or count.",
+    description: "Displays a badge or a component that looks like a badge.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Variants">
-          <div className="flex flex-wrap items-center gap-3">
+        <ShowCard title="Variants" description="Use the variant prop to change the variant of the badge.">
+          <div className="flex flex-wrap gap-2">
             <Badge>Default</Badge>
             <Badge variant="secondary">Secondary</Badge>
             <Badge variant="destructive">Destructive</Badge>
             <Badge variant="outline">Outline</Badge>
             <Badge variant="ghost">Ghost</Badge>
-            <Badge variant="link">Link</Badge>
           </div>
         </ShowCard>
 
-        <ShowCard title="With Icon">
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge><Check />Verified</Badge>
-            <Badge variant="secondary"><User />Member</Badge>
-            <Badge variant="destructive"><Trash2 />Suspended</Badge>
-            <Badge variant="outline"><Bell />Notifications</Badge>
+        <ShowCard title="With Icon" description='You can render an icon inside the badge. Use data-icon="inline-start" to render the icon on the left and data-icon="inline-end" to render the icon on the right.'>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="secondary">
+              <BadgeCheck data-icon="inline-start" />
+              Verified
+            </Badge>
+            <Badge variant="outline">
+              Bookmark
+              <Bookmark data-icon="inline-end" />
+            </Badge>
           </div>
         </ShowCard>
 
-        <ShowCard title="With Spinner" description="Spinner inside Badge for loading/processing states.">
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge><Spinner data-icon="inline-start" />Syncing</Badge>
-            <Badge variant="secondary"><Spinner data-icon="inline-start" />Updating</Badge>
-            <Badge variant="outline"><Spinner data-icon="inline-start" />Processing</Badge>
-            <Badge variant="destructive"><Spinner data-icon="inline-start" />Deleting</Badge>
+        <ShowCard title="With Spinner" description='You can render a spinner inside the badge. Remember to add the data-icon="inline-start" or data-icon="inline-end" prop to the spinner.'>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="destructive">
+              <Spinner data-icon="inline-start" />
+              Deleting
+            </Badge>
+            <Badge variant="secondary">
+              Generating
+              <Spinner data-icon="inline-end" />
+            </Badge>
           </div>
         </ShowCard>
 
-        <ShowCard title="Link" description="Badge rendered as an anchor using asChild.">
+        <ShowCard title="Link" description="Use the asChild prop to render a link as a badge.">
           <Badge asChild>
-            <a href="#">Open Link <ArrowUpRight data-icon="inline-end" /></a>
+            <a href="#link">
+              Open Link <ArrowUpRight data-icon="inline-end" />
+            </a>
           </Badge>
         </ShowCard>
 
-        <ShowCard title="Custom Colors" description="Override colors via className with Tailwind.">
+        <ShowCard title="Custom Colors" description="You can customize the colors of a badge by adding custom classes such as bg-green-50 dark:bg-green-800 to the Badge component.">
           <div className="flex flex-wrap gap-2">
             <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">Blue</Badge>
             <Badge className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">Green</Badge>
@@ -645,42 +676,68 @@ const SHOWCASES: Record<string, {
     description: "Displays the path to the current resource using a hierarchy of links.",
     Content: () => (
       <div className="space-y-4">
-        <ShowCard title="Basic">
+        <ShowCard title="Basic" description="A basic breadcrumb with a home link and a components link.">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="#">Components</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Components</BreadcrumbLink>
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </ShowCard>
 
-        <ShowCard title="Custom Separator" description="Pass any element as children of BreadcrumbSeparator.">
+        <ShowCard title="Custom separator" description="Use a custom component as children for BreadcrumbSeparator to create a custom separator.">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator><Dot /></BreadcrumbSeparator>
-              <BreadcrumbItem><BreadcrumbLink href="#">Components</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator><Dot /></BreadcrumbSeparator>
-              <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Dot />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/components">Components</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Dot />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </ShowCard>
 
-        <ShowCard title="Dropdown" description="DropdownMenu inside a BreadcrumbItem for sibling-level navigation.">
+        <ShowCard title="Dropdown" description="You can compose BreadcrumbItem with a DropdownMenu to create a dropdown in the breadcrumb.">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Dot />
+              </BreadcrumbSeparator>
               <BreadcrumbItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button size="icon-sm" variant="ghost">
-                      <BreadcrumbEllipsis />
-                      <span className="sr-only">Toggle menu</span>
-                    </Button>
+                    <button className="flex items-center gap-1">
+                      Components
+                      <ChevronDown className="size-3.5" />
+                    </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
                     <DropdownMenuGroup>
@@ -691,40 +748,60 @@ const SHOWCASES: Record<string, {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="#">Components</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Dot />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </ShowCard>
 
-        <ShowCard title="Collapsed" description="BreadcrumbEllipsis collapses a long navigation trail.">
+        <ShowCard title="Collapsed" description="We provide a BreadcrumbEllipsis component to show a collapsed state when the breadcrumb is too long.">
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbEllipsis />
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="#">Components</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/docs/components">Components</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </ShowCard>
 
-        <ShowCard title="Link Component" description="BreadcrumbLink asChild with Next.js Link for client-side routing.">
+        <ShowCard title="Link component" description="To use a custom link component from your routing library, you can use the asChild prop on BreadcrumbLink.">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink asChild><Link href="/">Home</Link></BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink asChild><Link href="/components">Components</Link></BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link href="/components">Components</Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </ShowCard>
