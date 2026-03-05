@@ -47,7 +47,7 @@ Sync `app/(admin)/components/[slug]/page.tsx` ShowCards to match shadcn docs exa
 - [x] Drawer — `https://ui.shadcn.com/docs/components/radix/drawer`
 - [x] Dropdown Menu — `https://ui.shadcn.com/docs/components/radix/dropdown-menu`
 - [x] Empty — `https://ui.shadcn.com/docs/components/radix/empty`
-- [ ] Field — `https://ui.shadcn.com/docs/components/radix/field`
+- [x] Field — `https://ui.shadcn.com/docs/components/radix/field`
 - [ ] Hover Card — `https://ui.shadcn.com/docs/components/radix/hover-card`
 - [ ] Input — `https://ui.shadcn.com/docs/components/radix/input`
 - [ ] Input Group — `https://ui.shadcn.com/docs/components/radix/input-group`
