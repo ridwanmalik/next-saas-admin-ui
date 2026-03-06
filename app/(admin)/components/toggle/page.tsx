@@ -1,7 +1,7 @@
 "use client"
 
-import { Bold, Italic, Underline } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
+import { BoldIcon, BookmarkIcon, ItalicIcon } from "lucide-react"
 import ShowCard from "../_components/show-card"
 
 const TogglePage = () => (
@@ -11,31 +11,55 @@ const TogglePage = () => (
       <p className="text-muted-foreground">A two-state button that can be either on or off.</p>
     </div>
     <div className="space-y-4">
-      <ShowCard title="Variants">
-        <div className="flex flex-wrap gap-3">
-          <Toggle aria-label="Bold"><Bold />Default</Toggle>
-          <Toggle variant="outline" aria-label="Italic"><Italic />Outline</Toggle>
+      <ShowCard>
+        <Toggle aria-label="Toggle bookmark" size="sm" variant="outline">
+          <BookmarkIcon className="group-data-[state=on]/toggle:fill-foreground" />
+          Bookmark
+        </Toggle>
+      </ShowCard>
+
+      <ShowCard title="Outline">
+        <div className="flex flex-wrap items-center gap-2">
+          <Toggle variant="outline" aria-label="Toggle italic">
+            <ItalicIcon />
+            Italic
+          </Toggle>
+          <Toggle variant="outline" aria-label="Toggle bold">
+            <BoldIcon />
+            Bold
+          </Toggle>
         </div>
       </ShowCard>
-      <ShowCard title="Sizes">
-        <div className="flex flex-wrap items-center gap-3">
-          <Toggle size="sm" aria-label="sm"><Bold /></Toggle>
-          <Toggle aria-label="default"><Bold /></Toggle>
-          <Toggle size="lg" aria-label="lg"><Bold /></Toggle>
-        </div>
-      </ShowCard>
+
       <ShowCard title="With Text">
-        <div className="flex flex-wrap gap-3">
-          <Toggle aria-label="Bold"><Bold />Bold</Toggle>
-          <Toggle aria-label="Italic"><Italic />Italic</Toggle>
-          <Toggle defaultPressed aria-label="Underline"><Underline />Underline</Toggle>
+        <Toggle aria-label="Toggle italic">
+          <ItalicIcon />
+          Italic
+        </Toggle>
+      </ShowCard>
+
+      <ShowCard title="Size">
+        <div className="flex flex-wrap items-center gap-2">
+          <Toggle variant="outline" aria-label="Toggle small" size="sm">
+            Small
+          </Toggle>
+          <Toggle variant="outline" aria-label="Toggle default" size="default">
+            Default
+          </Toggle>
+          <Toggle variant="outline" aria-label="Toggle large" size="lg">
+            Large
+          </Toggle>
         </div>
       </ShowCard>
-      <ShowCard title="States">
-        <div className="flex flex-wrap gap-3">
-          <Toggle aria-label="off">Off</Toggle>
-          <Toggle defaultPressed aria-label="on">On</Toggle>
-          <Toggle disabled aria-label="disabled">Disabled</Toggle>
+
+      <ShowCard title="Disabled">
+        <div className="flex flex-wrap items-center gap-2">
+          <Toggle aria-label="Toggle disabled" disabled>
+            Disabled
+          </Toggle>
+          <Toggle variant="outline" aria-label="Toggle disabled outline" disabled>
+            Disabled
+          </Toggle>
         </div>
       </ShowCard>
     </div>

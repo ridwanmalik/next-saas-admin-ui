@@ -1,41 +1,84 @@
 "use client"
 
+import * as React from "react"
+import Image from "next/image"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 import ShowCard from "../_components/show-card"
 
-const ScrollAreaPage = () => {
-  const tags = Array.from({ length: 20 }, (_, i) => `Tag ${i + 1}`)
-  const cols = ["React", "Vue", "Angular", "Svelte", "Solid", "Qwik", "Astro", "Remix"]
-  return (
-    <div className="mx-auto w-full max-w-3xl space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Scroll Area</h2>
-        <p className="text-muted-foreground">Augments native scroll functionality for custom, cross-browser styling.</p>
-      </div>
-      <div className="space-y-4">
-        <ShowCard title="Vertical">
-          <ScrollArea className="h-56 w-48 rounded-md border">
-            <div className="p-4">
-              <p className="text-sm font-medium mb-2">Tags</p>
-              {tags.map((tag) => (
-                <div key={tag} className="text-sm py-1 border-b last:border-b-0">{tag}</div>
-              ))}
-            </div>
-          </ScrollArea>
-        </ShowCard>
-        <ShowCard title="Horizontal" description="Add ScrollBar orientation='horizontal' inside.">
-          <ScrollArea className="w-80 rounded-md border whitespace-nowrap">
-            <div className="flex gap-3 p-4">
-              {cols.map((c) => (
-                <div key={c} className="shrink-0 rounded-md border bg-muted px-4 py-2 text-sm">{c}</div>
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </ShowCard>
-      </div>
-    </div>
-  )
+const tags = Array.from({ length: 50 }).map(
+  (_, i, a) => `v1.2.0-beta.${a.length - i}`
+)
+
+interface Artwork {
+  artist: string
+  art: string
 }
+
+const works: Artwork[] = [
+  {
+    artist: "Ornella Binni",
+    art: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    artist: "Tom Byrom",
+    art: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    artist: "Vladimir Malyavko",
+    art: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
+  },
+]
+
+const ScrollAreaPage = () => (
+  <div className="mx-auto w-full max-w-3xl space-y-6">
+    <div>
+      <h2 className="text-2xl font-bold tracking-tight">Scroll Area</h2>
+      <p className="text-muted-foreground">Augments native scroll functionality for custom, cross-browser styling.</p>
+    </div>
+    <div className="space-y-4">
+      <ShowCard>
+        <ScrollArea className="h-72 w-48 rounded-md border">
+          <div className="p-4">
+            <h4 className="mb-4 text-sm leading-none font-medium">Tags</h4>
+            {tags.map((tag) => (
+              <React.Fragment key={tag}>
+                <div className="text-sm">{tag}</div>
+                <Separator className="my-2" />
+              </React.Fragment>
+            ))}
+          </div>
+        </ScrollArea>
+      </ShowCard>
+
+      <ShowCard title="Horizontal">
+        <ScrollArea className="w-96 rounded-md border whitespace-nowrap">
+          <div className="flex w-max space-x-4 p-4">
+            {works.map((artwork) => (
+              <figure key={artwork.artist} className="shrink-0">
+                <div className="overflow-hidden rounded-md">
+                  <Image
+                    src={artwork.art}
+                    alt={`Photo by ${artwork.artist}`}
+                    className="aspect-[3/4] h-fit w-fit object-cover"
+                    width={300}
+                    height={400}
+                  />
+                </div>
+                <figcaption className="pt-2 text-xs text-muted-foreground">
+                  Photo by{" "}
+                  <span className="font-semibold text-foreground">
+                    {artwork.artist}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </ShowCard>
+    </div>
+  </div>
+)
 
 export default ScrollAreaPage

@@ -1,11 +1,55 @@
 "use client"
 
+import * as React from "react"
+import Link from "next/link"
 import {
-  NavigationMenu, NavigationMenuContent, NavigationMenuItem,
-  NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import ShowCard from "../_components/show-card"
+
+const components: { title: string; href: string; description: string }[] = [
+  {
+    title: "Alert Dialog",
+    href: "/docs/primitives/alert-dialog",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Hover Card",
+    href: "/docs/primitives/hover-card",
+    description:
+      "For sighted users to preview content available behind a link.",
+  },
+  {
+    title: "Progress",
+    href: "/docs/primitives/progress",
+    description:
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  },
+  {
+    title: "Scroll-area",
+    href: "/docs/primitives/scroll-area",
+    description: "Visually or semantically separates content.",
+  },
+  {
+    title: "Tabs",
+    href: "/docs/primitives/tabs",
+    description:
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+  },
+  {
+    title: "Tooltip",
+    href: "/docs/primitives/tooltip",
+    description:
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  },
+]
 
 const NavigationMenuPage = () => (
   <div className="mx-auto w-full max-w-3xl space-y-6">
@@ -14,42 +58,69 @@ const NavigationMenuPage = () => (
       <p className="text-muted-foreground">A collection of links for navigating websites.</p>
     </div>
     <div className="space-y-4">
-      <ShowCard title="With Dropdown" description="NavigationMenuTrigger + NavigationMenuContent for expandable sections.">
+      <ShowCard>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="grid gap-2 p-4 w-64">
-                  <NavigationMenuLink href="#" className="block rounded-md p-2 hover:bg-muted text-sm">
-                    <p className="font-medium">Introduction</p>
-                    <p className="text-muted-foreground text-xs">Re-usable components built using Radix UI.</p>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink href="#" className="block rounded-md p-2 hover:bg-muted text-sm">
-                    <p className="font-medium">Installation</p>
-                    <p className="text-muted-foreground text-xs">How to install dependencies and structure your app.</p>
-                  </NavigationMenuLink>
-                </div>
+                <ul className="w-96">
+                  <ListItem href="/docs" title="Introduction">
+                    Re-usable components built with Tailwind CSS.
+                  </ListItem>
+                  <ListItem href="/docs/installation" title="Installation">
+                    How to install dependencies and structure your app.
+                  </ListItem>
+                  <ListItem href="/docs/primitives/typography" title="Typography">
+                    Styles for headings, paragraphs, lists...etc
+                  </ListItem>
+                </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </ShowCard>
-      <ShowCard title="Plain Links" description="navigationMenuTriggerStyle() for links without a dropdown.">
-        <NavigationMenu>
-          <NavigationMenuList>
-            {["Docs", "Components", "Blog", "GitHub"].map((label) => (
-              <NavigationMenuItem key={label}>
-                <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
-                  {label}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
+            <NavigationMenuItem className="hidden md:flex">
+              <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  {components.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                <Link href="/docs">Docs</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </ShowCard>
     </div>
   </div>
+)
+
+const ListItem = ({
+  title,
+  children,
+  href,
+  ...props
+}: React.ComponentPropsWithoutRef<"li"> & { href: string }) => (
+  <li {...props}>
+    <NavigationMenuLink asChild>
+      <Link href={href}>
+        <div className="flex flex-col gap-1 text-sm">
+          <div className="leading-none font-medium">{title}</div>
+          <div className="line-clamp-2 text-muted-foreground">{children}</div>
+        </div>
+      </Link>
+    </NavigationMenuLink>
+  </li>
 )
 
 export default NavigationMenuPage

@@ -1,37 +1,60 @@
 "use client"
 
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+} from "@/components/ui/field"
+import { Textarea } from "@/components/ui/textarea"
 import ShowCard from "../_components/show-card"
 
 const TextareaPage = () => (
   <div className="mx-auto w-full max-w-3xl space-y-6">
     <div>
       <h2 className="text-2xl font-bold tracking-tight">Textarea</h2>
-      <p className="text-muted-foreground">A multi-line text input control.</p>
+      <p className="text-muted-foreground">Displays a form textarea or a component that looks like a textarea.</p>
     </div>
     <div className="space-y-4">
-      <ShowCard title="Default">
-        <Textarea className="max-w-sm" placeholder="Type your message here." />
+      <ShowCard>
+        <Textarea placeholder="Type your message here." />
       </ShowCard>
-      <ShowCard title="States">
-        <div className="grid max-w-sm gap-3">
-          <Textarea placeholder="Default" />
-          <Textarea placeholder="Disabled" disabled />
-          <Textarea placeholder="Invalid" aria-invalid="true" />
-        </div>
+
+      <ShowCard title="Field">
+        <Field>
+          <FieldLabel htmlFor="textarea-message">Message</FieldLabel>
+          <FieldDescription>Enter your message below.</FieldDescription>
+          <Textarea id="textarea-message" placeholder="Type your message here." />
+        </Field>
       </ShowCard>
-      <ShowCard title="With Label">
-        <div className="grid max-w-sm gap-2">
-          <Label htmlFor="ta-msg">Message</Label>
-          <Textarea id="ta-msg" placeholder="Write your message here..." rows={4} />
-        </div>
+
+      <ShowCard title="Disabled">
+        <Field data-disabled>
+          <FieldLabel htmlFor="textarea-disabled">Message</FieldLabel>
+          <Textarea
+            id="textarea-disabled"
+            placeholder="Type your message here."
+            disabled
+          />
+        </Field>
       </ShowCard>
-      <ShowCard title="With Button">
-        <div className="grid max-w-sm gap-2">
-          <Textarea placeholder="Write your feedback..." rows={3} />
-          <Button>Submit feedback</Button>
+
+      <ShowCard title="Invalid">
+        <Field data-invalid>
+          <FieldLabel htmlFor="textarea-invalid">Message</FieldLabel>
+          <Textarea
+            id="textarea-invalid"
+            placeholder="Type your message here."
+            aria-invalid
+          />
+          <FieldDescription>Please enter a valid message.</FieldDescription>
+        </Field>
+      </ShowCard>
+
+      <ShowCard title="Button">
+        <div className="grid w-full gap-2">
+          <Textarea placeholder="Type your message here." />
+          <Button>Send message</Button>
         </div>
       </ShowCard>
     </div>

@@ -48,38 +48,38 @@ Sync `app/(admin)/components/[slug]/page.tsx` ShowCards to match shadcn docs exa
 - [x] Dropdown Menu — `https://ui.shadcn.com/docs/components/radix/dropdown-menu`
 - [x] Empty — `https://ui.shadcn.com/docs/components/radix/empty`
 - [x] Field — `https://ui.shadcn.com/docs/components/radix/field`
-- [ ] Hover Card — `https://ui.shadcn.com/docs/components/radix/hover-card`
-- [ ] Input — `https://ui.shadcn.com/docs/components/radix/input`
-- [ ] Input Group — `https://ui.shadcn.com/docs/components/radix/input-group`
-- [ ] Input OTP — `https://ui.shadcn.com/docs/components/radix/input-otp`
-- [ ] Item — `https://ui.shadcn.com/docs/components/radix/item`
-- [ ] Label — `https://ui.shadcn.com/docs/components/radix/label`
-- [ ] Menubar — `https://ui.shadcn.com/docs/components/radix/menubar`
-- [ ] Native Select — `https://ui.shadcn.com/docs/components/radix/native-select`
-- [ ] Navigation Menu — `https://ui.shadcn.com/docs/components/radix/navigation-menu`
-- [ ] Pagination — `https://ui.shadcn.com/docs/components/radix/pagination`
-- [ ] Popover — `https://ui.shadcn.com/docs/components/radix/popover`
-- [ ] Progress — `https://ui.shadcn.com/docs/components/radix/progress`
-- [ ] Radio Group — `https://ui.shadcn.com/docs/components/radix/radio-group`
-- [ ] Resizable — `https://ui.shadcn.com/docs/components/radix/resizable`
-- [ ] Scroll Area — `https://ui.shadcn.com/docs/components/radix/scroll-area`
-- [ ] Select — `https://ui.shadcn.com/docs/components/radix/select`
-- [ ] Separator — `https://ui.shadcn.com/docs/components/radix/separator`
-- [ ] Sheet — `https://ui.shadcn.com/docs/components/radix/sheet`
+- [x] Hover Card — `https://ui.shadcn.com/docs/components/radix/hover-card`
+- [x] Input — `https://ui.shadcn.com/docs/components/radix/input`
+- [x] Input Group — `https://ui.shadcn.com/docs/components/radix/input-group`
+- [x] Input OTP — `https://ui.shadcn.com/docs/components/radix/input-otp`
+- [x] Item — `https://ui.shadcn.com/docs/components/radix/item`
+- [x] Label — `https://ui.shadcn.com/docs/components/radix/label`
+- [x] Menubar — `https://ui.shadcn.com/docs/components/radix/menubar`
+- [x] Native Select — `https://ui.shadcn.com/docs/components/radix/native-select`
+- [x] Navigation Menu — `https://ui.shadcn.com/docs/components/radix/navigation-menu`
+- [x] Pagination — `https://ui.shadcn.com/docs/components/radix/pagination`
+- [x] Popover — `https://ui.shadcn.com/docs/components/radix/popover`
+- [x] Progress — `https://ui.shadcn.com/docs/components/radix/progress`
+- [x] Radio Group — `https://ui.shadcn.com/docs/components/radix/radio-group`
+- [x] Resizable — `https://ui.shadcn.com/docs/components/radix/resizable`
+- [x] Scroll Area — `https://ui.shadcn.com/docs/components/radix/scroll-area`
+- [x] Select — `https://ui.shadcn.com/docs/components/radix/select`
+- [x] Separator — `https://ui.shadcn.com/docs/components/radix/separator`
+- [x] Sheet — `https://ui.shadcn.com/docs/components/radix/sheet`
 - [ ] Sidebar — `https://ui.shadcn.com/docs/components/sidebar`
-- [ ] Skeleton — `https://ui.shadcn.com/docs/components/radix/skeleton`
-- [ ] Slider — `https://ui.shadcn.com/docs/components/radix/slider`
-- [ ] Sonner — `https://ui.shadcn.com/docs/components/radix/sonner`
-- [ ] Spinner — `https://ui.shadcn.com/docs/components/radix/spinner`
-- [ ] Switch — `https://ui.shadcn.com/docs/components/radix/switch`
-- [ ] Table — `https://ui.shadcn.com/docs/components/radix/table`
-- [ ] Tabs — `https://ui.shadcn.com/docs/components/radix/tabs`
-- [ ] Textarea — `https://ui.shadcn.com/docs/components/radix/textarea`
-- [ ] Toast — `https://ui.shadcn.com/docs/components/toast`
-- [ ] Toggle — `https://ui.shadcn.com/docs/components/radix/toggle`
-- [ ] Toggle Group — `https://ui.shadcn.com/docs/components/radix/toggle-group`
-- [ ] Tooltip — `https://ui.shadcn.com/docs/components/radix/tooltip`
-- [ ] Typography — `https://ui.shadcn.com/docs/components/radix/typography`
+- [x] Skeleton — `https://ui.shadcn.com/docs/components/radix/skeleton`
+- [x] Slider — `https://ui.shadcn.com/docs/components/radix/slider`
+- [x] Sonner — `https://ui.shadcn.com/docs/components/radix/sonner`
+- [x] Spinner — `https://ui.shadcn.com/docs/components/radix/spinner`
+- [x] Switch — `https://ui.shadcn.com/docs/components/radix/switch`
+- [x] Table — `https://ui.shadcn.com/docs/components/radix/table`
+- [x] Tabs — `https://ui.shadcn.com/docs/components/radix/tabs`
+- [x] Textarea — `https://ui.shadcn.com/docs/components/radix/textarea`
+- [x] Toast — `https://ui.shadcn.com/docs/components/toast` (deprecated, use Sonner)
+- [x] Toggle — `https://ui.shadcn.com/docs/components/radix/toggle`
+- [x] Toggle Group — `https://ui.shadcn.com/docs/components/radix/toggle-group`
+- [x] Tooltip — `https://ui.shadcn.com/docs/components/radix/tooltip`
+- [x] Typography — `https://ui.shadcn.com/docs/components/radix/typography`
 
 ## Playwright browsing log
 

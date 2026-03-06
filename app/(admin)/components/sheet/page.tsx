@@ -1,46 +1,122 @@
 "use client"
 
-import {
-  Sheet, SheetClose, SheetContent, SheetDescription,
-  SheetFooter, SheetHeader, SheetTitle, SheetTrigger,
-} from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import ShowCard from "../_components/show-card"
+
+const SHEET_SIDES = ["top", "right", "bottom", "left"] as const
 
 const SheetPage = () => (
   <div className="mx-auto w-full max-w-3xl space-y-6">
     <div>
       <h2 className="text-2xl font-bold tracking-tight">Sheet</h2>
-      <p className="text-muted-foreground">Extends Dialog to display content from any edge of the screen.</p>
+      <p className="text-muted-foreground">Extends the Dialog component to display content that complements the main content of the screen.</p>
     </div>
     <div className="space-y-4">
-      <ShowCard title="Sides">
-        <div className="flex flex-wrap gap-3">
-          {(["top", "right", "bottom", "left"] as const).map((side) => (
+      <ShowCard>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">Open</Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Edit profile</SheetTitle>
+              <SheetDescription>
+                Make changes to your profile here. Click save when you&apos;re done.
+              </SheetDescription>
+            </SheetHeader>
+            <div className="grid flex-1 auto-rows-min gap-6 px-4">
+              <div className="grid gap-3">
+                <Label htmlFor="sheet-demo-name">Name</Label>
+                <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="sheet-demo-username">Username</Label>
+                <Input id="sheet-demo-username" defaultValue="@peduarte" />
+              </div>
+            </div>
+            <SheetFooter>
+              <Button type="submit">Save changes</Button>
+              <SheetClose asChild>
+                <Button variant="outline">Close</Button>
+              </SheetClose>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      </ShowCard>
+
+      <ShowCard title="Side">
+        <div className="flex flex-wrap gap-2">
+          {SHEET_SIDES.map((side) => (
             <Sheet key={side}>
               <SheetTrigger asChild>
-                <Button variant="outline" className="capitalize">{side}</Button>
+                <Button variant="outline" className="capitalize">
+                  {side}
+                </Button>
               </SheetTrigger>
-              <SheetContent side={side}>
+              <SheetContent
+                side={side}
+                className="data-[side=bottom]:max-h-[50vh] data-[side=top]:max-h-[50vh]"
+              >
                 <SheetHeader>
                   <SheetTitle>Edit profile</SheetTitle>
-                  <SheetDescription>Make changes to your profile here.</SheetDescription>
+                  <SheetDescription>
+                    Make changes to your profile here. Click save when you&apos;re
+                    done.
+                  </SheetDescription>
                 </SheetHeader>
-                <div className="grid gap-4 py-4 px-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor={`sn-${side}`}>Name</Label>
-                    <Input id={`sn-${side}`} defaultValue="John Doe" />
-                  </div>
+                <div className="no-scrollbar overflow-y-auto px-4">
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <p key={index} className="mb-2 leading-relaxed">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                      do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                      Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                      laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                      irure dolor in reprehenderit in voluptate velit esse cillum
+                      dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                      cupidatat non proident, sunt in culpa qui officia deserunt
+                      mollit anim id est laborum.
+                    </p>
+                  ))}
                 </div>
-                <SheetFooter className="px-4">
-                  <SheetClose asChild><Button>Save changes</Button></SheetClose>
+                <SheetFooter>
+                  <Button type="submit">Save changes</Button>
+                  <SheetClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </SheetClose>
                 </SheetFooter>
               </SheetContent>
             </Sheet>
           ))}
         </div>
+      </ShowCard>
+
+      <ShowCard title="No Close Button">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline">Open Sheet</Button>
+          </SheetTrigger>
+          <SheetContent showCloseButton={false}>
+            <SheetHeader>
+              <SheetTitle>No Close Button</SheetTitle>
+              <SheetDescription>
+                This sheet doesn&apos;t have a close button in the top-right corner.
+                Click outside to close.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </ShowCard>
     </div>
   </div>
