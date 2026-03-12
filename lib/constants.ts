@@ -11,6 +11,7 @@ import {
   Layers,
   KanbanSquare,
   Sparkles,
+  Activity,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -37,6 +38,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Account",
     items: [
       { icon: CreditCard, title: "Pricing", href: "/pricing" },
+      { icon: Activity, title: "Activity", href: "/activity" },
       { icon: Shield, title: "Security", href: "/security" },
       { icon: Settings, title: "Settings", href: "/settings" },
     ],
@@ -124,7 +126,9 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Sparkles,
         title: "Advanced",
         children: [
-          { title: "Editor", href: "/advanced/editor" },
+          { title: "Editor",        href: "/advanced/editor"        },
+          { title: "File Uploader", href: "/advanced/file-uploader" },
+          { title: "Image Cropper", href: "/advanced/image-cropper" },
         ],
       },
     ],
