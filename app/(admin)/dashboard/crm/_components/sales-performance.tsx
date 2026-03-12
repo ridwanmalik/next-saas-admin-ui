@@ -1,73 +1,40 @@
-import { MoreHorizontal } from "lucide-react"
+"use client"
 
-import { Button } from "@/components/ui/button"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import type { ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-// Stacked bar chart data: Mon–Sun, 3 series: Target, Achieved, Pipeline
 const SALES_PERF_DATA = [
-  { day: "Mon", target: 80, achieved: 120, pipeline: 60 },
+  { day: "Mon", target: 80,  achieved: 120, pipeline: 60  },
   { day: "Tue", target: 140, achieved: 100, pipeline: 100 },
-  { day: "Wed", target: 100, achieved: 140, pipeline: 80 },
-  { day: "Thu", target: 120, achieved: 110, pipeline: 90 },
+  { day: "Wed", target: 100, achieved: 140, pipeline: 80  },
+  { day: "Thu", target: 120, achieved: 110, pipeline: 90  },
   { day: "Fri", target: 200, achieved: 180, pipeline: 120 },
   { day: "Sat", target: 160, achieved: 130, pipeline: 100 },
-  { day: "Sun", target: 100, achieved: 90, pipeline: 70 },
+  { day: "Sun", target: 100, achieved: 90,  pipeline: 70  },
 ]
 
-// ─── Stacked Bar Chart ────────────────────────────────────────────────────────
+const METRICS = [
+  { label: "Conversion Rate", value: "68%",   accent: "text-emerald-500" },
+  { label: "Average Deal",    value: "$1,240", accent: "text-primary"     },
+  { label: "Sales Target",    value: "87%",    accent: "text-amber-500"   },
+]
 
-const StackedBarChart = () => {
-  const W = 480, H = 180
-  const pL = 36, pR = 12, pT = 12, pB = 28
-  const cW = W - pL - pR
-  const cH = H - pT - pB
-  const n = SALES_PERF_DATA.length
-  const maxVal = 400
-  const slotW = cW / n
-  const barW = slotW * 0.5
-  const gridLines = [100, 200, 300, 400]
+const LEGEND = [
+  { key: "achieved", label: "Achieved" },
+  { key: "target",   label: "Target"   },
+  { key: "pipeline", label: "Pipeline" },
+]
 
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" aria-hidden>
-      {gridLines.map((v) => {
-        const y = pT + cH - (v / maxVal) * cH
-        return (
-          <g key={v}>
-            <line x1={pL} y1={y} x2={W - pR} y2={y} strokeWidth={0.5} strokeDasharray="3 3" style={{ stroke: "var(--border)" }} />
-            <text x={pL - 5} y={y + 3.5} textAnchor="end" fontSize={9} style={{ fill: "var(--muted-foreground)" }}>{v}</text>
-          </g>
-        )
-      })}
-
-      {SALES_PERF_DATA.map((d, i) => {
-        const x = pL + i * slotW + (slotW - barW) / 2
-        const targetH = (d.target / maxVal) * cH
-        const achievedH = (d.achieved / maxVal) * cH
-        const pipelineH = (d.pipeline / maxVal) * cH
-        const baseY = pT + cH
-        return (
-          <g key={d.day}>
-            {/* Pipeline (bottom, lightest) */}
-            <rect x={x} y={baseY - pipelineH} width={barW} height={pipelineH} rx={2}
-              style={{ fill: "var(--primary)" }} fillOpacity={0.15} />
-            {/* Achieved (middle) */}
-            <rect x={x} y={baseY - pipelineH - achievedH} width={barW} height={achievedH} rx={2}
-              style={{ fill: "var(--primary)" }} fillOpacity={0.7} />
-            {/* Target (top, darkest) */}
-            <rect x={x} y={baseY - pipelineH - achievedH - targetH} width={barW} height={targetH} rx={2}
-              style={{ fill: "var(--primary)" }} fillOpacity={0.35} />
-            <text x={x + barW / 2} y={H - 6} textAnchor="middle" fontSize={9} style={{ fill: "var(--muted-foreground)" }}>
-              {d.day}
-            </text>
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
+const chartConfig = {
+  achieved: { label: "Achieved", color: "var(--primary)"       },
+  target:   { label: "Target",   color: "hsl(217 91% 60%)"     },
+  pipeline: { label: "Pipeline", color: "hsl(142 71% 45%)"     },
+} satisfies ChartConfig
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -75,37 +42,62 @@ export const SalesPerformance = () => (
   <Card>
     <CardHeader className="gap-0">
       <div className="flex items-center justify-between">
-        <CardTitle>Sales Performance</CardTitle>
-        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
+        <div>
+          <CardTitle>Sales Performance</CardTitle>
+          <p className="text-xs text-muted-foreground mt-0.5">Weekly target vs. achieved</p>
+        </div>
       </div>
     </CardHeader>
-    <CardContent className="px-3 pb-3 space-y-4">
-      {/* Mini metric boxes */}
+    <CardContent className="px-4 pb-4 space-y-4">
+      {/* Metric tiles */}
       <div className="grid grid-cols-3 gap-3">
-        {[
-          { label: "Conversion Rate", value: "200" },
-          { label: "Average Deal", value: "120" },
-          { label: "Sales Target", value: "234" },
-        ].map((m) => (
-          <div key={m.label} className="rounded-lg bg-muted/50 p-3 text-center">
-            <p className="text-xl font-bold tabular-nums">{m.value}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{m.label}</p>
+        {METRICS.map((m) => (
+          <div key={m.label} className="rounded-xl border bg-muted/30 px-3 py-3 flex flex-col gap-1">
+            <p className={`text-xl font-bold tabular-nums ${m.accent}`}>{m.value}</p>
+            <p className="text-xs text-muted-foreground leading-tight">{m.label}</p>
           </div>
         ))}
       </div>
 
-      <Separator />
-
-      {/* Stacked bar chart */}
-      <StackedBarChart />
+      {/* Grouped bar chart */}
+      <ChartContainer config={chartConfig} className="h-55 w-full">
+        <BarChart
+          data={SALES_PERF_DATA}
+          margin={{ top: 4, right: 4, bottom: 0, left: -8 }}
+          barCategoryGap="30%"
+          barGap={3}
+        >
+          <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="var(--border)" strokeWidth={0.5} />
+          <XAxis
+            dataKey="day"
+            tickLine={false}
+            axisLine={false}
+            tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
+          />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
+            width={28}
+          />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Bar dataKey="achieved" fill="var(--color-achieved)" radius={3} />
+          <Bar dataKey="target"   fill="var(--color-target)"   radius={3} fillOpacity={0.8} />
+          <Bar dataKey="pipeline" fill="var(--color-pipeline)" radius={3} fillOpacity={0.75} />
+        </BarChart>
+      </ChartContainer>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 text-xs text-muted-foreground">
-        <span className="flex items-center gap-1.5"><span className="h-2 w-3 rounded-sm inline-block bg-primary/35" />Target</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-3 rounded-sm inline-block bg-primary/70" />Achieved</span>
-        <span className="flex items-center gap-1.5"><span className="h-2 w-3 rounded-sm inline-block bg-primary/15" />Pipeline</span>
+      <div className="flex items-center gap-5 text-xs text-muted-foreground">
+        {LEGEND.map((item) => (
+          <span key={item.key} className="flex items-center gap-1.5">
+            <span
+              className="h-2.5 w-2.5 rounded-sm inline-block shrink-0"
+              style={{ background: `var(--color-${item.key})` }}
+            />
+            {item.label}
+          </span>
+        ))}
       </div>
     </CardContent>
   </Card>

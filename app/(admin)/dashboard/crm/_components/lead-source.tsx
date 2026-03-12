@@ -1,7 +1,12 @@
-import { CalendarCheck, PhoneCall } from "lucide-react"
+"use client"
+
+import { CalendarCheck } from "lucide-react"
+import { Cell, Pie, PieChart } from "recharts"
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -12,38 +17,10 @@ const LEAD_SOURCES = [
   { label: "Mail", value: 28, color: "#93c5fd" },
 ]
 
-// ─── Donut Chart ──────────────────────────────────────────────────────────────
-
-const DonutChart = () => {
-  const cx = 90, cy = 90, r = 70, innerR = 44
-  const total = LEAD_SOURCES.reduce((s, d) => s + d.value, 0)
-  let startAngle = -Math.PI / 2
-
-  const slices = LEAD_SOURCES.map((d) => {
-    const angle = (d.value / total) * 2 * Math.PI
-    const endAngle = startAngle + angle
-    const x1 = cx + r * Math.cos(startAngle)
-    const y1 = cy + r * Math.sin(startAngle)
-    const x2 = cx + r * Math.cos(endAngle)
-    const y2 = cy + r * Math.sin(endAngle)
-    const ix1 = cx + innerR * Math.cos(endAngle)
-    const iy1 = cy + innerR * Math.sin(endAngle)
-    const ix2 = cx + innerR * Math.cos(startAngle)
-    const iy2 = cy + innerR * Math.sin(startAngle)
-    const largeArc = angle > Math.PI ? 1 : 0
-    const path = `M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} L ${ix1} ${iy1} A ${innerR} ${innerR} 0 ${largeArc} 0 ${ix2} ${iy2} Z`
-    startAngle = endAngle
-    return { ...d, path }
-  })
-
-  return (
-    <svg viewBox="0 0 180 180" className="w-full max-w-[180px] mx-auto" aria-hidden>
-      {slices.map((s) => (
-        <path key={s.label} d={s.path} fill={s.color} />
-      ))}
-    </svg>
-  )
-}
+const chartConfig = LEAD_SOURCES.reduce<ChartConfig>((acc, src) => {
+  acc[src.label] = { label: src.label, color: src.color }
+  return acc
+}, {})
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -56,7 +33,26 @@ export const LeadSource = () => (
         </div>
       </CardHeader>
       <CardContent className="px-3 pb-3 space-y-4">
-        <DonutChart />
+        <ChartContainer config={chartConfig} className="mx-auto max-w-45 aspect-square">
+          <PieChart>
+            <ChartTooltip
+              content={<ChartTooltipContent nameKey="label" />}
+            />
+            <Pie
+              data={LEAD_SOURCES}
+              dataKey="value"
+              nameKey="label"
+              innerRadius="55%"
+              outerRadius="80%"
+              paddingAngle={2}
+            >
+              {LEAD_SOURCES.map((src) => (
+                <Cell key={src.label} fill={src.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ChartContainer>
+
         <div className="space-y-2">
           {LEAD_SOURCES.map((src) => (
             <div key={src.label} className="flex items-center justify-between text-sm">
@@ -65,7 +61,7 @@ export const LeadSource = () => (
                 <span className="text-muted-foreground">{src.label}</span>
               </div>
               <Badge variant="secondary" className="text-xs tabular-nums">
-                {src.value < 10 ? src.value : "100+"}
+                {src.value}
               </Badge>
             </div>
           ))}
@@ -87,25 +83,6 @@ export const LeadSource = () => (
           </div>
           <Badge variant="outline" className="text-xs cursor-pointer hover:bg-muted">
             Follow-up
-          </Badge>
-        </div>
-      </CardContent>
-    </Card>
-
-    <Card>
-      <CardContent className="px-4 py-4">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10">
-              <PhoneCall className="h-5 w-5 text-amber-500" />
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Scheduled Calls</p>
-              <p className="text-2xl font-bold tabular-nums">48</p>
-            </div>
-          </div>
-          <Badge variant="outline" className="text-xs cursor-pointer hover:bg-muted">
-            View
           </Badge>
         </div>
       </CardContent>

@@ -49,19 +49,18 @@ const DRAFTS: Draft[] = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export const DraftsList = () => (
-  <Card className="flex flex-col">
-    <CardHeader className="gap-0">
+  <Card className="flex flex-col gap-2">
+    <CardHeader className="gap-0 border-b">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <CardTitle>Drafts</CardTitle>
-          <Badge className="h-5 min-w-5 px-1.5 text-xs">{DRAFTS.length + 3}</Badge>
+          <Badge className="h-4.5 min-w-5 px-1.5 text-xs">{DRAFTS.length + 3}</Badge>
         </div>
-        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
+        <Button variant="ghost" size="icon" className="h-4.5 w-4.5 text-muted-foreground">
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </div>
     </CardHeader>
-    <Separator />
     <CardContent className="flex-1 px-3 pb-3 divide-y divide-border">
       {DRAFTS.map(draft => (
         <div key={draft.id} className="py-3 space-y-2">
@@ -89,7 +88,7 @@ export const DraftsList = () => (
         </div>
       ))}
     </CardContent>
-    <div className="px-3 pb-3 pt-0">
+    <div className="px-3 pt-0">
       <Button variant="ghost" className="w-full text-sm text-primary hover:text-primary" size="sm">
         View All →
       </Button>

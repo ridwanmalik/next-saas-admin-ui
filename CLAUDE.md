@@ -29,6 +29,7 @@ Next.js 16 App Router, Tailwind v4, shadcn/ui v4 (new-york), TypeScript strict, 
 
 ## Code style
 - Always use arrow functions (`const Foo = () =>`) — never `function` declarations
+- Use Tailwind v4 canonical classes — avoid arbitrary values when a scale equivalent exists (e.g. `max-w-45` not `max-w-[180px]`); if no equivalent exists, add the token to `@theme inline` in `app/globals.css`
 
 ## Page-level sub-components
 - Co-located inner components live in `app/(admin)/<page>/_components/`

@@ -3,7 +3,6 @@ import { Eye, Heart, MessageCircle, MoreHorizontal } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -64,12 +63,11 @@ const RECENT_POSTS: Post[] = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export const RecentBlogList = () => (
-  <Card>
-    <CardHeader className="gap-0">
+  <Card className="gap-3">
+    <CardHeader className="gap-0 border-b">
       <CardTitle>Recent Blog List</CardTitle>
     </CardHeader>
-    <Separator />
-    <CardContent className="px-3 pb-3 space-y-3">
+    <CardContent className="px-3 space-y-3">
       {RECENT_POSTS.map(post => (
         <div
           key={post.id}

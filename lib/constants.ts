@@ -17,7 +17,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Dashboard",
     items: [
       { icon: LayoutDashboard, title: "Default", href: "/dashboard" },
-      { icon: BarChart3, title: "Analytics", href: "/analytics" },
+      { icon: BarChart3, title: "Analytics", href: "/dashboard/analytics" },
       { icon: Users, title: "CRM", href: "/dashboard/crm" },
       { icon: FileText, title: "Blog", href: "/dashboard/blog" },
     ],
