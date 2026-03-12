@@ -18,6 +18,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
@@ -25,6 +26,7 @@ import { NAV_GROUPS, APP_NAME } from "@/lib/constants"
 
 export const AdminSidebar = () => {
   const pathname = usePathname()
+  const { state } = useSidebar()
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === href
@@ -114,11 +116,13 @@ export const AdminSidebar = () => {
         ))}
       </SidebarContent>
 
-      <SidebarFooter>
-        <div className="p-2 text-xs text-muted-foreground">
-          <span className="truncate">© 2026 {APP_NAME}</span>
-        </div>
-      </SidebarFooter>
+      {state === "expanded" && (
+        <SidebarFooter>
+          <div className="p-2 text-xs text-muted-foreground">
+            <span className="truncate">© 2026 {APP_NAME}</span>
+          </div>
+        </SidebarFooter>
+      )}
 
       <SidebarRail />
     </Sidebar>

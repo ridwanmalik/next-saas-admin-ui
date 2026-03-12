@@ -10,6 +10,7 @@ import {
   Blocks,
   Layers,
   KanbanSquare,
+  Sparkles,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -41,7 +42,7 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Developer",
+    label: "UI Elements",
     items: [
       {
         icon: Layers,
@@ -117,6 +118,13 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Toggle Group", href: "/components/toggle-group" },
           { title: "Tooltip", href: "/components/tooltip" },
           { title: "Typography", href: "/components/typography" },
+        ],
+      },
+      {
+        icon: Sparkles,
+        title: "Advanced",
+        children: [
+          { title: "Editor", href: "/advanced/editor" },
         ],
       },
     ],
