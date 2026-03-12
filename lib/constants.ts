@@ -9,6 +9,7 @@ import {
   Shield,
   Blocks,
   Layers,
+  KanbanSquare,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -26,6 +27,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Management",
     items: [
       { icon: Users, title: "Users", href: "/users", badge: "24" },
+      { icon: KanbanSquare, title: "Projects", href: "/projects" },
       { icon: FileText, title: "Reports", href: "/reports" },
       { icon: Bell, title: "Notifications", href: "/notifications" },
     ],

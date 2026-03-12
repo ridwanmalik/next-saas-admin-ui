@@ -10,9 +10,9 @@ export const AdminLayout = ({ children }: LayoutProps) => {
   return (
     <SidebarProvider>
       <AdminSidebar />
-      <SidebarInset>
+      <SidebarInset className="h-svh overflow-hidden">
         <Topbar />
-        <main className="flex flex-1 flex-col gap-4 p-4 md:p-6">
+        <main className="flex flex-1 flex-col gap-4 p-4 md:p-6 overflow-auto min-h-0">
           {children}
         </main>
       </SidebarInset>
