@@ -36,7 +36,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Account",
     items: [
-      { icon: CreditCard, title: "Billing", href: "/billing" },
+      { icon: CreditCard, title: "Pricing", href: "/pricing" },
       { icon: Shield, title: "Security", href: "/security" },
       { icon: Settings, title: "Settings", href: "/settings" },
     ],

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronRight, LayoutDashboard } from "lucide-react"
+import { ChevronRight, HardDrive, LayoutDashboard, Zap } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -114,12 +114,47 @@ export const AdminSidebar = () => {
             </SidebarMenu>
           </SidebarGroup>
         ))}
+
+        {/* Usage card */}
+        {state === "expanded" && (
+          <SidebarGroup>
+            <div className="rounded-xl border bg-muted/30 p-3 space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold">Storage</p>
+                <span className="text-xs text-muted-foreground">4.2 / 20 GB</span>
+              </div>
+              <div className="space-y-2">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                    <span className="flex items-center gap-1"><HardDrive className="h-3 w-3" />Files</span>
+                    <span>21%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                    <div className="h-full w-[21%] rounded-full bg-primary" />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                    <span className="flex items-center gap-1"><Zap className="h-3 w-3" />API calls</span>
+                    <span className="text-amber-500">81%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                    <div className="h-full w-[81%] rounded-full bg-amber-500" />
+                  </div>
+                </div>
+              </div>
+              <a href="/pricing" className="block w-full rounded-lg bg-primary/10 hover:bg-primary/15 transition-colors px-3 py-1.5 text-center text-[11px] font-medium text-primary">
+                Upgrade Plan
+              </a>
+            </div>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       {state === "expanded" && (
         <SidebarFooter>
-          <div className="p-2 text-xs text-muted-foreground">
-            <span className="truncate">© 2026 {APP_NAME}</span>
+          <div className="px-2 pb-1 text-xs text-muted-foreground">
+            © 2026 {APP_NAME}
           </div>
         </SidebarFooter>
       )}
