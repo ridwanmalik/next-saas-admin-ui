@@ -14,10 +14,12 @@ import type { NavGroup } from "@/types"
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: "Overview",
+    label: "Dashboard",
     items: [
-      { icon: LayoutDashboard, title: "Dashboard", href: "/dashboard" },
+      { icon: LayoutDashboard, title: "Default", href: "/dashboard" },
       { icon: BarChart3, title: "Analytics", href: "/analytics" },
+      { icon: Users, title: "CRM", href: "/dashboard/crm" },
+      { icon: FileText, title: "Blog", href: "/dashboard/blog" },
     ],
   },
   {

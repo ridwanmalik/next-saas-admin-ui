@@ -61,15 +61,15 @@ interface ActivityItem {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-// 52 weeks of weekly revenue (Jan 1 – Dec 28, 2025)
+// 52 weeks of weekly revenue (Jan 1 – Dec 28, 2025) — natural rise, rounded Jul–Aug peak, soft dip, recovery
 const WEEKLY_REVENUE = [
-  7400, 8100, 7200, 7900, 8600, 7800, 8400, 9100,  // Jan – Feb
-  8300, 9000, 9600, 8800, 9400, 10100, 9700, 10400, // Mar – Apr
-  11000, 10300, 10900, 11500, 10700, 11300, 11900, 11100, // May – Jun
-  11700, 12300, 11600, 12200, 12800, 12100, 12700, 13200, // Jul – Aug
-  12500, 13100, 13700, 12900, 13500, 14100, 13400, 14000, // Sep – Oct
-  14600, 13800, 14400, 14900, 14200, 15000, 14500, 15200, // Nov – Dec
-  14800, 15500, 14900, 15800,                              // late Dec
+  7400, 7580, 7830, 8060, 8340, 8620, 8880, 9120,  // Jan – Feb
+  9380, 9820, 10350, 10680, 10540, 10400, 10750, 11230, // Mar – Apr
+  11500, 11720, 12010, 12240, 12530, 12780, 13050, 13310, // May – Jun
+  13580, 13860, 14120, 14380, 14620, 14820, 14900, 14820, // Jul → rounded peak in Aug
+  14580, 14220, 13820, 13420, 13180, 13320, 13580, 13870, // Sep dip → Oct recovery
+  14180, 14530, 14860, 15180, 15420, 15680, 15890, 16080, // Nov – Dec
+  16250, 16420, 16560, 16700,                              // late Dec
 ]
 
 const MONTH_TICKS = [
@@ -171,9 +171,27 @@ const RevenueChart = () => {
   const range = maxDisplay - minDisplay
   const xPos = (i: number) => pL + (i / (n - 1)) * cW
   const yPos = (v: number) => pT + cH - ((v - minDisplay) / range) * cH
-  // Build points strings
-  const linePts = data.map((v, i) => `${xPos(i)},${yPos(v)}`).join(" ")
-  const areaPts = `${xPos(0)},${pT + cH} ${linePts} ${xPos(n - 1)},${pT + cH}`
+  // Build smooth bezier path (catmull-rom → cubic bezier)
+  const pts: [number, number][] = data.map((v, i) => [xPos(i), yPos(v)])
+  const smoothPath = (points: [number, number][]) => {
+    if (points.length < 2) return ""
+    let d = `M ${points[0][0]},${points[0][1]}`
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[Math.max(i - 1, 0)]
+      const p1 = points[i]
+      const p2 = points[i + 1]
+      const p3 = points[Math.min(i + 2, points.length - 1)]
+      const cp1x = p1[0] + (p2[0] - p0[0]) / 12
+      const cp1y = p1[1] + (p2[1] - p0[1]) / 12
+      const cp2x = p2[0] - (p3[0] - p1[0]) / 12
+      const cp2y = p2[1] - (p3[1] - p1[1]) / 12
+      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p2[0]},${p2[1]}`
+    }
+    return d
+  }
+  const linePath = smoothPath(pts)
+  const bottom = pT + cH
+  const areaPath = `M ${pts[0][0]},${bottom} L ${pts[0][0]},${pts[0][1]} ${linePath.replace(/^M [^C]*/, "")} L ${pts[n - 1][0]},${bottom} Z`
   const gridLines = [8000, 10000, 12000, 14000, 16000]
 
   return (
@@ -203,11 +221,11 @@ const RevenueChart = () => {
       })}
 
       {/* Area fill */}
-      <polygon points={areaPts} fill="url(#rev-fill)" />
+      <path d={areaPath} fill="url(#rev-fill)" />
 
       {/* Line */}
-      <polyline
-        points={linePts}
+      <path
+        d={linePath}
         fill="none"
         strokeWidth={1.75}
         strokeLinecap="round"
