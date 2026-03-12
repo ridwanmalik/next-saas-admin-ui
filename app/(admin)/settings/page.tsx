@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
+import { PageContainer } from "@/components/layout/page-container"
 
 // ─── Theme option card ─────────────────────────────────────────────────────
 
@@ -98,7 +99,7 @@ export default function SettingsPage() {
   const { colorTheme, setColorTheme } = useColorTheme()
 
   return (
-    <div className="space-y-8 max-w-2xl">
+    <PageContainer className="space-y-8">
 
       {/* ── Header ──────────────────────────────────────────────────── */}
       <div>
@@ -427,6 +428,6 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-    </div>
+    </PageContainer>
   )
 }

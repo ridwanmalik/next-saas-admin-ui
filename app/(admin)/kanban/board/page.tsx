@@ -6,12 +6,12 @@ import { KanbanBoard } from "./_components/kanban-board"
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const ProjectsPage = () => (
+const BoardPage = () => (
   <div className="flex flex-col gap-6">
     {/* Page header */}
     <div className="flex items-start justify-between gap-4 flex-wrap">
       <div>
-        <h1 className="text-xl font-bold">Projects</h1>
+        <h1 className="text-xl font-bold">Board</h1>
         <p className="text-sm text-muted-foreground mt-0.5">16 tasks across 4 stages</p>
       </div>
       <div className="flex items-center gap-2">
@@ -38,4 +38,4 @@ const ProjectsPage = () => (
   </div>
 )
 
-export default ProjectsPage
+export default BoardPage

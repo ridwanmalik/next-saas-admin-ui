@@ -1,15 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { PageContainer } from "@/components/layout/page-container"
 
 export default function SecurityPage() {
   return (
-    <div className="space-y-6">
+    <PageContainer>
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Security</h2>
         <p className="text-muted-foreground">Manage authentication and access settings.</p>
       </div>
-      <div className="grid gap-4 max-w-2xl">
+      <div className="grid gap-4">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -51,6 +52,6 @@ export default function SecurityPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </PageContainer>
   )
 }

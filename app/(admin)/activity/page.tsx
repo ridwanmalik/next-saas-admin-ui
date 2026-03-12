@@ -4,6 +4,7 @@ import {
   FileText, Bell, Download, Lock, Unlock, Zap,
 } from "lucide-react"
 import { ActivityTimeline, type TimelineItem } from "@/components/ui/activity-timeline"
+import { PageContainer } from "@/components/layout/page-container"
 
 const ACTIVITY_ITEMS: TimelineItem[] = [
   {
@@ -153,7 +154,7 @@ const ACTIVITY_ITEMS: TimelineItem[] = [
 ]
 
 const ActivityPage = () => (
-  <div className="max-w-2xl space-y-6">
+  <PageContainer>
     <div>
       <h2 className="text-2xl font-bold tracking-tight">Activity</h2>
       <p className="text-muted-foreground">A full log of account and system events.</p>
@@ -161,7 +162,7 @@ const ActivityPage = () => (
     <div className="rounded-xl border bg-card p-6">
       <ActivityTimeline items={ACTIVITY_ITEMS} />
     </div>
-  </div>
+  </PageContainer>
 )
 
 export default ActivityPage

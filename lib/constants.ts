@@ -40,7 +40,11 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Management",
     items: [
       { icon: Users, title: "Users", href: "/users", badge: "24" },
-      { icon: KanbanSquare, title: "Projects", href: "/projects" },
+      { icon: KanbanSquare, title: "Kanban", children: [
+        { title: "Board",   href: "/kanban/board"   },
+        { title: "Backlog", href: "/kanban/backlog"  },
+        { title: "List",    href: "/kanban/list"     },
+      ]},
       { icon: FileText, title: "Reports", href: "/reports" },
       { icon: Bell, title: "Notifications", href: "/notifications" },
     ],
