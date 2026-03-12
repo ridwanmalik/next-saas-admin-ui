@@ -1,4 +1,4 @@
-import { FileUploader } from "@/components/advanced/file-uploader"
+import { FileUploader } from "@/components/ui"
 
 const FileUploaderPage = () => (
   <div className="mx-auto w-full max-w-3xl space-y-10">

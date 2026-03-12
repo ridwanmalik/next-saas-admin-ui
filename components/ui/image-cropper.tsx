@@ -75,58 +75,51 @@ export const ImageCropper = ({ imageSrc, aspectRatio = 1, onSave, onCancel, clas
 
   return (
     <div className={cn("space-y-4", className)}>
-      <div className="grid gap-4 sm:grid-cols-2">
 
-        {/* Crop area */}
-        <div className="space-y-3">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Crop</p>
-          <div className="relative h-64 rounded-xl overflow-hidden border bg-muted">
-            <Cropper
-              image={imageSrc}
-              crop={crop}
-              zoom={zoom}
-              aspect={aspectRatio}
-              onCropChange={setCrop}
-              onZoomChange={setZoom}
-              onCropComplete={onCropComplete}
-            />
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"
-              onClick={() => setZoom(z => Math.max(1, z - 0.1))}>
-              <ZoomOut className="h-3.5 w-3.5" />
-            </Button>
-            <Slider min={1} max={3} step={0.01} value={[zoom]}
-              onValueChange={([v]) => setZoom(v)} className="flex-1" />
-            <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"
-              onClick={() => setZoom(z => Math.min(3, z + 0.1))}>
-              <ZoomIn className="h-3.5 w-3.5" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Preview */}
-        <div className="space-y-3">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Preview</p>
-          <div className="flex items-center justify-center rounded-xl border bg-muted h-64">
-            {preview ? (
-              <img
-                src={preview}
-                alt="Cropped preview"
-                className={cn(
-                  "object-cover shadow-md",
-                  aspectRatio === 1 ? "h-40 w-40 rounded-full" : "max-h-56 max-w-full rounded-lg",
-                )}
-              />
-            ) : (
-              <p className="text-xs text-muted-foreground">Click Preview to see result</p>
-            )}
-          </div>
-        </div>
+      {/* Crop area — large */}
+      <div className="relative h-130 rounded-xl overflow-hidden bg-muted">
+        <Cropper
+          image={imageSrc}
+          crop={crop}
+          zoom={zoom}
+          aspect={aspectRatio}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onCropComplete={onCropComplete}
+        />
       </div>
 
+      {/* Zoom slider */}
+      <div className="flex items-center gap-3">
+        <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"
+          onClick={() => setZoom(z => Math.max(1, z - 0.1))}>
+          <ZoomOut className="h-3.5 w-3.5" />
+        </Button>
+        <Slider min={1} max={3} step={0.01} value={[zoom]}
+          onValueChange={([v]) => setZoom(v)} className="flex-1" />
+        <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0"
+          onClick={() => setZoom(z => Math.min(3, z + 0.1))}>
+          <ZoomIn className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+
+      {/* Preview — small */}
+      {preview && (
+        <div className="flex items-center gap-3">
+          <p className="text-xs font-medium text-muted-foreground shrink-0">Preview</p>
+          <img
+            src={preview}
+            alt="Cropped preview"
+            className={cn(
+              "object-cover shadow-md",
+              aspectRatio === 1 ? "h-12 w-12 rounded-full" : "h-12 rounded-md",
+            )}
+          />
+        </div>
+      )}
+
       {/* Actions */}
-      <div className="flex items-center gap-2 pt-1">
+      <div className="flex items-center gap-2">
         <Button variant="outline" size="sm" onClick={handlePreview}>Preview</Button>
         <Button size="sm" onClick={handleSave} disabled={saving} className="gap-1.5">
           <Check className="h-3.5 w-3.5" />

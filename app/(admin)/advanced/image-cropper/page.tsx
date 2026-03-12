@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Upload } from "lucide-react"
-import { ImageCropper } from "@/components/advanced/image-cropper"
+import { ImageCropper } from "@/components/ui"
 import {
   Dialog,
   DialogContent,
@@ -79,7 +79,7 @@ const ImageCropperPage = () => {
         <p className="text-muted-foreground">Drop an image to crop, zoom, and preview before saving.</p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="space-y-10">
         <div className="space-y-3">
           <div>
             <h3 className="text-sm font-semibold">Avatar Crop</h3>
@@ -109,7 +109,7 @@ const ImageCropperPage = () => {
 
       {/* Cropper modal — opens automatically when an image is dropped */}
       <Dialog open={!!cropTarget} onOpenChange={v => !v && setCropTarget(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="sm:max-w-5xl">
           <DialogHeader>
             <DialogTitle>{cropTarget?.label}</DialogTitle>
             <DialogDescription>
