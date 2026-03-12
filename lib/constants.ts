@@ -10,6 +10,8 @@ import {
   Blocks,
   Layers,
   KanbanSquare,
+  MessageSquare,
+  Inbox,
   Sparkles,
   Activity,
   Shapes,
@@ -23,6 +25,7 @@ import {
   Clock,
   Wrench,
   AlertTriangle,
+  CalendarDays,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -49,6 +52,12 @@ export const NAV_GROUPS: NavGroup[] = [
         { title: "Board",   href: "/kanban/board"   },
         { title: "Backlog", href: "/kanban/backlog"  },
         { title: "List",    href: "/kanban/list"     },
+      ]},
+      { icon: MessageSquare, title: "Chat", href: "/chat" },
+      { icon: CalendarDays, title: "Calendar", href: "/calendar" },
+      { icon: Inbox, title: "Mail", children: [
+        { title: "Inbox", href: "/mail/inbox" },
+        { title: "List",  href: "/mail/list"  },
       ]},
       { icon: FileText, title: "Reports", href: "/reports" },
       { icon: Bell, title: "Notifications", href: "/notifications" },

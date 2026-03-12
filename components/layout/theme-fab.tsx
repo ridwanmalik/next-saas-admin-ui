@@ -15,7 +15,7 @@ export const ThemeFab = () => {
       <PopoverTrigger asChild>
         <Button
           size="icon"
-          className="fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full shadow-lg"
+          className="fixed bottom-16 right-8 z-50 h-12 w-12 rounded-full shadow-lg"
         >
           <Paintbrush className="h-5 w-5" />
         </Button>
