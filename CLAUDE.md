@@ -30,6 +30,12 @@ Next.js 16 App Router, Tailwind v4, shadcn/ui v4 (new-york), TypeScript strict, 
 ## Code style
 - Always use arrow functions (`const Foo = () =>`) — never `function` declarations
 
+## Page-level sub-components
+- Co-located inner components live in `app/(admin)/<page>/_components/`
+- Example: `app/(admin)/components/_components/MyChart.tsx`
+- Use this for components that are only used by one page (charts, cards, sections)
+- Shared across multiple pages → move to `components/ui/` instead
+
 ## Patterns
 - Filters → `<MultiSelectFilter>` passed to `toolbarFilters`
 - Table actions → `toolbarActions` (far right after Columns toggle)
