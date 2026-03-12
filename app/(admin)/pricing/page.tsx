@@ -1,4 +1,4 @@
-import { PlanCards } from "./_components/plan-cards"
+import { PlanCards } from "@/components/shared/plan-cards"
 
 const PricingPage = () => (
   <div className="space-y-8">

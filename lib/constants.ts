@@ -12,6 +12,17 @@ import {
   KanbanSquare,
   Sparkles,
   Activity,
+  Shapes,
+  BarChart2,
+  Loader2,
+  Code2,
+  Home,
+  Info,
+  Tag,
+  Mail,
+  Clock,
+  Wrench,
+  AlertTriangle,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -46,6 +57,9 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "UI Elements",
     items: [
+      { icon: Shapes,    title: "Icons",   href: "/icons"   },
+      { icon: BarChart2, title: "Charts",  href: "/charts"  },
+      { icon: Loader2,   title: "Loaders", href: "/loaders" },
       {
         icon: Layers,
         title: "Forms",
@@ -57,6 +71,19 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Profile", href: "/forms/profile" },
           { title: "Payment", href: "/forms/payment" },
           { title: "Multi Step", href: "/forms/multi-step" },
+          { title: "Validation", href: "/forms/validation" },
+        ],
+      },
+      {
+        icon: Code2,
+        title: "Basic",
+        children: [
+          { title: "Typography",  href: "/basic/typography"  },
+          { title: "Table",       href: "/basic/table"       },
+          { title: "List",        href: "/basic/list"        },
+          { title: "Colors",      href: "/basic/colors"      },
+          { title: "Blockquote",  href: "/basic/blockquote"  },
+          { title: "Images",      href: "/basic/images"      },
         ],
       },
       {
@@ -129,6 +156,26 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Editor",        href: "/advanced/editor"        },
           { title: "File Uploader", href: "/advanced/file-uploader" },
           { title: "Image Cropper", href: "/advanced/image-cropper" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Landing Pages",
+    items: [
+      { icon: Home,    title: "Home",         href: "/landing/home"         },
+      { icon: Info,    title: "About",        href: "/landing/about"        },
+      { icon: Tag,     title: "Pricing",      href: "/landing/pricing"      },
+      { icon: Mail,    title: "Contact",      href: "/landing/contact"      },
+      { icon: Clock,   title: "Coming Soon",  href: "/landing/coming-soon"  },
+      { icon: Wrench,        title: "Maintenance",  href: "/landing/maintenance"  },
+      {
+        icon: AlertTriangle,
+        title: "Error Pages",
+        children: [
+          { title: "404 — Not Found",    href: "/landing/error/404" },
+          { title: "500 — Server Error", href: "/landing/error/500" },
+          { title: "401 — Unauthorized", href: "/landing/error/401" },
         ],
       },
     ],
