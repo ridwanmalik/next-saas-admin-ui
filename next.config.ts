@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "avatar.vercel.sh" },
       { hostname: "github.com" },
+      { hostname: "i.pravatar.cc" },
+      { hostname: "images.unsplash.com" },
     ],
   },
 };

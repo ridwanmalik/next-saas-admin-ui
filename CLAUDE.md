@@ -51,6 +51,9 @@ Next.js 16 App Router, Tailwind v4, shadcn/ui v4 (new-york), TypeScript strict, 
 - Only `--primary --ring --sidebar-primary --sidebar-ring` change; backgrounds stay neutral
 - `html[data-color-theme="x"]` (0,1,1) beats `:root` (0,1,0)
 
+## Component gotchas
+- `Card` has `flex flex-col gap-6` by default — this gap sits between `CardHeader` and `CardContent`. Padding tweaks on those children won't fix it; override on the `Card` itself: `<Card className="gap-2">` or `gap-3` etc.
+
 ## Workarounds
 - Radix DropdownMenu typeahead: `e.stopPropagation()` on non-arrow keys inside any input in DropdownMenuContent
 - DropdownMenuContent focus on open: `open` state + `useEffect` + `setTimeout(() => ref.current?.focus(), 0)` (`onOpenAutoFocus` doesn't exist)
