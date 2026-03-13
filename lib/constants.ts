@@ -28,6 +28,8 @@ import {
   CalendarDays,
   ShoppingBag,
   Newspaper,
+  Receipt,
+  BookUser,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -55,6 +57,10 @@ export const NAV_GROUPS: NavGroup[] = [
         { title: "Backlog", href: "/kanban/backlog"  },
         { title: "List",    href: "/kanban/list"     },
       ]},
+      { icon: BookUser, title: "Contact", children: [
+        { title: "List", href: "/contact/list" },
+        { title: "Card", href: "/contact/card" },
+      ]},
       { icon: MessageSquare, title: "Chat", href: "/chat" },
       { icon: CalendarDays, title: "Calendar", href: "/calendar" },
       { icon: Inbox, title: "Mail", children: [
@@ -74,6 +80,21 @@ export const NAV_GROUPS: NavGroup[] = [
         { title: "Edit",         href: "/blog/edit"    },
         { title: "Blog List",    href: "/blog/list"    },
         { title: "Blog Details", href: "/blog/details" },
+      ]},
+      { icon: Receipt, title: "Invoice", children: [
+        { title: "Create",   href: "/invoice/create"  },
+        { title: "List",     href: "/invoice/list"    },
+        { title: "Edit",     href: "/invoice/edit"    },
+        { title: "Details",  href: "/invoice/details" },
+        { title: "Client",        href: "/invoice/client"        },
+        { title: "Client Create", href: "/invoice/client/create" },
+        { title: "Items",         href: "/invoice/items"          },
+        { title: "Add Item",      href: "/invoice/items/add-item" },
+        { title: "Payment", children: [
+          { title: "List",    href: "/invoice/payment"         },
+          { title: "Create",  href: "/invoice/payment/create"  },
+          { title: "Details", href: "/invoice/payment/details" },
+        ]},
       ]},
     ],
   },
