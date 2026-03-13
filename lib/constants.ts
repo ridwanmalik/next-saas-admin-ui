@@ -86,10 +86,14 @@ export const NAV_GROUPS: NavGroup[] = [
         { title: "List",     href: "/invoice/list"    },
         { title: "Edit",     href: "/invoice/edit"    },
         { title: "Details",  href: "/invoice/details" },
-        { title: "Client",        href: "/invoice/client"        },
-        { title: "Client Create", href: "/invoice/client/create" },
-        { title: "Items",         href: "/invoice/items"          },
-        { title: "Add Item",      href: "/invoice/items/add-item" },
+        { title: "Client", children: [
+          { title: "List",   href: "/invoice/client"        },
+          { title: "Create", href: "/invoice/client/create" },
+        ]},
+        { title: "Items", children: [
+          { title: "List",     href: "/invoice/items"          },
+          { title: "Add Item", href: "/invoice/items/add-item" },
+        ]},
         { title: "Payment", children: [
           { title: "List",    href: "/invoice/payment"         },
           { title: "Create",  href: "/invoice/payment/create"  },

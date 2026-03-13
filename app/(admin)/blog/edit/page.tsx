@@ -9,7 +9,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { RichEditor } from "@/components/ui/rich-editor"
 import { FileUploader } from "@/components/ui/file-uploader"
-import { ArrowLeft, Save, Send, X } from "lucide-react"
+import { ArrowLeft, ImageIcon, RotateCcw, Save, Send, X } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 const CATEGORIES = ["Tutorial", "Technology", "Design", "Business", "News"]
@@ -23,12 +24,22 @@ const EXISTING_POST = {
   metaTitle: "Getting Started with Next.js 16 App Router | Next SaaS Blog",
   metaDesc: "Learn how to build modern web applications using the Next.js 16 App Router, server components, and co-located data fetching.",
   slug: "getting-started-nextjs-16-app-router",
+  featuredImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
 }
 
 const EditPostPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(EXISTING_POST.category)
   const [tags, setTags] = useState(EXISTING_POST.tags)
   const [tagInput, setTagInput] = useState("")
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+
+  const handleImageUpload = (files: File[]) => {
+    if (files[0]) setPreviewUrl(URL.createObjectURL(files[0]))
+  }
+
+  const resetImage = () => setPreviewUrl(null)
+
+  const displayImage = previewUrl ?? EXISTING_POST.featuredImage
 
   const addTag = () => {
     const t = tagInput.trim()
@@ -82,14 +93,50 @@ const EditPostPage = () => {
           </Card>
 
           <Card className="gap-0">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-base">Featured Image</CardTitle>
+              {previewUrl && (
+                <button
+                  onClick={resetImage}
+                  className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <RotateCcw className="h-3 w-3" />
+                  Revert to saved
+                </button>
+              )}
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
+              {/* Preview area */}
+              <div className="relative w-full overflow-hidden rounded-lg border bg-muted/30 aspect-video">
+                {displayImage ? (
+                  <>
+                    <Image
+                      src={displayImage}
+                      alt="Featured image preview"
+                      fill
+                      className="object-cover"
+                      unoptimized={!!previewUrl}
+                    />
+                    {previewUrl && (
+                      <span className="absolute top-2 left-2 rounded-md bg-primary px-2 py-0.5 text-[11px] font-medium text-primary-foreground">
+                        New
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+                    <ImageIcon className="h-8 w-8" />
+                    <span className="text-sm">No image selected</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Uploader */}
               <FileUploader
                 accept={{ "image/*": [".png", ".jpg", ".jpeg", ".webp"] }}
                 maxFiles={1}
                 maxSize={5 * 1024 * 1024}
+                onUpload={handleImageUpload}
               />
             </CardContent>
           </Card>
