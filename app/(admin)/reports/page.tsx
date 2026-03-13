@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
+import { PageContainer } from "@/components/layout/page-container"
 
 const REPORTS = [
   { name: "Monthly Revenue Report", description: "Revenue breakdown by plan and region", date: "Feb 1, 2026", size: "245 KB" },
@@ -10,7 +11,7 @@ const REPORTS = [
 
 export default function ReportsPage() {
   return (
-    <div className="space-y-6">
+    <PageContainer><div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Reports</h2>
         <p className="text-muted-foreground">Download and review generated reports.</p>
@@ -36,6 +37,6 @@ export default function ReportsPage() {
           </Card>
         ))}
       </div>
-    </div>
+    </div></PageContainer>
   )
 }

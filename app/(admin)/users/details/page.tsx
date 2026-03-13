@@ -4,7 +4,7 @@ import {
   Clock, Monitor, Smartphone, MoreHorizontal, ShieldOff, Trash2,
 } from "lucide-react"
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -33,6 +33,7 @@ const USER = {
   joined:    "February 14, 2025",
   lastSeen:  "2 hours ago",
   sessions:  429,
+  avatar:    "https://i.pravatar.cc/128?img=7",
   initials:  "JO",
   avatarColor: "bg-amber-500",
 }
@@ -75,6 +76,7 @@ const UserDetailsPage = () => (
     <div className="flex items-start justify-between gap-4 flex-wrap">
       <div className="flex items-center gap-4">
         <Avatar className={cn("h-16 w-16", USER.avatarColor)}>
+          <AvatarImage src={USER.avatar} alt={USER.name} />
           <AvatarFallback className={cn("text-lg font-bold text-white", USER.avatarColor)}>
             {USER.initials}
           </AvatarFallback>

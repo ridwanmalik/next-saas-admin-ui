@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ClipboardCopy, Eye, MoreHorizontal, Pencil, ShieldOff, ShieldCheck, Trash2, UserPlus } from "lucide-react"
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DataTable, MultiSelectFilter, type DataTableColumn } from "@/components/ui/data-table"
@@ -27,6 +27,7 @@ type User = {
   id: string
   name: string
   email: string
+  avatar?: string
   plan: Plan
   status: Status
   role: Role
@@ -35,31 +36,31 @@ type User = {
 }
 
 const USERS: User[] = [
-  { id: "USR-001", name: "Alice Johnson",   email: "alice@acme.com",        plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 312, joined: "Jan 12, 2025" },
-  { id: "USR-002", name: "Marcus Rivera",   email: "marcus@startup.io",     plan: "Pro",        status: "Active",    role: "Member", sessions: 204, joined: "Jan 28, 2025" },
-  { id: "USR-003", name: "Priya Nair",      email: "priya@techcorp.com",    plan: "Pro",        status: "Active",    role: "Member", sessions: 178, joined: "Feb 3, 2025"  },
-  { id: "USR-004", name: "James Okonkwo",   email: "james@bigco.com",       plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 429, joined: "Feb 14, 2025" },
-  { id: "USR-005", name: "Sofia Chen",      email: "sofia@designlab.co",    plan: "Free",       status: "Active",    role: "Viewer", sessions: 44,  joined: "Feb 22, 2025" },
-  { id: "USR-006", name: "Liam Barrett",    email: "liam@agencyx.com",      plan: "Pro",        status: "Inactive",  role: "Member", sessions: 9,   joined: "Mar 5, 2025"  },
-  { id: "USR-007", name: "Amara Diallo",    email: "amara@ngocorp.org",     plan: "Pro",        status: "Active",    role: "Member", sessions: 156, joined: "Mar 18, 2025" },
-  { id: "USR-008", name: "Noah Williams",   email: "noah@freelance.dev",    plan: "Free",       status: "Active",    role: "Viewer", sessions: 28,  joined: "Mar 29, 2025" },
-  { id: "USR-009", name: "Elena Kim",       email: "elena@kstudio.co",      plan: "Pro",        status: "Active",    role: "Member", sessions: 93,  joined: "Apr 7, 2025"  },
-  { id: "USR-010", name: "David Park",      email: "david@fintech.io",      plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 381, joined: "Apr 11, 2025" },
-  { id: "USR-011", name: "Isabel Torres",   email: "isabel@mediahouse.com", plan: "Pro",        status: "Suspended", role: "Member", sessions: 2,   joined: "Apr 20, 2025" },
-  { id: "USR-012", name: "Ryan Murphy",     email: "ryan@cloudbase.io",     plan: "Free",       status: "Active",    role: "Viewer", sessions: 61,  joined: "May 1, 2025"  },
-  { id: "USR-013", name: "Fatima Al-Amin",  email: "fatima@growthco.com",   plan: "Enterprise", status: "Active",    role: "Member", sessions: 247, joined: "May 9, 2025"  },
-  { id: "USR-014", name: "Tom Henriksen",   email: "tom@norddata.no",       plan: "Pro",        status: "Active",    role: "Member", sessions: 118, joined: "May 17, 2025" },
-  { id: "USR-015", name: "Layla Hassan",    email: "layla@consult.ae",      plan: "Pro",        status: "Inactive",  role: "Viewer", sessions: 7,   joined: "May 24, 2025" },
-  { id: "USR-016", name: "Chris Watkins",   email: "chris@saasbuilder.io",  plan: "Free",       status: "Active",    role: "Viewer", sessions: 35,  joined: "Jun 2, 2025"  },
-  { id: "USR-017", name: "Mei Lin",         email: "mei@techventures.cn",   plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 502, joined: "Jun 10, 2025" },
-  { id: "USR-018", name: "Samuel Osei",     email: "samuel@accratech.gh",   plan: "Free",       status: "Active",    role: "Viewer", sessions: 19,  joined: "Jun 21, 2025" },
-  { id: "USR-019", name: "Hannah Brooks",   email: "hannah@remotework.co",  plan: "Pro",        status: "Active",    role: "Member", sessions: 143, joined: "Jul 3, 2025"  },
-  { id: "USR-020", name: "Omar Shaikh",     email: "omar@launchpad.pk",     plan: "Pro",        status: "Suspended", role: "Member", sessions: 0,   joined: "Jul 14, 2025" },
-  { id: "USR-021", name: "Chloe Dupont",    email: "chloe@parisdev.fr",     plan: "Free",       status: "Active",    role: "Viewer", sessions: 52,  joined: "Jul 22, 2025" },
-  { id: "USR-022", name: "Arjun Mehta",     email: "arjun@productify.in",   plan: "Enterprise", status: "Active",    role: "Member", sessions: 291, joined: "Aug 5, 2025"  },
-  { id: "USR-023", name: "Zara O'Brien",    email: "zara@dublinstudio.ie",  plan: "Pro",        status: "Active",    role: "Member", sessions: 87,  joined: "Aug 19, 2025" },
-  { id: "USR-024", name: "Lucas Ferreira",  email: "lucas@devhouse.br",     plan: "Free",       status: "Inactive",  role: "Viewer", sessions: 4,   joined: "Sep 1, 2025"  },
-  { id: "USR-025", name: "Nadia Petrov",    email: "nadia@techlab.ru",      plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 334, joined: "Sep 15, 2025" },
+  { id: "USR-001", name: "Alice Johnson",   email: "alice@acme.com",        avatar: "https://i.pravatar.cc/128?img=1",  plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 312, joined: "Jan 12, 2025" },
+  { id: "USR-002", name: "Marcus Rivera",   email: "marcus@startup.io",     avatar: "https://i.pravatar.cc/128?img=3",  plan: "Pro",        status: "Active",    role: "Member", sessions: 204, joined: "Jan 28, 2025" },
+  { id: "USR-003", name: "Priya Nair",      email: "priya@techcorp.com",    avatar: "https://i.pravatar.cc/128?img=5",  plan: "Pro",        status: "Active",    role: "Member", sessions: 178, joined: "Feb 3, 2025"  },
+  { id: "USR-004", name: "James Okonkwo",   email: "james@bigco.com",       avatar: "https://i.pravatar.cc/128?img=7",  plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 429, joined: "Feb 14, 2025" },
+  { id: "USR-005", name: "Sofia Chen",      email: "sofia@designlab.co",    avatar: "https://i.pravatar.cc/128?img=9",  plan: "Free",       status: "Active",    role: "Viewer", sessions: 44,  joined: "Feb 22, 2025" },
+  { id: "USR-006", name: "Liam Barrett",    email: "liam@agencyx.com",                                                 plan: "Pro",        status: "Inactive",  role: "Member", sessions: 9,   joined: "Mar 5, 2025"  },
+  { id: "USR-007", name: "Amara Diallo",    email: "amara@ngocorp.org",     avatar: "https://i.pravatar.cc/128?img=11", plan: "Pro",        status: "Active",    role: "Member", sessions: 156, joined: "Mar 18, 2025" },
+  { id: "USR-008", name: "Noah Williams",   email: "noah@freelance.dev",    avatar: "https://i.pravatar.cc/128?img=13", plan: "Free",       status: "Active",    role: "Viewer", sessions: 28,  joined: "Mar 29, 2025" },
+  { id: "USR-009", name: "Elena Kim",       email: "elena@kstudio.co",      avatar: "https://i.pravatar.cc/128?img=15", plan: "Pro",        status: "Active",    role: "Member", sessions: 93,  joined: "Apr 7, 2025"  },
+  { id: "USR-010", name: "David Park",      email: "david@fintech.io",      avatar: "https://i.pravatar.cc/128?img=17", plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 381, joined: "Apr 11, 2025" },
+  { id: "USR-011", name: "Isabel Torres",   email: "isabel@mediahouse.com", avatar: "https://i.pravatar.cc/128?img=19", plan: "Pro",        status: "Suspended", role: "Member", sessions: 2,   joined: "Apr 20, 2025" },
+  { id: "USR-012", name: "Ryan Murphy",     email: "ryan@cloudbase.io",                                                plan: "Free",       status: "Active",    role: "Viewer", sessions: 61,  joined: "May 1, 2025"  },
+  { id: "USR-013", name: "Fatima Al-Amin",  email: "fatima@growthco.com",   avatar: "https://i.pravatar.cc/128?img=21", plan: "Enterprise", status: "Active",    role: "Member", sessions: 247, joined: "May 9, 2025"  },
+  { id: "USR-014", name: "Tom Henriksen",   email: "tom@norddata.no",       avatar: "https://i.pravatar.cc/128?img=23", plan: "Pro",        status: "Active",    role: "Member", sessions: 118, joined: "May 17, 2025" },
+  { id: "USR-015", name: "Layla Hassan",    email: "layla@consult.ae",      avatar: "https://i.pravatar.cc/128?img=25", plan: "Pro",        status: "Inactive",  role: "Viewer", sessions: 7,   joined: "May 24, 2025" },
+  { id: "USR-016", name: "Chris Watkins",   email: "chris@saasbuilder.io",                                             plan: "Free",       status: "Active",    role: "Viewer", sessions: 35,  joined: "Jun 2, 2025"  },
+  { id: "USR-017", name: "Mei Lin",         email: "mei@techventures.cn",   avatar: "https://i.pravatar.cc/128?img=27", plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 502, joined: "Jun 10, 2025" },
+  { id: "USR-018", name: "Samuel Osei",     email: "samuel@accratech.gh",   avatar: "https://i.pravatar.cc/128?img=29", plan: "Free",       status: "Active",    role: "Viewer", sessions: 19,  joined: "Jun 21, 2025" },
+  { id: "USR-019", name: "Hannah Brooks",   email: "hannah@remotework.co",  avatar: "https://i.pravatar.cc/128?img=31", plan: "Pro",        status: "Active",    role: "Member", sessions: 143, joined: "Jul 3, 2025"  },
+  { id: "USR-020", name: "Omar Shaikh",     email: "omar@launchpad.pk",     avatar: "https://i.pravatar.cc/128?img=33", plan: "Pro",        status: "Suspended", role: "Member", sessions: 0,   joined: "Jul 14, 2025" },
+  { id: "USR-021", name: "Chloe Dupont",    email: "chloe@parisdev.fr",                                                plan: "Free",       status: "Active",    role: "Viewer", sessions: 52,  joined: "Jul 22, 2025" },
+  { id: "USR-022", name: "Arjun Mehta",     email: "arjun@productify.in",   avatar: "https://i.pravatar.cc/128?img=35", plan: "Enterprise", status: "Active",    role: "Member", sessions: 291, joined: "Aug 5, 2025"  },
+  { id: "USR-023", name: "Zara O'Brien",    email: "zara@dublinstudio.ie",  avatar: "https://i.pravatar.cc/128?img=37", plan: "Pro",        status: "Active",    role: "Member", sessions: 87,  joined: "Aug 19, 2025" },
+  { id: "USR-024", name: "Lucas Ferreira",  email: "lucas@devhouse.br",                                                plan: "Free",       status: "Inactive",  role: "Viewer", sessions: 4,   joined: "Sep 1, 2025"  },
+  { id: "USR-025", name: "Nadia Petrov",    email: "nadia@techlab.ru",      avatar: "https://i.pravatar.cc/128?img=39", plan: "Enterprise", status: "Active",    role: "Admin",  sessions: 334, joined: "Sep 15, 2025" },
 ]
 
 // ─── Style maps ───────────────────────────────────────────────────────────────
@@ -169,8 +170,9 @@ const columns: DataTableColumn<User>[] = [
     hideable: false,
     render: row => (
       <div className="flex items-center gap-3">
-        <Avatar className="h-7 w-7 shrink-0">
-          <AvatarFallback className="text-[10px] font-semibold">{initials(row.name)}</AvatarFallback>
+        <Avatar className="h-9 w-9 shrink-0">
+          <AvatarImage src={row.avatar} alt={row.name} />
+          <AvatarFallback className="text-xs font-semibold">{initials(row.name)}</AvatarFallback>
         </Avatar>
         <div className="min-w-0">
           <p className="font-medium leading-none truncate">{row.name}</p>

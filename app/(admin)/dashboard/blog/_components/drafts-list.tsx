@@ -3,6 +3,7 @@ import { MoreHorizontal, PenLine } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
@@ -44,6 +45,14 @@ const DRAFTS: Draft[] = [
     excerpt: "Building Scalable APIs With Next.js Route Handlers and middleware",
     updatedAt: "Last update June 20, 2025",
   },
+  {
+    id: 4,
+    tag: "Design",
+    tagColor: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
+    title: "Design Tokens & Theming Strategies for SaaS Products",
+    excerpt: "How to build a scalable design token system with CSS variables and Tailwind",
+    updatedAt: "Last update July 8, 2025",
+  },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -56,9 +65,18 @@ export const DraftsList = () => (
           <CardTitle>Drafts</CardTitle>
           <Badge className="h-4.5 min-w-5 px-1.5 text-xs">{DRAFTS.length + 3}</Badge>
         </div>
-        <Button variant="ghost" size="icon" className="h-4.5 w-4.5 text-muted-foreground">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-4.5 w-4.5 text-muted-foreground">
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>Today</DropdownMenuItem>
+            <DropdownMenuItem>This Month</DropdownMenuItem>
+            <DropdownMenuItem>This Year</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </CardHeader>
     <CardContent className="flex-1 px-3 pb-3 divide-y divide-border">

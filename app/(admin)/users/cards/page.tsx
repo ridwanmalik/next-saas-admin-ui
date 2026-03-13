@@ -1,6 +1,6 @@
 import { MoreHorizontal, Mail, Activity } from "lucide-react"
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -23,6 +23,7 @@ type User = {
   id: string
   name: string
   email: string
+  avatar?: string
   role: Role
   plan: Plan
   status: Status
@@ -33,18 +34,18 @@ type User = {
 }
 
 const USERS: User[] = [
-  { id: "USR-001", name: "Alice Johnson",  email: "alice@acme.com",        role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 312, joined: "Jan 2025",  initials: "AJ", avatarColor: "bg-violet-500"  },
-  { id: "USR-002", name: "Marcus Rivera",  email: "marcus@startup.io",     role: "Member", plan: "Pro",        status: "Active",    sessions: 204, joined: "Jan 2025",  initials: "MR", avatarColor: "bg-blue-500"    },
-  { id: "USR-003", name: "Priya Nair",     email: "priya@techcorp.com",    role: "Member", plan: "Pro",        status: "Active",    sessions: 178, joined: "Feb 2025",  initials: "PN", avatarColor: "bg-emerald-500" },
-  { id: "USR-004", name: "James Okonkwo",  email: "james@bigco.com",       role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 429, joined: "Feb 2025",  initials: "JO", avatarColor: "bg-amber-500"   },
-  { id: "USR-005", name: "Sofia Chen",     email: "sofia@designlab.co",    role: "Viewer", plan: "Free",       status: "Active",    sessions: 44,  joined: "Feb 2025",  initials: "SC", avatarColor: "bg-pink-500"    },
-  { id: "USR-006", name: "Liam Barrett",   email: "liam@agencyx.com",      role: "Member", plan: "Pro",        status: "Inactive",  sessions: 9,   joined: "Mar 2025",  initials: "LB", avatarColor: "bg-slate-500"   },
-  { id: "USR-007", name: "Amara Diallo",   email: "amara@ngocorp.org",     role: "Member", plan: "Pro",        status: "Active",    sessions: 156, joined: "Mar 2025",  initials: "AD", avatarColor: "bg-teal-500"    },
-  { id: "USR-008", name: "Noah Williams",  email: "noah@freelance.dev",    role: "Viewer", plan: "Free",       status: "Active",    sessions: 28,  joined: "Mar 2025",  initials: "NW", avatarColor: "bg-orange-500"  },
-  { id: "USR-009", name: "Elena Kim",      email: "elena@kstudio.co",      role: "Member", plan: "Pro",        status: "Active",    sessions: 93,  joined: "Apr 2025",  initials: "EK", avatarColor: "bg-cyan-500"    },
-  { id: "USR-010", name: "David Park",     email: "david@fintech.io",      role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 381, joined: "Apr 2025",  initials: "DP", avatarColor: "bg-indigo-500"  },
-  { id: "USR-011", name: "Isabel Torres",  email: "isabel@mediahouse.com", role: "Member", plan: "Pro",        status: "Suspended", sessions: 2,   joined: "Apr 2025",  initials: "IT", avatarColor: "bg-rose-500"    },
-  { id: "USR-012", name: "Ryan Murphy",    email: "ryan@cloudbase.io",     role: "Viewer", plan: "Free",       status: "Active",    sessions: 61,  joined: "May 2025",  initials: "RM", avatarColor: "bg-lime-600"    },
+  { id: "USR-001", name: "Alice Johnson",  email: "alice@acme.com",        avatar: "https://i.pravatar.cc/128?img=1",  role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 312, joined: "Jan 2025",  initials: "AJ", avatarColor: "bg-violet-500"  },
+  { id: "USR-002", name: "Marcus Rivera",  email: "marcus@startup.io",     avatar: "https://i.pravatar.cc/128?img=3",  role: "Member", plan: "Pro",        status: "Active",    sessions: 204, joined: "Jan 2025",  initials: "MR", avatarColor: "bg-blue-500"    },
+  { id: "USR-003", name: "Priya Nair",     email: "priya@techcorp.com",    avatar: "https://i.pravatar.cc/128?img=5",  role: "Member", plan: "Pro",        status: "Active",    sessions: 178, joined: "Feb 2025",  initials: "PN", avatarColor: "bg-emerald-500" },
+  { id: "USR-004", name: "James Okonkwo",  email: "james@bigco.com",       avatar: "https://i.pravatar.cc/128?img=7",  role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 429, joined: "Feb 2025",  initials: "JO", avatarColor: "bg-amber-500"   },
+  { id: "USR-005", name: "Sofia Chen",     email: "sofia@designlab.co",    avatar: "https://i.pravatar.cc/128?img=9",  role: "Viewer", plan: "Free",       status: "Active",    sessions: 44,  joined: "Feb 2025",  initials: "SC", avatarColor: "bg-pink-500"    },
+  { id: "USR-006", name: "Liam Barrett",   email: "liam@agencyx.com",                                                 role: "Member", plan: "Pro",        status: "Inactive",  sessions: 9,   joined: "Mar 2025",  initials: "LB", avatarColor: "bg-slate-500"   },
+  { id: "USR-007", name: "Amara Diallo",   email: "amara@ngocorp.org",     avatar: "https://i.pravatar.cc/128?img=11", role: "Member", plan: "Pro",        status: "Active",    sessions: 156, joined: "Mar 2025",  initials: "AD", avatarColor: "bg-teal-500"    },
+  { id: "USR-008", name: "Noah Williams",  email: "noah@freelance.dev",    avatar: "https://i.pravatar.cc/128?img=13", role: "Viewer", plan: "Free",       status: "Active",    sessions: 28,  joined: "Mar 2025",  initials: "NW", avatarColor: "bg-orange-500"  },
+  { id: "USR-009", name: "Elena Kim",      email: "elena@kstudio.co",      avatar: "https://i.pravatar.cc/128?img=15", role: "Member", plan: "Pro",        status: "Active",    sessions: 93,  joined: "Apr 2025",  initials: "EK", avatarColor: "bg-cyan-500"    },
+  { id: "USR-010", name: "David Park",     email: "david@fintech.io",      avatar: "https://i.pravatar.cc/128?img=17", role: "Admin",  plan: "Enterprise", status: "Active",    sessions: 381, joined: "Apr 2025",  initials: "DP", avatarColor: "bg-indigo-500"  },
+  { id: "USR-011", name: "Isabel Torres",  email: "isabel@mediahouse.com", avatar: "https://i.pravatar.cc/128?img=19", role: "Member", plan: "Pro",        status: "Suspended", sessions: 2,   joined: "Apr 2025",  initials: "IT", avatarColor: "bg-rose-500"    },
+  { id: "USR-012", name: "Ryan Murphy",    email: "ryan@cloudbase.io",                                                role: "Viewer", plan: "Free",       status: "Active",    sessions: 61,  joined: "May 2025",  initials: "RM", avatarColor: "bg-lime-600"    },
 ]
 
 // ─── Style maps ───────────────────────────────────────────────────────────────
@@ -97,6 +98,7 @@ const UserCard = ({ user }: { user: User }) => (
       <div className="flex flex-col items-center text-center gap-3">
         <div className="relative">
           <Avatar className={cn("h-14 w-14", user.avatarColor)}>
+            <AvatarImage src={user.avatar} alt={user.name} />
             <AvatarFallback className={cn("text-sm font-semibold text-white", user.avatarColor)}>
               {user.initials}
             </AvatarFallback>

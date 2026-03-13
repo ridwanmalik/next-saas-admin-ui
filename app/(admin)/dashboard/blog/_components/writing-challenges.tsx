@@ -3,6 +3,7 @@ import { MoreHorizontal, Users } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -43,9 +44,18 @@ export const WritingChallenges = () => (
     <CardHeader className="gap-0 border-b">
       <div className="flex items-center justify-between">
         <CardTitle>Writing Challenges</CardTitle>
-        <Button variant="ghost" size="icon" className="h-4.5 w-4.5 text-muted-foreground">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-4.5 w-4.5 text-muted-foreground">
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>Today</DropdownMenuItem>
+            <DropdownMenuItem>This Month</DropdownMenuItem>
+            <DropdownMenuItem>This Year</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </CardHeader>
     <CardContent className="flex-1 px-3 pb-3 divide-y divide-border">

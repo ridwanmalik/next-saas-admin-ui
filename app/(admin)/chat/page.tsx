@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Send, Search, Phone, Video, MoreHorizontal, Paperclip, Smile, Check, CheckCheck } from "lucide-react"
+import { Bell, BellOff, Check, CheckCheck, MessageSquareX, MoreHorizontal, Paperclip, Phone, Search, Send, Smile, Trash2, UserRound, Video } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
@@ -578,9 +579,36 @@ const ChatPage = () => {
             <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
               <Video className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem className="gap-2">
+                  <UserRound className="h-4 w-4" />
+                  View Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem className="gap-2">
+                  <Search className="h-4 w-4" />
+                  Search in Chat
+                </DropdownMenuItem>
+                <DropdownMenuItem className="gap-2">
+                  <BellOff className="h-4 w-4" />
+                  Mute Notifications
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="gap-2">
+                  <Trash2 className="h-4 w-4" />
+                  Clear Chat
+                </DropdownMenuItem>
+                <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive">
+                  <MessageSquareX className="h-4 w-4" />
+                  Block Contact
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
