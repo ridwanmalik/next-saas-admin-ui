@@ -30,7 +30,7 @@ export default function RootLayout({
         {/* Apply stored color theme before first paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('color-theme');if(t&&t!=='zinc')document.documentElement.setAttribute('data-color-theme',t)}catch(e){}})()`,
+            __html: `(function(){try{var e=document.documentElement;var ct=localStorage.getItem('color-theme');if(ct&&ct!=='zinc')e.setAttribute('data-color-theme',ct);var st=localStorage.getItem('surface-theme');if(st&&st!=='default')e.setAttribute('data-surface-theme',st)}catch(e){}})()`,
           }}
         />
       </head>

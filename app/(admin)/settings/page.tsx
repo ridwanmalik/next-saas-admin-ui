@@ -4,8 +4,8 @@ import { useState } from "react"
 import { useTheme } from "next-themes"
 import { Camera, Check, Mail, Monitor, Moon, Sun, AlertTriangle } from "lucide-react"
 
-import { useColorTheme } from "@/hooks"
-import { COLOR_THEMES } from "@/lib/themes"
+import { useColorTheme, useSurfaceTheme } from "@/hooks"
+import { COLOR_THEMES, SURFACE_THEMES } from "@/lib/themes"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -96,7 +96,8 @@ function NotificationRow({
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
-  const { colorTheme, setColorTheme } = useColorTheme()
+  const { colorTheme,   setColorTheme   } = useColorTheme()
+  const { surfaceTheme, setSurfaceTheme } = useSurfaceTheme()
 
   return (
     <PageContainer className="space-y-8">
@@ -261,6 +262,49 @@ export default function SettingsPage() {
                           : "ring-1 ring-border hover:ring-foreground/40",
                       )}
                       style={{ backgroundColor: t.swatch }}
+                    >
+                      {isActive && <Check className="h-4 w-4 text-white drop-shadow-sm" />}
+                    </span>
+                    <span className={cn(
+                      "text-[11px] transition-colors",
+                      isActive ? "text-foreground font-medium" : "text-muted-foreground group-hover:text-foreground",
+                    )}>
+                      {t.label}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <Separator />
+
+          {/* Surface theme picker */}
+          <div className="space-y-3">
+            <div>
+              <Label>Surface</Label>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Changes the sidebar and background tone across the whole panel.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {SURFACE_THEMES.map(t => {
+                const isActive = surfaceTheme === t.id
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => setSurfaceTheme(t.id)}
+                    title={t.label}
+                    className="group flex flex-col items-center gap-1.5"
+                  >
+                    <span
+                      className={cn(
+                        "flex h-9 w-9 items-center justify-center rounded-full transition-all ring-offset-2 ring-offset-background",
+                        isActive
+                          ? "ring-2 ring-foreground"
+                          : "ring-1 ring-border hover:ring-foreground/40",
+                      )}
+                      style={{ backgroundColor: t.sidebarColor }}
                     >
                       {isActive && <Check className="h-4 w-4 text-white drop-shadow-sm" />}
                     </span>
