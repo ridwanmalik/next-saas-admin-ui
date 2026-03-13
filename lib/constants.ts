@@ -75,7 +75,10 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "UI Elements",
     items: [
-      { icon: Shapes,    title: "Icons",   href: "/icons"   },
+      { icon: Shapes, title: "Icons", children: [
+        { title: "Default", href: "/icons/default" },
+        { title: "Brands", href: "/icons/brands" },
+      ]},
       { icon: BarChart2, title: "Charts",  href: "/charts"  },
       { icon: Loader2,   title: "Loaders", href: "/loaders" },
       {
