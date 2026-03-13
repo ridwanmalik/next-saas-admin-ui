@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { hostname: "github.com" },
       { hostname: "i.pravatar.cc" },
       { hostname: "images.unsplash.com" },
+      { hostname: "picsum.photos" },
     ],
   },
 };

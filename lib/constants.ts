@@ -26,6 +26,8 @@ import {
   Wrench,
   AlertTriangle,
   CalendarDays,
+  ShoppingBag,
+  Newspaper,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -61,6 +63,18 @@ export const NAV_GROUPS: NavGroup[] = [
       ]},
       { icon: FileText, title: "Reports", href: "/reports" },
       { icon: Bell, title: "Notifications", href: "/notifications" },
+      { icon: ShoppingBag, title: "E-Commerce", children: [
+        { title: "Products",        href: "/ecommerce/products"        },
+        { title: "Product Details", href: "/ecommerce/product-details" },
+        { title: "Product List",    href: "/ecommerce/product-list"    },
+        { title: "Checkout",        href: "/ecommerce/checkout"        },
+      ]},
+      { icon: Newspaper, title: "Blog", children: [
+        { title: "Add New",      href: "/blog/new"     },
+        { title: "Edit",         href: "/blog/edit"    },
+        { title: "Blog List",    href: "/blog/list"    },
+        { title: "Blog Details", href: "/blog/details" },
+      ]},
     ],
   },
   {
