@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { Camera, Check, Mail, Monitor, Moon, Sun, AlertTriangle } from "lucide-react"
 
@@ -95,6 +95,9 @@ function NotificationRow({
 // ─── Page ──────────────────────────────────────────────────────────────────
 
 export default function SettingsPage() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
   const { theme, setTheme } = useTheme()
   const { colorTheme,   setColorTheme   } = useColorTheme()
   const { surfaceTheme, setSurfaceTheme } = useSurfaceTheme()
@@ -210,7 +213,7 @@ export default function SettingsPage() {
             <div className="grid grid-cols-3 gap-3">
               {THEME_OPTIONS.map(opt => {
                 const Icon = opt.icon
-                const isActive = theme === opt.value
+                const isActive = mounted && theme === opt.value
                 return (
                   <button
                     key={opt.value}

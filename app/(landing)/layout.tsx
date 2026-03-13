@@ -9,7 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import dynamic from "next/dynamic"
 import { APP_NAME } from "@/lib/constants"
+
+const ThemeFab = dynamic(() => import("@/components/layout/theme-fab").then(m => m.ThemeFab), { ssr: false })
+const LandingNavControls = dynamic(() => import("@/components/layout/landing-nav-controls").then(m => m.LandingNavControls), { ssr: false })
 
 const NAV_LINKS = [
   { title: "Home",    href: "/landing/home"    },
@@ -93,9 +97,10 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
             </DropdownMenu>
           </nav>
 
-          {/* Back to dashboard */}
-          <div className="ml-auto">
-            <Button asChild variant="outline" size="sm" className="gap-2">
+          {/* Right controls */}
+          <div className="ml-auto flex items-center gap-1">
+            <LandingNavControls />
+            <Button asChild variant="outline" size="sm" className="gap-2 ml-1">
               <Link href="/dashboard">
                 <LayoutDashboard className="h-3.5 w-3.5" />
                 Dashboard
@@ -109,6 +114,8 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
       <main className="flex-1 px-4 py-6">
         {children}
       </main>
+
+      <ThemeFab />
 
       {/* Footer */}
       <footer className="border-t py-6 px-4">

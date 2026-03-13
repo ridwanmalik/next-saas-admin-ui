@@ -29,8 +29,6 @@ export const COLOR_THEMES: ThemeConfig[] = [
 // They use data-surface-theme on <html> and work independently of dark/light mode.
 // ──────────────────────────────────────────────────────────────────────────────
 
-export type SurfaceTheme = "default" | "slate" | "stone" | "forest" | "rose"
-
 export interface SurfaceThemeConfig {
   id: SurfaceTheme
   label: string
@@ -39,6 +37,11 @@ export interface SurfaceThemeConfig {
   /** Page/content background color */
   bgColor: string
 }
+
+export type SurfaceTheme =
+  | "default"
+  | "slate" | "stone" | "forest" | "rose"
+  | "ocean" | "violet" | "amber" | "teal" | "purple" | "indigo" | "navy"
 
 export const SURFACE_THEMES: SurfaceThemeConfig[] = [
   {
@@ -54,10 +57,28 @@ export const SURFACE_THEMES: SurfaceThemeConfig[] = [
     bgColor:      "oklch(0.956 0.010 243)",
   },
   {
+    id: "ocean",
+    label: "Ocean",
+    sidebarColor: "oklch(0.30 0.16 232)",
+    bgColor:      "oklch(0.954 0.018 232)",
+  },
+  {
+    id: "violet",
+    label: "Violet",
+    sidebarColor: "oklch(0.28 0.20 288)",
+    bgColor:      "oklch(0.954 0.018 285)",
+  },
+  {
     id: "stone",
-    label: "Stone",
-    sidebarColor: "oklch(0.232 0.030 55)",
-    bgColor:      "oklch(0.957 0.010 68)",
+    label: "Green",
+    sidebarColor: "#0e4a1f",
+    bgColor:      "oklch(0.956 0.014 148)",
+  },
+  {
+    id: "amber",
+    label: "Amber",
+    sidebarColor: "oklch(0.38 0.16 50)",
+    bgColor:      "oklch(0.955 0.018 48)",
   },
   {
     id: "forest",
@@ -66,9 +87,33 @@ export const SURFACE_THEMES: SurfaceThemeConfig[] = [
     bgColor:      "oklch(0.957 0.012 152)",
   },
   {
+    id: "teal",
+    label: "Teal",
+    sidebarColor: "oklch(0.30 0.16 192)",
+    bgColor:      "oklch(0.954 0.018 192)",
+  },
+  {
     id: "rose",
     label: "Rose",
-    sidebarColor: "oklch(0.222 0.048 5)",
-    bgColor:      "oklch(0.957 0.012 5)",
+    sidebarColor: "oklch(0.32 0.20 340)",
+    bgColor:      "oklch(0.954 0.018 340)",
+  },
+  {
+    id: "purple",
+    label: "Terra",
+    sidebarColor: "oklch(0.73 0.175 50)",
+    bgColor:      "oklch(0.956 0.012 50)",
+  },
+  {
+    id: "indigo",
+    label: "Indigo",
+    sidebarColor: "oklch(0.44 0.24 264)",
+    bgColor:      "oklch(0.955 0.015 264)",
+  },
+  {
+    id: "navy",
+    label: "Navy",
+    sidebarColor: "oklch(0.21 0.073 257)",
+    bgColor:      "oklch(0.955 0.012 257)",
   },
 ]

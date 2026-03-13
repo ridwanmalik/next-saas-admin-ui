@@ -49,7 +49,7 @@ export const ThemeFab = () => {
         {/* Surface */}
         <div>
           <p className="text-xs font-medium text-muted-foreground mb-2">Surface</p>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap gap-2" style={{ maxWidth: 208 }}>
             {SURFACE_THEMES.map(theme => (
               <button
                 key={theme.id}

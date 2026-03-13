@@ -118,32 +118,32 @@ export const AdminSidebar = () => {
         {/* Usage card */}
         {state === "expanded" && (
           <SidebarGroup>
-            <div className="rounded-xl border bg-muted/30 p-3 space-y-3">
+            <div className="rounded-xl border border-white/15 bg-white/10 p-3 space-y-3">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold">Storage</p>
-                <span className="text-xs text-muted-foreground">4.2 / 20 GB</span>
+                <p className="text-xs font-semibold text-sidebar-foreground">Storage</p>
+                <span className="text-xs text-sidebar-foreground/60">4.2 / 20 GB</span>
               </div>
               <div className="space-y-2">
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                  <div className="flex items-center justify-between text-[11px] text-sidebar-foreground/60">
                     <span className="flex items-center gap-1"><HardDrive className="h-3 w-3" />Files</span>
                     <span>21%</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full w-[21%] rounded-full bg-primary" />
+                  <div className="h-1.5 rounded-full bg-white/20 overflow-hidden">
+                    <div className="h-full w-[21%] rounded-full bg-sidebar-primary" />
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                  <div className="flex items-center justify-between text-[11px] text-sidebar-foreground/60">
                     <span className="flex items-center gap-1"><Zap className="h-3 w-3" />API calls</span>
-                    <span className="text-amber-500">81%</span>
+                    <span className="text-amber-400">81%</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full w-[81%] rounded-full bg-amber-500" />
+                  <div className="h-1.5 rounded-full bg-white/20 overflow-hidden">
+                    <div className="h-full w-[81%] rounded-full bg-amber-400" />
                   </div>
                 </div>
               </div>
-              <a href="/pricing" className="block w-full rounded-lg bg-primary/10 hover:bg-primary/15 transition-colors px-3 py-1.5 text-center text-[11px] font-medium text-primary">
+              <a href="/pricing" className="block w-full rounded-lg bg-white/15 hover:bg-white/25 transition-colors px-3 py-1.5 text-center text-[11px] font-medium text-sidebar-foreground">
                 Upgrade Plan
               </a>
             </div>
