@@ -1,4 +1,8 @@
-import { MoreHorizontal, Mail, Activity } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { Mail, MoreHorizontal, Search, UserRound } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -82,9 +87,17 @@ const UserCard = ({ user }: { user: User }) => (
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-44">
-            <DropdownMenuItem className="gap-2">
-              <Mail className="h-3.5 w-3.5 text-muted-foreground" />
-              Send email
+            <DropdownMenuItem className="gap-2" asChild>
+              <Link href="/users/details">
+                <UserRound className="h-3.5 w-3.5 text-muted-foreground" />
+                View Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-2" asChild>
+              <a href={`mailto:${user.email}`}>
+                <Mail className="h-3.5 w-3.5 text-muted-foreground" />
+                Send Email
+              </a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="gap-2 text-destructive focus:text-destructive">
@@ -132,23 +145,46 @@ const UserCard = ({ user }: { user: User }) => (
           <span className="text-[10px] text-muted-foreground mt-0.5">Joined</span>
         </div>
       </div>
+
     </CardContent>
   </Card>
 )
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const UserCardsPage = () => (
-  <div className="space-y-6">
-    <div>
-      <h2 className="text-2xl font-bold tracking-tight">Users</h2>
-      <p className="text-sm text-muted-foreground mt-0.5">{USERS.length} users</p>
-    </div>
+const UserCardsPage = () => {
+  const [query, setQuery] = useState("")
 
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {USERS.map(user => <UserCard key={user.id} user={user} />)}
+  const filtered = query.trim()
+    ? USERS.filter(u =>
+        u.name.toLowerCase().includes(query.toLowerCase()) ||
+        u.email.toLowerCase().includes(query.toLowerCase())
+      )
+    : USERS
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Users</h2>
+          <p className="text-sm text-muted-foreground mt-0.5">{filtered.length} of {USERS.length} users</p>
+        </div>
+        <div className="relative w-64">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <Input
+            placeholder="Search users…"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className="pl-8 h-9"
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filtered.map(user => <UserCard key={user.id} user={user} />)}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default UserCardsPage

@@ -26,6 +26,7 @@ import {
   Wrench,
   AlertTriangle,
   CalendarDays,
+  Map,
   ShoppingBag,
   Newspaper,
   Receipt,
@@ -63,6 +64,10 @@ export const NAV_GROUPS: NavGroup[] = [
       ]},
       { icon: MessageSquare, title: "Chat", href: "/chat" },
       { icon: CalendarDays, title: "Calendar", href: "/calendar" },
+      { icon: Map, title: "Map", children: [
+        { title: "Locations",   href: "/map/locations"  },
+        { title: "Components",  href: "/map/components" },
+      ]},
       { icon: Inbox, title: "Mail", children: [
         { title: "Inbox", href: "/mail/inbox" },
         { title: "List",  href: "/mail/list"  },
@@ -116,34 +121,18 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { icon: Shapes, title: "Icons", children: [
         { title: "Default", href: "/icons/default" },
-        { title: "Brands", href: "/icons/brands" },
+        { title: "Brands",  href: "/icons/brands"  },
       ]},
-      { icon: BarChart2, title: "Charts",  href: "/charts"  },
-      { icon: Loader2,   title: "Loaders", href: "/loaders" },
-      {
-        icon: Layers,
-        title: "Forms",
-        children: [
-          { title: "Login", href: "/forms/login" },
-          { title: "Register", href: "/forms/register" },
-          { title: "Forgot Password", href: "/forms/forgot-password" },
-          { title: "Contact", href: "/forms/contact" },
-          { title: "Profile", href: "/forms/profile" },
-          { title: "Payment", href: "/forms/payment" },
-          { title: "Multi Step", href: "/forms/multi-step" },
-          { title: "Validation", href: "/forms/validation" },
-        ],
-      },
       {
         icon: Code2,
         title: "Basic",
         children: [
           { title: "Typography",  href: "/basic/typography"  },
+          { title: "Colors",      href: "/basic/colors"      },
           { title: "Table",       href: "/basic/table"       },
           { title: "List",        href: "/basic/list"        },
-          { title: "Colors",      href: "/basic/colors"      },
-          { title: "Blockquote",  href: "/basic/blockquote"  },
           { title: "Images",      href: "/basic/images"      },
+          { title: "Blockquote",  href: "/basic/blockquote"  },
         ],
       },
       {
@@ -218,6 +207,22 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Image Cropper", href: "/advanced/image-cropper" },
         ],
       },
+      {
+        icon: Layers,
+        title: "Forms",
+        children: [
+          { title: "Login",           href: "/forms/login"           },
+          { title: "Register",        href: "/forms/register"        },
+          { title: "Forgot Password", href: "/forms/forgot-password" },
+          { title: "Contact",         href: "/forms/contact"         },
+          { title: "Profile",         href: "/forms/profile"         },
+          { title: "Payment",         href: "/forms/payment"         },
+          { title: "Multi Step",      href: "/forms/multi-step"      },
+          { title: "Validation",      href: "/forms/validation"      },
+        ],
+      },
+      { icon: BarChart2, title: "Charts",  href: "/charts"  },
+      { icon: Loader2,   title: "Loaders", href: "/loaders" },
     ],
   },
   {
