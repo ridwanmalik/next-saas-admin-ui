@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/layout/mode-toggle"
 
 export const LandingNavbar = () => {
   return (
-    <header className="border-b border-border sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 font-semibold text-lg">
           <Shield className="size-5 text-primary" />

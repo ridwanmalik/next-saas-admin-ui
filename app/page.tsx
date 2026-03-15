@@ -1,4 +1,6 @@
-import Link from "next/link"
+import { LandingNavbar } from "@/app/_components/landing-navbar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   BarChart3,
   Bell,
@@ -11,46 +13,38 @@ import {
   Users,
   Zap,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { LandingNavbar } from "@/app/_components/landing-navbar"
+import Link from "next/link"
 
 const features = [
   {
     icon: LayoutDashboard,
     title: "Powerful Dashboard",
-    description:
-      "Real-time KPIs, sparklines, and stat cards give you instant visibility into your business metrics.",
+    description: "Real-time KPIs, sparklines, and stat cards give you instant visibility into your business metrics.",
   },
   {
     icon: Users,
     title: "User Management",
-    description:
-      "Manage roles, permissions, and accounts with a full-featured data table and bulk actions.",
+    description: "Manage roles, permissions, and accounts with a full-featured data table and bulk actions.",
   },
   {
     icon: BarChart3,
     title: "Analytics & Reports",
-    description:
-      "Deep-dive into traffic, revenue, and retention with interactive charts and exportable reports.",
+    description: "Deep-dive into traffic, revenue, and retention with interactive charts and exportable reports.",
   },
   {
     icon: FileText,
     title: "Billing & Invoices",
-    description:
-      "Track subscriptions, generate invoices, and monitor payment status from one place.",
+    description: "Track subscriptions, generate invoices, and monitor payment status from one place.",
   },
   {
     icon: Bell,
     title: "Notifications",
-    description:
-      "Unified notification centre keeps your team aligned without leaving the admin panel.",
+    description: "Unified notification centre keeps your team aligned without leaving the admin panel.",
   },
   {
     icon: Lock,
     title: "Security Center",
-    description:
-      "Audit logs, two-factor settings, and session management built right in.",
+    description: "Audit logs, two-factor settings, and session management built right in.",
   },
 ]
 
@@ -60,41 +54,47 @@ const LandingPage = () => {
       <LandingNavbar />
 
       {/* Hero */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-28 max-w-4xl mx-auto w-full">
-        <Badge variant="secondary" className="mb-6 gap-1.5">
-          <Zap className="size-3" />
-          Built with Next.js 15 &amp; Tailwind v4
-        </Badge>
+      <section
+        className="relative flex-1 w-full bg-contain bg-top-right bg-no-repeat -mt-16"
+        style={{ backgroundImage: "url('/vertical-line-covers.png')" }}>
+        {/* <div className="absolute inset-0 bg-black/10" /> */}
+        {/* <div className="absolute inset-0 bg-linear-to-br from-black from-50% to-75% to-black/0" /> */}
+        <div className="relative flex flex-col items-center justify-center text-center px-6 pt-44 pb-28 max-w-4xl mx-auto w-full h-full">
+          <Badge variant="secondary" className="mb-6 gap-1.5">
+            <Zap className="size-3" />
+            Built with Next.js 15 &amp; Tailwind v4
+          </Badge>
 
-        <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-tight mb-6">
-          The admin panel your
-          <br />
-          <span className="text-primary">SaaS deserves</span>
-        </h1>
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-tight mb-6">
+            The admin panel your
+            <br />
+            <span className="text-primary">SaaS deserves</span>
+          </h1>
 
-        <p className="text-lg text-muted-foreground max-w-2xl mb-10">
-          A fully-featured, open-source admin template — dashboards, user management, analytics,
-          billing, and security, all wired up and ready to ship.
-        </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mb-10">
+            A fully-featured, open-source admin template — dashboards, user management, analytics, billing, and
+            security, all wired up and ready to ship.
+          </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Button size="lg" asChild>
-            <Link href="/dashboard">
-              Live preview <ChevronRight className="size-4" />
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
-              Purchase now
-            </Link>
-          </Button>
-        </div>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Button size="lg" asChild>
+              <Link href="/dashboard">
+                Live preview <ChevronRight className="size-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                Purchase now
+              </Link>
+            </Button>
+          </div>
 
-        {/* Decorative dashboard preview hint */}
-        <div className="mt-16 w-full max-w-3xl rounded-2xl border border-border bg-muted/40 h-72 flex items-center justify-center text-muted-foreground/40">
-          <div className="flex flex-col items-center gap-2">
-            <LayoutDashboard className="size-10" />
-            <span className="text-sm">Dashboard preview</span>
+          {/* Decorative dashboard preview hint */}
+          <div className="mt-16 w-full max-w-3xl rounded-2xl border border-border bg-muted/40 h-72 flex items-center justify-center text-muted-foreground/40">
+            <div className="flex flex-col items-center gap-2">
+              <LayoutDashboard className="size-10" />
+              <span className="text-sm">Dashboard preview</span>
+            </div>
           </div>
         </div>
       </section>
@@ -105,8 +105,8 @@ const LandingPage = () => {
           <div className="text-center mb-14">
             <h2 className="text-3xl font-bold tracking-tight mb-3">Everything you need</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Every page and pattern you&apos;ll need to build a world-class SaaS product, without
-              starting from scratch.
+              Every page and pattern you&apos;ll need to build a world-class SaaS product, without starting from
+              scratch.
             </p>
           </div>
 
@@ -114,8 +114,7 @@ const LandingPage = () => {
             {features.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="bg-background rounded-xl border border-border p-6 flex flex-col gap-3 hover:shadow-sm transition-shadow"
-              >
+                className="bg-background rounded-xl border border-border p-6 flex flex-col gap-3 hover:shadow-sm transition-shadow">
                 <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Icon className="size-4 text-primary" />
                 </div>
@@ -131,9 +130,7 @@ const LandingPage = () => {
       <section className="py-24 px-6 text-center">
         <div className="max-w-xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Ready to get started?</h2>
-          <p className="text-muted-foreground mb-8">
-            Jump into the live demo or clone the repo and make it your own.
-          </p>
+          <p className="text-muted-foreground mb-8">Jump into the live demo or clone the repo and make it your own.</p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button size="lg" asChild>
               <Link href="/dashboard">
