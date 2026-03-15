@@ -55,8 +55,8 @@ const LandingPage = () => {
 
       {/* Hero */}
       <section
-        className="relative flex-1 w-full bg-contain bg-top-right bg-no-repeat -mt-16"
-        style={{ backgroundImage: "url('/vertical-line-covers.png')" }}>
+        className="relative flex-1 w-full bg-contain bg-top-right bg-no-repeat bg-black -mt-16"
+        style={{ backgroundImage: "url('/vertical-line-covers.jpg')" }}>
         {/* <div className="absolute inset-0 bg-black/10" /> */}
         {/* <div className="absolute inset-0 bg-linear-to-br from-black from-50% to-75% to-black/0" /> */}
         <div className="relative flex flex-col items-center justify-center text-center px-6 pt-44 pb-28 max-w-4xl mx-auto w-full h-full">
