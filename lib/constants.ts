@@ -202,6 +202,7 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Sparkles,
         title: "Advanced",
         children: [
+          { title: "Autocomplete",  href: "/advanced/autocomplete"  },
           { title: "Editor",        href: "/advanced/editor"        },
           { title: "File Uploader", href: "/advanced/file-uploader" },
           { title: "Image Cropper", href: "/advanced/image-cropper" },
