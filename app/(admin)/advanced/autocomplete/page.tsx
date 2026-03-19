@@ -94,11 +94,13 @@ const AsyncCreatableExample = () => {
   const [loading, setLoading] = React.useState(false)
   const [value, setValue] = React.useState("")
   const abortRef = React.useRef<AbortController | null>(null)
+  // Ref so the async fetch callback always reads the latest created options
+  const createdOptionsRef = React.useRef<AutocompleteOption[]>([])
 
   const handleInputChange = async (val: string) => {
     setInputValue(val)
     abortRef.current?.abort()
-    if (!val.trim()) { setOptions([]); setLoading(false); return }
+    if (!val.trim()) { setOptions([...createdOptionsRef.current]); setLoading(false); return }
     const controller = new AbortController()
     abortRef.current = controller
     setLoading(true)
@@ -108,19 +110,16 @@ const AsyncCreatableExample = () => {
         { signal: controller.signal }
       )
       const data = await res.json()
-      setOptions(data.products.map((p: { id: number; title: string }) => ({ value: String(p.id), label: p.title })))
+      const apiResults: AutocompleteOption[] = data.products.map((p: { id: number; title: string }) => ({ value: String(p.id), label: p.title }))
+      const created = createdOptionsRef.current
+      setOptions([
+        ...created,
+        ...apiResults.filter(r => !created.some(c => c.value === r.value)),
+      ])
     } catch {
-      if (!controller.signal.aborted) setOptions([])
+      if (!controller.signal.aborted) setOptions([...createdOptionsRef.current])
     } finally {
       if (!controller.signal.aborted) setLoading(false)
-    }
-  }
-
-  const handleValueChange = (val: string) => {
-    setValue(val)
-    const isNewOption = !options.some(o => o.value === val || o.label === val)
-    if (isNewOption && val) {
-      setOptions(prev => [...prev, { value: val.toLowerCase().replace(/\s+/g, "-"), label: val }])
     }
   }
 
@@ -128,7 +127,17 @@ const AsyncCreatableExample = () => {
     <Autocomplete
       options={options}
       value={value}
-      onValueChange={handleValueChange}
+      onValueChange={(val) => {
+        if (!val) return
+        const isCreated = !options.some(o => o.value === val)
+        if (isCreated) {
+          const newOption = { value: val.toLowerCase().replace(/\s+/g, "-"), label: val }
+          createdOptionsRef.current = [...createdOptionsRef.current, newOption]
+          setValue(newOption.value)
+        } else {
+          setValue(val)
+        }
+      }}
       inputValue={inputValue}
       onInputChange={handleInputChange}
       loading={loading}

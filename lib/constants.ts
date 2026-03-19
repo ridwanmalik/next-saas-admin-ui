@@ -206,6 +206,7 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Editor",        href: "/advanced/editor"        },
           { title: "File Uploader", href: "/advanced/file-uploader" },
           { title: "Image Cropper", href: "/advanced/image-cropper" },
+          { title: "FAB Button",    href: "/advanced/speed-dial"    },
         ],
       },
       {
@@ -220,6 +221,7 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "Payment",         href: "/forms/payment"         },
           { title: "Multi Step",      href: "/forms/multi-step"      },
           { title: "Validation",      href: "/forms/validation"      },
+          { title: "Clipboard",       href: "/forms/clipboard"       },
         ],
       },
       { icon: BarChart2, title: "Charts",  href: "/charts"  },
@@ -242,6 +244,14 @@ export const NAV_GROUPS: NavGroup[] = [
           { title: "404 — Not Found",    href: "/landing/error/404" },
           { title: "500 — Server Error", href: "/landing/error/500" },
           { title: "401 — Unauthorized", href: "/landing/error/401" },
+        ],
+      },
+      {
+        icon: FileText,
+        title: "Legal",
+        children: [
+          { title: "Terms & Conditions", href: "/landing/terms"   },
+          { title: "Privacy Policy",     href: "/landing/privacy" },
         ],
       },
     ],
