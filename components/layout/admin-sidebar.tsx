@@ -60,7 +60,7 @@ export const AdminSidebar = () => {
                   <Collapsible
                     key={item.title}
                     defaultOpen={item.children.some((child) =>
-                      child.href ? isActive(child.href) : child.children?.some((gc) => isActive(gc.href))
+                      child.href ? isActive(child.href) : child.children?.some((gc) => !!gc.href && isActive(gc.href))
                     )}
                     className="group/collapsible"
                   >
@@ -78,7 +78,7 @@ export const AdminSidebar = () => {
                             child.children ? (
                               <Collapsible
                                 key={child.title}
-                                defaultOpen={child.children.some((gc) => isActive(gc.href))}
+                                defaultOpen={child.children.some((gc) => !!gc.href && isActive(gc.href))}
                                 className="group/collapsible2"
                               >
                                 <SidebarMenuSubItem>
@@ -92,9 +92,9 @@ export const AdminSidebar = () => {
                                   <CollapsibleContent>
                                     <SidebarMenuSub>
                                       {child.children.map((gc) => (
-                                        <SidebarMenuSubItem key={gc.href}>
-                                          <SidebarMenuSubButton asChild isActive={isActive(gc.href)}>
-                                            <Link href={gc.href}>
+                                        <SidebarMenuSubItem key={gc.title}>
+                                          <SidebarMenuSubButton asChild isActive={!!gc.href && isActive(gc.href)}>
+                                            <Link href={gc.href ?? "#"}>
                                               {gc.icon && <gc.icon />}
                                               <span>{gc.title}</span>
                                             </Link>

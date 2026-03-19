@@ -13,33 +13,29 @@ import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 
-function Variant({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-3">
-        <h3 className="text-sm font-semibold">{label}</h3>
-        <div className="h-px flex-1 bg-border" />
-      </div>
-      {children}
-    </section>
-  )
-}
-
-function SectionDivider({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) {
-  return (
-    <div className="flex items-center gap-3 py-1">
-      <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border bg-muted">
-        <Icon className="size-4 text-muted-foreground" />
-      </div>
-      <div>
-        <p className="text-sm font-medium">{title}</p>
-        <p className="text-xs text-muted-foreground">{description}</p>
-      </div>
+const Variant = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <section className="space-y-4">
+    <div className="flex items-center gap-3">
+      <h3 className="text-sm font-semibold">{label}</h3>
+      <div className="h-px flex-1 bg-border" />
     </div>
-  )
-}
+    {children}
+  </section>
+)
 
-export default function ProfileFormsPage() {
+const SectionDivider = ({ icon: Icon, title, description }: { icon: React.ElementType; title: string; description: string }) => (
+  <div className="flex items-center gap-3 py-1">
+    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border bg-muted">
+      <Icon className="size-4 text-muted-foreground" />
+    </div>
+    <div>
+      <p className="text-sm font-medium">{title}</p>
+      <p className="text-xs text-muted-foreground">{description}</p>
+    </div>
+  </div>
+)
+
+const ProfileFormsPage = () => {
   return (
     <div className="mx-auto max-w-4xl space-y-14">
       <div>
@@ -255,3 +251,5 @@ export default function ProfileFormsPage() {
     </div>
   )
 }
+
+export default ProfileFormsPage

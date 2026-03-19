@@ -15,7 +15,7 @@ const DashboardPage = () => (
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
         <p className="text-sm text-muted-foreground mt-0.5">
-          December 2025 · All systems operational
+          {new Date().toLocaleString("default", { month: "long", year: "numeric" })} · All systems operational
         </p>
       </div>
       <Button variant="outline" size="sm">

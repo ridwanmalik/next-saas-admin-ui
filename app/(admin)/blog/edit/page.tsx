@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { RichEditor } from "@/components/ui/rich-editor"
 import { FileUploader } from "@/components/ui/file-uploader"
 import { ArrowLeft, ImageIcon, RotateCcw, Save, Send, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -96,13 +97,10 @@ const EditPostPage = () => {
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-base">Featured Image</CardTitle>
               {previewUrl && (
-                <button
-                  onClick={resetImage}
-                  className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <Button variant="ghost" size="sm" onClick={resetImage} className="h-auto gap-1.5 text-xs text-muted-foreground">
                   <RotateCcw className="h-3 w-3" />
                   Revert to saved
-                </button>
+                </Button>
               )}
             </CardHeader>
             <CardContent className="space-y-4">
@@ -149,17 +147,15 @@ const EditPostPage = () => {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {CATEGORIES.map(cat => (
-                <button
+                <Button
                   key={cat}
+                  variant="outline"
+                  size="sm"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
-                    selectedCategory === cat
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-muted/30 hover:bg-muted"
-                  }`}
+                  className={cn(selectedCategory === cat && "border-primary bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground")}
                 >
                   {cat}
-                </button>
+                </Button>
               ))}
             </CardContent>
           </Card>

@@ -16,7 +16,7 @@ const ShowCard = ({
       </div>
     )}
     <div className={cn(
-      "relative flex min-h-[300px] w-full items-center justify-center rounded-xl border p-10",
+      "relative flex min-h-75 w-full items-center justify-center rounded-xl border p-10",
       "*:data-[slot=accordion]:w-full *:data-[slot=accordion]:max-w-sm",
       className
     )}>

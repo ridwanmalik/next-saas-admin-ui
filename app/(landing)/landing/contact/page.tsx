@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 const CONTACT_ITEMS = [
   { icon: Mail,     label: "Email",   value: "hello@nextsaas.com",       sub: "We reply within 4 hours"    },
@@ -112,18 +113,18 @@ const LandingContactPage = () => {
             <Label>Subject</Label>
             <div className="flex flex-wrap gap-2">
               {SUBJECTS.map(s => (
-                <button
+                <Button
                   key={s}
-                  type="button"
+                  variant="outline"
+                  size="sm"
                   onClick={() => setSubject(s)}
-                  className={`rounded-full border px-3 py-1 text-xs transition-colors ${
-                    subject === s
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-transparent text-muted-foreground hover:border-foreground/30"
-                  }`}
+                  className={cn(
+                    "rounded-full text-xs",
+                    subject === s && "bg-primary text-primary-foreground border-primary hover:bg-primary hover:text-primary-foreground"
+                  )}
                 >
                   {s}
-                </button>
+                </Button>
               ))}
             </div>
           </div>

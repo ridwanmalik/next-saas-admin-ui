@@ -82,7 +82,7 @@ export const FileUploader = ({
     ))
   }, [])
 
-  const onDrop = useCallback((accepted: File[], rejected: { file: File; errors: { message: string }[] }[]) => {
+  const onDrop = useCallback((accepted: File[], rejected: { file: File; errors: ReadonlyArray<{ message: string }> }[]) => {
     // Add rejected files as errors
     const rejectedEntries: UploadFile[] = rejected.map(({ file, errors }) => ({
       id: `${file.name}-${Date.now()}`,

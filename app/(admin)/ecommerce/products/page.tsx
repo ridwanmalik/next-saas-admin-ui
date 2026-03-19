@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 import {
@@ -235,30 +236,35 @@ const ProductsPage = () => {
 
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <SortAsc className="h-4 w-4" />
-          <select
-            value={sort}
-            onChange={e => setSort(e.target.value)}
-            className="rounded-md border bg-background px-2 py-1.5 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-          >
-            {SORT_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </select>
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger className="h-8 w-40 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {SORT_OPTIONS.map(o => (
+                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex items-center rounded-md border">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setView("grid")}
-            className={cn("rounded-l-md p-2 transition-colors", view === "grid" ? "bg-muted" : "hover:bg-muted/50")}
+            className={cn("h-8 w-8 rounded-r-none", view === "grid" && "bg-muted hover:bg-muted")}
           >
             <Grid2X2 className="h-4 w-4" />
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setView("list")}
-            className={cn("rounded-r-md p-2 transition-colors", view === "list" ? "bg-muted" : "hover:bg-muted/50")}
+            className={cn("h-8 w-8 rounded-l-none", view === "list" && "bg-muted hover:bg-muted")}
           >
             <LayoutList className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
 
         <p className="text-sm text-muted-foreground ml-auto">{filtered.length} products</p>

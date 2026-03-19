@@ -105,8 +105,7 @@ const BarsLoader = ({ size = "md" }: { size?: "sm" | "md" | "lg" }) => {
       {delays.map((delay, i) => (
         <span
           key={i}
-          className={cn("animate-bounce rounded-sm bg-primary", w, h, delay)}
-          style={{ animationDuration: "0.6s" }}
+          className={cn("animate-bounce [animation-duration:0.6s] rounded-sm bg-primary", w, h, delay)}
         />
       ))}
     </div>

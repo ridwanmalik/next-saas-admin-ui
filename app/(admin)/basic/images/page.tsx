@@ -159,7 +159,7 @@ const ImagesPage = () => (
         {/* Featured + small */}
         <div className="grid grid-cols-3 gap-2">
           <div className="col-span-2 row-span-2 overflow-hidden rounded-lg">
-            <Img seed={70} width={400} height={400} className="w-full h-full" style={{ minHeight: "200px" }} />
+            <Img seed={70} width={400} height={400} className="w-full h-full min-h-50" />
           </div>
           <div className="overflow-hidden rounded-lg aspect-square">
             <Img seed={71} width={200} height={200} className="w-full h-full" />

@@ -20,7 +20,7 @@ const ResizablePage = () => (
           className="max-w-sm rounded-lg border"
         >
           <ResizablePanel defaultSize="50%">
-            <div className="flex h-[200px] items-center justify-center p-6">
+            <div className="flex h-50 items-center justify-center p-6">
               <span className="font-semibold">One</span>
             </div>
           </ResizablePanel>
@@ -46,7 +46,7 @@ const ResizablePage = () => (
       <ShowCard title="Vertical">
         <ResizablePanelGroup
           orientation="vertical"
-          className="min-h-[200px] max-w-sm rounded-lg border"
+          className="min-h-50 max-w-sm rounded-lg border"
         >
           <ResizablePanel defaultSize="25%">
             <div className="flex h-full items-center justify-center p-6">
@@ -65,7 +65,7 @@ const ResizablePage = () => (
       <ShowCard title="Handle">
         <ResizablePanelGroup
           orientation="horizontal"
-          className="min-h-[200px] max-w-md rounded-lg border md:min-w-[450px]"
+          className="min-h-50 max-w-md rounded-lg border md:min-w-112.5"
         >
           <ResizablePanel defaultSize="25%">
             <div className="flex h-full items-center justify-center p-6">

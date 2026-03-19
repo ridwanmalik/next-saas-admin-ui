@@ -10,7 +10,7 @@ const AnalyticsPage = () => (
     {/* ── Header ────────────────────────────────────────────────────────── */}
     <div>
       <h2 className="text-2xl font-bold tracking-tight">Analytics</h2>
-      <p className="text-sm text-muted-foreground mt-0.5">December 2025 · Department wise monthly sales report</p>
+      <p className="text-sm text-muted-foreground mt-0.5">{new Date().toLocaleString("default", { month: "long", year: "numeric" })} · Department wise monthly sales report</p>
     </div>
 
     {/* ── 2-column layout ───────────────────────────────────────────────── */}

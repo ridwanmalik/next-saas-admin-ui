@@ -1,6 +1,7 @@
 "use client"
 
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Map, type MapMarker } from "@/components/ui/map"
 import { StatCard } from "@/components/ui/stat-card"
@@ -68,17 +69,17 @@ const MapPage = () => {
         <StatCard
           label="Total Locations"
           value={String(MARKERS.length)}
-          change={2}
+          change="2"
           positive
           period="vs last year"
           icon={MapPin}
         />
-        <StatCard label="Offices" value={String(offices)} change={1} positive period="vs last year" icon={Building2} />
-        <StatCard label="Hubs" value={String(hubs)} change={0} positive period="vs last year" icon={Globe} />
+        <StatCard label="Offices" value={String(offices)} change="1" positive period="vs last year" icon={Building2} />
+        <StatCard label="Hubs" value={String(hubs)} change="0" positive period="vs last year" icon={Globe} />
         <StatCard
           label="Total Users"
           value={totalUsers.toLocaleString()}
-          change={12}
+          change="12"
           positive
           period="vs last month"
           icon={Users}
@@ -90,7 +91,7 @@ const MapPage = () => {
         {/* Map */}
         <div className="">
           <Card className="flex flex-col gap-0 overflow-hidden p-0">
-            <Map markers={MARKERS} selected={selected} flyTrigger={flyTrigger} className="min-h-[600px] flex-1 w-full" />
+            <Map markers={MARKERS} selected={selected} flyTrigger={flyTrigger} className="min-h-150 flex-1 w-full" />
           </Card>
         </div>
 
@@ -103,11 +104,12 @@ const MapPage = () => {
             <ul>
               {MARKERS.map(m => (
                 <li key={m.id}>
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={() => handleSelect(m)}
                     className={cn(
-                      "flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/50",
-                      selected?.id === m.id && "bg-muted"
+                      "flex w-full h-auto items-start gap-3 px-4 py-3 text-left justify-start rounded-none hover:bg-muted/50",
+                      selected?.id === m.id && "bg-muted hover:bg-muted"
                     )}>
                     <MapPin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
                     <div className="min-w-0 flex-1">
@@ -117,7 +119,7 @@ const MapPage = () => {
                     <Badge variant="secondary" className={cn("shrink-0 text-xs", m.category && CATEGORY_COLORS[m.category])}>
                       {m.category}
                     </Badge>
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>

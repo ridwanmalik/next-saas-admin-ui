@@ -189,7 +189,7 @@ const MapComponentsPage = () => (
         defaultZoom={2}
         className="h-100 w-full rounded-lg"
         renderPopup={m => (
-          <div className="min-w-[160px] space-y-1">
+          <div className="min-w-40 space-y-1">
             <p className="font-semibold text-sm">{m.name}</p>
             <p className="text-xs text-gray-500">{m.description}</p>
             <p className="text-xs font-mono text-gray-400">

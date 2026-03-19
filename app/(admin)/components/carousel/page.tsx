@@ -12,7 +12,7 @@ const CarouselPage = () => (
     </div>
     <div className="space-y-4">
       <ShowCard>
-        <Carousel className="w-full max-w-[12rem] sm:max-w-xs mx-auto">
+        <Carousel className="w-full max-w-48 sm:max-w-xs mx-auto">
           <CarouselContent>
             {Array.from({ length: 5 }, (_, i) => (
               <CarouselItem key={i}>
@@ -33,7 +33,7 @@ const CarouselPage = () => (
       <ShowCard title="Sizes" description='To set the size of the items, you can use the basis class on the <CarouselItem />.'>
         <Carousel
           opts={{ align: "start" }}
-          className="w-full max-w-[12rem] sm:max-w-xs md:max-w-sm mx-auto"
+          className="w-full max-w-48 sm:max-w-xs md:max-w-sm mx-auto"
         >
           <CarouselContent>
             {Array.from({ length: 5 }, (_, i) => (
@@ -53,7 +53,7 @@ const CarouselPage = () => (
         </Carousel>
       </ShowCard>
       <ShowCard title="Spacing" description='To set the spacing between the items, we use a pl-[VALUE] utility on the <CarouselItem /> and a negative ml-[VALUE] on the <CarouselContent />.'>
-        <Carousel className="w-full max-w-[12rem] sm:max-w-xs md:max-w-sm mx-auto">
+        <Carousel className="w-full max-w-48 sm:max-w-xs md:max-w-sm mx-auto">
           <CarouselContent className="-ml-1">
             {Array.from({ length: 5 }, (_, i) => (
               <CarouselItem key={i} className="basis-1/2 pl-1 lg:basis-1/3">
@@ -77,7 +77,7 @@ const CarouselPage = () => (
           orientation="vertical"
           className="w-full max-w-xs mx-auto"
         >
-          <CarouselContent className="-mt-1 h-[270px]">
+          <CarouselContent className="-mt-1 h-67.5">
             {Array.from({ length: 5 }, (_, i) => (
               <CarouselItem key={i} className="basis-1/2 pt-1">
                 <div className="p-1">

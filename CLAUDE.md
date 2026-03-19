@@ -28,8 +28,23 @@ Next.js 16 App Router, Tailwind v4, shadcn/ui v4 (new-york), TypeScript strict, 
 | ErrorState | `error-state.tsx` | code, title, description, actions[] |
 
 ## Code style
-- Always use arrow functions (`const Foo = () =>`) — never `function` declarations
+- Always use arrow functions (`const Foo = () =>`) — never `function` declarations. This applies to **every** named function: page components, helper components, utility functions (`formatDate`, `PasswordStrength`, etc.), and sub-components (`Variant`, `SectionDivider`, etc.)
+- `export default function Foo()` is also banned — correct pattern: `const Foo = () => { ... }` then `export default Foo` on a separate line
+- **Never use template literals for className** — always use `cn()` from `lib/utils`. ❌ `` className={`text-sm ${active ? "text-primary" : "text-muted"}`} `` → ✅ `className={cn("text-sm", active && "text-primary")}`
 - Use Tailwind v4 canonical classes — avoid arbitrary values when a scale equivalent exists (e.g. `max-w-45` not `max-w-[180px]`); if no equivalent exists, add the token to `@theme inline` in `app/globals.css`
+- Replace all `style={{ ... }}` hardcoded values with Tailwind: pixel sizes → scale class (`min-h-50` = 200px), animation timing → `[animation-duration:0.6s]`; exception: complex decorative CSS that has no Tailwind equivalent (e.g. `radial-gradient` dot patterns)
+
+## Button component rules
+- Use `<Button>` (shadcn) — never raw `<button>` HTML elements
+- Icon-only square buttons: use `size="icon"`, optionally override size with `className="h-7 w-7"` — **never combine `size="sm"` with explicit `h-*/w-*`** (they conflict)
+- Password show/hide toggle: `<Button variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7">`
+- Inline text link buttons: `<Button variant="link" className="h-auto p-0 text-xs">`
+
+## Select component rules
+- Always use shadcn `<Select>` — never raw `<select>` HTML elements
+- Controlled: `<Select value={val} onValueChange={setVal}>` (not `onChange={e => setVal(e.target.value)}`)
+- Uncontrolled: `<Select defaultValue="initial">`
+- Structure: `<Select><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{items.map(i => <SelectItem key={i} value={i}>{i}</SelectItem>)}</SelectContent></Select>`
 
 ## Page-level sub-components
 - Co-located inner components live in `app/(admin)/<page>/_components/`

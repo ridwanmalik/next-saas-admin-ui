@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 import {
   ArrowLeft, Calendar, Clock, Edit, Eye, MessageSquare,
   ThumbsUp, User, TrendingUp, Flame, Link2, Twitter, Facebook, Linkedin,
@@ -137,21 +138,25 @@ const CommentItem = ({ comment, isReply = false }: { comment: Comment; isReply?:
           </div>
           <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{comment.body}</p>
           <div className="mt-2 flex items-center gap-4">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={handleLike}
-              className={`flex items-center gap-1 text-xs transition-colors ${liked ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+              className={cn("h-auto gap-1 px-1 text-xs", liked ? "text-primary" : "text-muted-foreground")}
             >
               <ThumbsUp className="h-3 w-3" />
               {likes}
-            </button>
+            </Button>
             {!isReply && (
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowReplyForm(p => !p)}
-                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                className="h-auto gap-1 px-1 text-xs text-muted-foreground"
               >
                 <MessageSquare className="h-3 w-3" />
                 Reply
-              </button>
+              </Button>
             )}
           </div>
 

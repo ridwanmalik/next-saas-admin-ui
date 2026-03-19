@@ -84,7 +84,7 @@ const CalendarPage = () => {
         </ShowCard>
 
         <ShowCard title="Presets">
-          <Card size="sm" className="mx-auto w-fit max-w-[300px]">
+          <Card className="mx-auto w-fit max-w-75">
             <CardContent>
               <Calendar
                 mode="single"

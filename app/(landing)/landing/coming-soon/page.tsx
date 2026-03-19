@@ -68,7 +68,7 @@ const LandingComingSoonPage = () => {
         ].map(({ value, label }, i) => (
           <div key={label} className="flex items-end gap-4">
             <div className="flex flex-col items-center gap-1">
-              <div className="rounded-xl border bg-card px-5 py-4 min-w-[64px]">
+              <div className="rounded-xl border bg-card px-5 py-4 min-w-16">
                 <span className="text-3xl font-bold tabular-nums">{pad(value)}</span>
               </div>
               <span className="text-xs text-muted-foreground">{label}</span>

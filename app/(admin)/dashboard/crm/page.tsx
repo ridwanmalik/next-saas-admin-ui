@@ -10,7 +10,7 @@ const CRMDashboardPage = () => (
     <div className="flex items-start justify-between gap-4 flex-wrap">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">CRM Dashboard</h2>
-        <p className="text-sm text-muted-foreground mt-0.5">December 2025 · 143 active deals in pipeline</p>
+        <p className="text-sm text-muted-foreground mt-0.5">{new Date().toLocaleString("default", { month: "long", year: "numeric" })} · 143 active deals in pipeline</p>
       </div>
     </div>
 

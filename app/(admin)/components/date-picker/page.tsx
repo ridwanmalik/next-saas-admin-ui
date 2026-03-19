@@ -17,14 +17,13 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import ShowCard from "../_components/show-card"
 
-function formatDate(date: Date | undefined) {
+const formatDate = (date: Date | undefined) => {
   if (!date) return ""
   return date.toLocaleDateString("en-US", { day: "2-digit", month: "long", year: "numeric" })
 }
 
-function isValidDate(date: Date | undefined) {
-  return !!date && !isNaN(date.getTime())
-}
+const isValidDate = (date: Date | undefined) =>
+  !!date && !isNaN(date.getTime())
 
 const DatePickerPage = () => {
   const [date, setDate] = useState<Date | undefined>()
@@ -54,7 +53,7 @@ const DatePickerPage = () => {
               <Button
                 variant="outline"
                 data-empty={!date}
-                className="w-[212px] justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+                className="w-53 justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
               >
                 {date ? format(date, "PPP") : <span>Pick a date</span>}
                 <ChevronDownIcon />

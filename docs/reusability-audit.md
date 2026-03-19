@@ -17,7 +17,7 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Login | `app/(auth)/login/page.tsx` |
+| `[x]` | Login | `app/(auth)/login/page.tsx` |
 
 ---
 
@@ -25,10 +25,10 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Default | `app/(admin)/dashboard/page.tsx` |
-| `[ ]` | Analytics | `app/(admin)/dashboard/analytics/page.tsx` |
-| `[ ]` | CRM | `app/(admin)/dashboard/crm/page.tsx` |
-| `[ ]` | Blog | `app/(admin)/dashboard/blog/page.tsx` |
+| `[x]` | Default | `app/(admin)/dashboard/page.tsx` |
+| `[x]` | Analytics | `app/(admin)/dashboard/analytics/page.tsx` |
+| `[x]` | CRM | `app/(admin)/dashboard/crm/page.tsx` |
+| `[x]` | Blog | `app/(admin)/dashboard/blog/page.tsx` |
 
 ---
 
@@ -36,10 +36,10 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | List | `app/(admin)/users/list/page.tsx` |
-| `[ ]` | Cards | `app/(admin)/users/cards/page.tsx` |
-| `[ ]` | Details | `app/(admin)/users/details/page.tsx` |
-| `[ ]` | Profile | `app/(admin)/users/profile/page.tsx` |
+| `[x]` | List | `app/(admin)/users/list/page.tsx` |
+| `[x]` | Cards | `app/(admin)/users/cards/page.tsx` |
+| `[x]` | Details | `app/(admin)/users/details/page.tsx` |
+| `[x]` | Profile | `app/(admin)/users/profile/page.tsx` |
 
 ---
 
@@ -47,9 +47,9 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Board | `app/(admin)/kanban/board/page.tsx` |
-| `[ ]` | Backlog | `app/(admin)/kanban/backlog/page.tsx` |
-| `[ ]` | List | `app/(admin)/kanban/list/page.tsx` |
+| `[x]` | Board | `app/(admin)/kanban/board/page.tsx` |
+| `[x]` | Backlog | `app/(admin)/kanban/backlog/page.tsx` |
+| `[x]` | List | `app/(admin)/kanban/list/page.tsx` |
 
 ---
 
@@ -57,8 +57,8 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | List | `app/(admin)/contact/list/page.tsx` |
-| `[ ]` | Card | `app/(admin)/contact/card/page.tsx` |
+| `[x]` | List | `app/(admin)/contact/list/page.tsx` |
+| `[x]` | Card | `app/(admin)/contact/card/page.tsx` |
 
 ---
 
@@ -66,7 +66,7 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Chat | `app/(admin)/chat/page.tsx` |
+| `[x]` | Chat | `app/(admin)/chat/page.tsx` |
 
 ---
 
@@ -74,7 +74,7 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Calendar | `app/(admin)/calendar/page.tsx` |
+| `[x]` | Calendar | `app/(admin)/calendar/page.tsx` |
 
 ---
 
@@ -82,8 +82,8 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Locations | `app/(admin)/map/locations/page.tsx` |
-| `[ ]` | Components | `app/(admin)/map/components/page.tsx` |
+| `[x]` | Locations | `app/(admin)/map/locations/page.tsx` |
+| `[x]` | Components | `app/(admin)/map/components/page.tsx` |
 
 ---
 
@@ -91,8 +91,8 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Inbox | `app/(admin)/mail/inbox/page.tsx` |
-| `[ ]` | List | `app/(admin)/mail/list/page.tsx` |
+| `[x]` | Inbox | `app/(admin)/mail/inbox/page.tsx` |
+| `[x]` | List | `app/(admin)/mail/list/page.tsx` |
 
 ---
 
@@ -100,10 +100,10 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Add New | `app/(admin)/blog/new/page.tsx` |
-| `[ ]` | Edit | `app/(admin)/blog/edit/page.tsx` |
-| `[ ]` | Blog List | `app/(admin)/blog/list/page.tsx` |
-| `[ ]` | Blog Details | `app/(admin)/blog/details/page.tsx` |
+| `[x]` | Add New | `app/(admin)/blog/new/page.tsx` |
+| `[x]` | Edit | `app/(admin)/blog/edit/page.tsx` |
+| `[x]` | Blog List | `app/(admin)/blog/list/page.tsx` |
+| `[x]` | Blog Details | `app/(admin)/blog/details/page.tsx` |
 
 ---
 
@@ -111,10 +111,10 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Products | `app/(admin)/ecommerce/products/page.tsx` |
-| `[ ]` | Product Details | `app/(admin)/ecommerce/product-details/page.tsx` |
-| `[ ]` | Product List | `app/(admin)/ecommerce/product-list/page.tsx` |
-| `[ ]` | Checkout | `app/(admin)/ecommerce/checkout/page.tsx` |
+| `[x]` | Products | `app/(admin)/ecommerce/products/page.tsx` |
+| `[x]` | Product Details | `app/(admin)/ecommerce/product-details/page.tsx` |
+| `[x]` | Product List | `app/(admin)/ecommerce/product-list/page.tsx` |
+| `[x]` | Checkout | `app/(admin)/ecommerce/checkout/page.tsx` |
 
 ---
 
@@ -122,17 +122,17 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Create | `app/(admin)/invoice/create/page.tsx` |
-| `[ ]` | List | `app/(admin)/invoice/list/page.tsx` |
-| `[ ]` | Edit | `app/(admin)/invoice/edit/page.tsx` |
-| `[ ]` | Details | `app/(admin)/invoice/details/page.tsx` |
-| `[ ]` | Client List | `app/(admin)/invoice/client/page.tsx` |
-| `[ ]` | Client Create | `app/(admin)/invoice/client/create/page.tsx` |
-| `[ ]` | Items List | `app/(admin)/invoice/items/page.tsx` |
-| `[ ]` | Items Add | `app/(admin)/invoice/items/add-item/page.tsx` |
-| `[ ]` | Payment List | `app/(admin)/invoice/payment/page.tsx` |
-| `[ ]` | Payment Create | `app/(admin)/invoice/payment/create/page.tsx` |
-| `[ ]` | Payment Details | `app/(admin)/invoice/payment/details/page.tsx` |
+| `[x]` | Create | `app/(admin)/invoice/create/page.tsx` |
+| `[x]` | List | `app/(admin)/invoice/list/page.tsx` |
+| `[x]` | Edit | `app/(admin)/invoice/edit/page.tsx` |
+| `[x]` | Details | `app/(admin)/invoice/details/page.tsx` |
+| `[x]` | Client List | `app/(admin)/invoice/client/page.tsx` |
+| `[x]` | Client Create | `app/(admin)/invoice/client/create/page.tsx` |
+| `[x]` | Items List | `app/(admin)/invoice/items/page.tsx` |
+| `[x]` | Items Add | `app/(admin)/invoice/items/add-item/page.tsx` |
+| `[x]` | Payment List | `app/(admin)/invoice/payment/page.tsx` |
+| `[x]` | Payment Create | `app/(admin)/invoice/payment/create/page.tsx` |
+| `[x]` | Payment Details | `app/(admin)/invoice/payment/details/page.tsx` |
 
 ---
 
@@ -140,12 +140,12 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Pricing | `app/(admin)/pricing/page.tsx` |
-| `[ ]` | Activity | `app/(admin)/activity/page.tsx` |
-| `[ ]` | Security | `app/(admin)/security/page.tsx` |
-| `[ ]` | Settings | `app/(admin)/settings/page.tsx` |
-| `[ ]` | Reports | `app/(admin)/reports/page.tsx` |
-| `[ ]` | Notifications | `app/(admin)/notifications/page.tsx` |
+| `[x]` | Pricing | `app/(admin)/pricing/page.tsx` |
+| `[x]` | Activity | `app/(admin)/activity/page.tsx` |
+| `[x]` | Security | `app/(admin)/security/page.tsx` |
+| `[x]` | Settings | `app/(admin)/settings/page.tsx` |
+| `[x]` | Reports | `app/(admin)/reports/page.tsx` |
+| `[x]` | Notifications | `app/(admin)/notifications/page.tsx` |
 
 ---
 
@@ -153,12 +153,12 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Typography | `app/(admin)/basic/typography/page.tsx` |
-| `[ ]` | Colors | `app/(admin)/basic/colors/page.tsx` |
-| `[ ]` | Table | `app/(admin)/basic/table/page.tsx` |
-| `[ ]` | List | `app/(admin)/basic/list/page.tsx` |
-| `[ ]` | Images | `app/(admin)/basic/images/page.tsx` |
-| `[ ]` | Blockquote | `app/(admin)/basic/blockquote/page.tsx` |
+| `[x]` | Typography | `app/(admin)/basic/typography/page.tsx` |
+| `[x]` | Colors | `app/(admin)/basic/colors/page.tsx` |
+| `[x]` | Table | `app/(admin)/basic/table/page.tsx` |
+| `[x]` | List | `app/(admin)/basic/list/page.tsx` |
+| `[x]` | Images | `app/(admin)/basic/images/page.tsx` |
+| `[x]` | Blockquote | `app/(admin)/basic/blockquote/page.tsx` |
 
 ---
 
@@ -166,63 +166,63 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Accordion | `app/(admin)/components/accordion/page.tsx` |
-| `[ ]` | Alert | `app/(admin)/components/alert/page.tsx` |
-| `[ ]` | Alert Dialog | `app/(admin)/components/alert-dialog/page.tsx` |
-| `[ ]` | Aspect Ratio | `app/(admin)/components/aspect-ratio/page.tsx` |
-| `[ ]` | Avatar | `app/(admin)/components/avatar/page.tsx` |
-| `[ ]` | Badge | `app/(admin)/components/badge/page.tsx` |
-| `[ ]` | Breadcrumb | `app/(admin)/components/breadcrumb/page.tsx` |
-| `[ ]` | Button | `app/(admin)/components/button/page.tsx` |
-| `[ ]` | Button Group | `app/(admin)/components/button-group/page.tsx` |
-| `[ ]` | Calendar | `app/(admin)/components/calendar/page.tsx` |
-| `[ ]` | Card | `app/(admin)/components/card/page.tsx` |
-| `[ ]` | Carousel | `app/(admin)/components/carousel/page.tsx` |
-| `[ ]` | Chart | `app/(admin)/components/chart/page.tsx` |
-| `[ ]` | Checkbox | `app/(admin)/components/checkbox/page.tsx` |
-| `[ ]` | Collapsible | `app/(admin)/components/collapsible/page.tsx` |
-| `[ ]` | Combobox | `app/(admin)/components/combobox/page.tsx` |
-| `[ ]` | Command | `app/(admin)/components/command/page.tsx` |
-| `[ ]` | Context Menu | `app/(admin)/components/context-menu/page.tsx` |
-| `[ ]` | Data Table | `app/(admin)/components/data-table/page.tsx` |
-| `[ ]` | Date Picker | `app/(admin)/components/date-picker/page.tsx` |
-| `[ ]` | Dialog | `app/(admin)/components/dialog/page.tsx` |
-| `[ ]` | Drawer | `app/(admin)/components/drawer/page.tsx` |
-| `[ ]` | Dropdown Menu | `app/(admin)/components/dropdown-menu/page.tsx` |
-| `[ ]` | Empty | `app/(admin)/components/empty/page.tsx` |
-| `[ ]` | Field | `app/(admin)/components/field/page.tsx` |
-| `[ ]` | Form | `app/(admin)/components/form/page.tsx` |
-| `[ ]` | Hover Card | `app/(admin)/components/hover-card/page.tsx` |
-| `[ ]` | Input | `app/(admin)/components/input/page.tsx` |
-| `[ ]` | Input Group | `app/(admin)/components/input-group/page.tsx` |
-| `[ ]` | Input OTP | `app/(admin)/components/input-otp/page.tsx` |
-| `[ ]` | Item | `app/(admin)/components/item/page.tsx` |
-| `[ ]` | Kbd | `app/(admin)/components/kbd/page.tsx` |
-| `[ ]` | Label | `app/(admin)/components/label/page.tsx` |
-| `[ ]` | Menubar | `app/(admin)/components/menubar/page.tsx` |
-| `[ ]` | Navigation Menu | `app/(admin)/components/navigation-menu/page.tsx` |
-| `[ ]` | Native Select | `app/(admin)/components/native-select/page.tsx` |
-| `[ ]` | Pagination | `app/(admin)/components/pagination/page.tsx` |
-| `[ ]` | Popover | `app/(admin)/components/popover/page.tsx` |
-| `[ ]` | Progress | `app/(admin)/components/progress/page.tsx` |
-| `[ ]` | Radio Group | `app/(admin)/components/radio-group/page.tsx` |
-| `[ ]` | Resizable | `app/(admin)/components/resizable/page.tsx` |
-| `[ ]` | Scroll Area | `app/(admin)/components/scroll-area/page.tsx` |
-| `[ ]` | Select | `app/(admin)/components/select/page.tsx` |
-| `[ ]` | Separator | `app/(admin)/components/separator/page.tsx` |
-| `[ ]` | Sheet | `app/(admin)/components/sheet/page.tsx` |
-| `[ ]` | Skeleton | `app/(admin)/components/skeleton/page.tsx` |
-| `[ ]` | Slider | `app/(admin)/components/slider/page.tsx` |
-| `[ ]` | Sonner | `app/(admin)/components/sonner/page.tsx` |
-| `[ ]` | Spinner | `app/(admin)/components/spinner/page.tsx` |
-| `[ ]` | Switch | `app/(admin)/components/switch/page.tsx` |
-| `[ ]` | Table | `app/(admin)/components/table/page.tsx` |
-| `[ ]` | Tabs | `app/(admin)/components/tabs/page.tsx` |
-| `[ ]` | Textarea | `app/(admin)/components/textarea/page.tsx` |
-| `[ ]` | Toggle | `app/(admin)/components/toggle/page.tsx` |
-| `[ ]` | Toggle Group | `app/(admin)/components/toggle-group/page.tsx` |
-| `[ ]` | Tooltip | `app/(admin)/components/tooltip/page.tsx` |
-| `[ ]` | Typography | `app/(admin)/components/typography/page.tsx` |
+| `[x]` | Accordion | `app/(admin)/components/accordion/page.tsx` |
+| `[x]` | Alert | `app/(admin)/components/alert/page.tsx` |
+| `[x]` | Alert Dialog | `app/(admin)/components/alert-dialog/page.tsx` |
+| `[x]` | Aspect Ratio | `app/(admin)/components/aspect-ratio/page.tsx` |
+| `[x]` | Avatar | `app/(admin)/components/avatar/page.tsx` |
+| `[x]` | Badge | `app/(admin)/components/badge/page.tsx` |
+| `[x]` | Breadcrumb | `app/(admin)/components/breadcrumb/page.tsx` |
+| `[x]` | Button | `app/(admin)/components/button/page.tsx` |
+| `[x]` | Button Group | `app/(admin)/components/button-group/page.tsx` |
+| `[x]` | Calendar | `app/(admin)/components/calendar/page.tsx` |
+| `[x]` | Card | `app/(admin)/components/card/page.tsx` |
+| `[x]` | Carousel | `app/(admin)/components/carousel/page.tsx` |
+| `[x]` | Chart | `app/(admin)/components/chart/page.tsx` |
+| `[x]` | Checkbox | `app/(admin)/components/checkbox/page.tsx` |
+| `[x]` | Collapsible | `app/(admin)/components/collapsible/page.tsx` |
+| `[x]` | Combobox | `app/(admin)/components/combobox/page.tsx` |
+| `[x]` | Command | `app/(admin)/components/command/page.tsx` |
+| `[x]` | Context Menu | `app/(admin)/components/context-menu/page.tsx` |
+| `[x]` | Data Table | `app/(admin)/components/data-table/page.tsx` |
+| `[x]` | Date Picker | `app/(admin)/components/date-picker/page.tsx` |
+| `[x]` | Dialog | `app/(admin)/components/dialog/page.tsx` |
+| `[x]` | Drawer | `app/(admin)/components/drawer/page.tsx` |
+| `[x]` | Dropdown Menu | `app/(admin)/components/dropdown-menu/page.tsx` |
+| `[x]` | Empty | `app/(admin)/components/empty/page.tsx` |
+| `[x]` | Field | `app/(admin)/components/field/page.tsx` |
+| `[x]` | Form | `app/(admin)/components/form/page.tsx` |
+| `[x]` | Hover Card | `app/(admin)/components/hover-card/page.tsx` |
+| `[x]` | Input | `app/(admin)/components/input/page.tsx` |
+| `[x]` | Input Group | `app/(admin)/components/input-group/page.tsx` |
+| `[x]` | Input OTP | `app/(admin)/components/input-otp/page.tsx` |
+| `[x]` | Item | `app/(admin)/components/item/page.tsx` |
+| `[x]` | Kbd | `app/(admin)/components/kbd/page.tsx` |
+| `[x]` | Label | `app/(admin)/components/label/page.tsx` |
+| `[x]` | Menubar | `app/(admin)/components/menubar/page.tsx` |
+| `[x]` | Navigation Menu | `app/(admin)/components/navigation-menu/page.tsx` |
+| `[x]` | Native Select | `app/(admin)/components/native-select/page.tsx` |
+| `[x]` | Pagination | `app/(admin)/components/pagination/page.tsx` |
+| `[x]` | Popover | `app/(admin)/components/popover/page.tsx` |
+| `[x]` | Progress | `app/(admin)/components/progress/page.tsx` |
+| `[x]` | Radio Group | `app/(admin)/components/radio-group/page.tsx` |
+| `[x]` | Resizable | `app/(admin)/components/resizable/page.tsx` |
+| `[x]` | Scroll Area | `app/(admin)/components/scroll-area/page.tsx` |
+| `[x]` | Select | `app/(admin)/components/select/page.tsx` |
+| `[x]` | Separator | `app/(admin)/components/separator/page.tsx` |
+| `[x]` | Sheet | `app/(admin)/components/sheet/page.tsx` |
+| `[x]` | Skeleton | `app/(admin)/components/skeleton/page.tsx` |
+| `[x]` | Slider | `app/(admin)/components/slider/page.tsx` |
+| `[x]` | Sonner | `app/(admin)/components/sonner/page.tsx` |
+| `[x]` | Spinner | `app/(admin)/components/spinner/page.tsx` |
+| `[x]` | Switch | `app/(admin)/components/switch/page.tsx` |
+| `[x]` | Table | `app/(admin)/components/table/page.tsx` |
+| `[x]` | Tabs | `app/(admin)/components/tabs/page.tsx` |
+| `[x]` | Textarea | `app/(admin)/components/textarea/page.tsx` |
+| `[x]` | Toggle | `app/(admin)/components/toggle/page.tsx` |
+| `[x]` | Toggle Group | `app/(admin)/components/toggle-group/page.tsx` |
+| `[x]` | Tooltip | `app/(admin)/components/tooltip/page.tsx` |
+| `[x]` | Typography | `app/(admin)/components/typography/page.tsx` |
 
 ---
 
@@ -230,11 +230,11 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Autocomplete | `app/(admin)/advanced/autocomplete/page.tsx` |
-| `[ ]` | Editor | `app/(admin)/advanced/editor/page.tsx` |
-| `[ ]` | File Uploader | `app/(admin)/advanced/file-uploader/page.tsx` |
-| `[ ]` | Image Cropper | `app/(admin)/advanced/image-cropper/page.tsx` |
-| `[ ]` | FAB Button | `app/(admin)/advanced/speed-dial/page.tsx` |
+| `[x]` | Autocomplete | `app/(admin)/advanced/autocomplete/page.tsx` |
+| `[x]` | Editor | `app/(admin)/advanced/editor/page.tsx` |
+| `[x]` | File Uploader | `app/(admin)/advanced/file-uploader/page.tsx` |
+| `[x]` | Image Cropper | `app/(admin)/advanced/image-cropper/page.tsx` |
+| `[x]` | FAB Button | `app/(admin)/advanced/speed-dial/page.tsx` |
 
 ---
 
@@ -242,15 +242,15 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Login | `app/(admin)/forms/login/page.tsx` |
-| `[ ]` | Register | `app/(admin)/forms/register/page.tsx` |
-| `[ ]` | Forgot Password | `app/(admin)/forms/forgot-password/page.tsx` |
-| `[ ]` | Contact | `app/(admin)/forms/contact/page.tsx` |
-| `[ ]` | Profile | `app/(admin)/forms/profile/page.tsx` |
-| `[ ]` | Payment | `app/(admin)/forms/payment/page.tsx` |
-| `[ ]` | Multi Step | `app/(admin)/forms/multi-step/page.tsx` |
-| `[ ]` | Validation | `app/(admin)/forms/validation/page.tsx` |
-| `[ ]` | Clipboard | `app/(admin)/forms/clipboard/page.tsx` |
+| `[x]` | Login | `app/(admin)/forms/login/page.tsx` |
+| `[x]` | Register | `app/(admin)/forms/register/page.tsx` |
+| `[x]` | Forgot Password | `app/(admin)/forms/forgot-password/page.tsx` |
+| `[x]` | Contact | `app/(admin)/forms/contact/page.tsx` |
+| `[x]` | Profile | `app/(admin)/forms/profile/page.tsx` |
+| `[x]` | Payment | `app/(admin)/forms/payment/page.tsx` |
+| `[x]` | Multi Step | `app/(admin)/forms/multi-step/page.tsx` |
+| `[x]` | Validation | `app/(admin)/forms/validation/page.tsx` |
+| `[x]` | Clipboard | `app/(admin)/forms/clipboard/page.tsx` |
 
 ---
 
@@ -258,8 +258,8 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Default | `app/(admin)/icons/default/page.tsx` |
-| `[ ]` | Brands | `app/(admin)/icons/brands/page.tsx` |
+| `[x]` | Default | `app/(admin)/icons/default/page.tsx` |
+| `[x]` | Brands | `app/(admin)/icons/brands/page.tsx` |
 
 ---
 
@@ -267,8 +267,8 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Charts | `app/(admin)/charts/page.tsx` |
-| `[ ]` | Loaders | `app/(admin)/loaders/page.tsx` |
+| `[x]` | Charts | `app/(admin)/charts/page.tsx` |
+| `[x]` | Loaders | `app/(admin)/loaders/page.tsx` |
 
 ---
 
@@ -276,17 +276,17 @@
 
 | Status | Page | Route file |
 |--------|------|------------|
-| `[ ]` | Home | `app/(landing)/landing/home/page.tsx` |
-| `[ ]` | About | `app/(landing)/landing/about/page.tsx` |
-| `[ ]` | Pricing | `app/(landing)/landing/pricing/page.tsx` |
-| `[ ]` | Contact | `app/(landing)/landing/contact/page.tsx` |
-| `[ ]` | Coming Soon | `app/(landing)/landing/coming-soon/page.tsx` |
-| `[ ]` | Maintenance | `app/(landing)/landing/maintenance/page.tsx` |
-| `[ ]` | Terms & Conditions | `app/(landing)/landing/terms/page.tsx` |
-| `[ ]` | Privacy Policy | `app/(landing)/landing/privacy/page.tsx` |
-| `[ ]` | Error 404 | `app/(landing)/landing/error/404/page.tsx` |
-| `[ ]` | Error 500 | `app/(landing)/landing/error/500/page.tsx` |
-| `[ ]` | Error 401 | `app/(landing)/landing/error/401/page.tsx` |
+| `[x]` | Home | `app/(landing)/landing/home/page.tsx` |
+| `[x]` | About | `app/(landing)/landing/about/page.tsx` |
+| `[x]` | Pricing | `app/(landing)/landing/pricing/page.tsx` |
+| `[x]` | Contact | `app/(landing)/landing/contact/page.tsx` |
+| `[x]` | Coming Soon | `app/(landing)/landing/coming-soon/page.tsx` |
+| `[x]` | Maintenance | `app/(landing)/landing/maintenance/page.tsx` |
+| `[x]` | Terms & Conditions | `app/(landing)/landing/terms/page.tsx` |
+| `[x]` | Privacy Policy | `app/(landing)/landing/privacy/page.tsx` |
+| `[x]` | Error 404 | `app/(landing)/landing/error/404/page.tsx` |
+| `[x]` | Error 500 | `app/(landing)/landing/error/500/page.tsx` |
+| `[x]` | Error 401 | `app/(landing)/landing/error/401/page.tsx` |
 
 ---
 
@@ -311,24 +311,24 @@ When reviewing each page, ask:
 
 | Group | Total | Done |
 |-------|-------|------|
-| Auth | 1 | 0 |
-| Dashboard | 4 | 0 |
-| Users | 4 | 0 |
-| Kanban | 3 | 0 |
-| Contact | 2 | 0 |
-| Chat | 1 | 0 |
-| Calendar | 1 | 0 |
-| Map | 2 | 0 |
-| Mail | 2 | 0 |
-| Blog | 4 | 0 |
-| E-Commerce | 4 | 0 |
-| Invoice | 11 | 0 |
-| Account | 6 | 0 |
-| Basic | 6 | 0 |
-| Components | 54 | 0 |
-| Advanced | 5 | 0 |
-| Forms | 9 | 0 |
-| Icons | 2 | 0 |
-| Charts & Loaders | 2 | 0 |
-| Landing Pages | 11 | 0 |
-| **Total** | **134** | **0** |
+| Auth | 1 | 1 |
+| Dashboard | 4 | 4 |
+| Users | 4 | 4 |
+| Kanban | 3 | 3 |
+| Contact | 2 | 2 |
+| Chat | 1 | 1 |
+| Calendar | 1 | 1 |
+| Map | 2 | 2 |
+| Mail | 2 | 2 |
+| Blog | 4 | 4 |
+| E-Commerce | 4 | 4 |
+| Invoice | 11 | 11 |
+| Account | 6 | 6 |
+| Basic | 6 | 6 |
+| Components | 54 | 54 |
+| Advanced | 5 | 5 |
+| Forms | 9 | 9 |
+| Icons | 2 | 2 |
+| Charts & Loaders | 2 | 2 |
+| Landing Pages | 11 | 11 |
+| **Total** | **134** | **134** |

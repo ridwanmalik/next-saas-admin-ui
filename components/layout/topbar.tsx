@@ -56,13 +56,15 @@ const LanguageDropdown = () => {
 const NAV_COMMANDS: PaletteCommand[] = NAV_GROUPS.flatMap(group =>
   group.items.flatMap(item => {
     if (item.children) {
-      return item.children.map(child => ({
-        id: child.href,
-        label: `${item.title} › ${child.title}`,
-        icon: item.icon,
-        group: group.label,
-        href: child.href,
-      }))
+      return item.children
+        .filter(child => !!child.href)
+        .map(child => ({
+          id: child.href!,
+          label: `${item.title} › ${child.title}`,
+          icon: item.icon,
+          group: group.label,
+          href: child.href!,
+        }))
     }
     return [
       {

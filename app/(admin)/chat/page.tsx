@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Bell, BellOff, Check, CheckCheck, MessageSquareX, MoreHorizontal, Paperclip, Phone, Search, Send, Smile, Trash2, UserRound, Video } from "lucide-react"
+import { BellOff, MessageSquareX, MoreHorizontal, Paperclip, Phone, Search, Send, Smile, Trash2, UserRound, Video } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -9,29 +9,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type Message = {
-  id: string
-  text: string
-  time: string
-  sent: boolean
-  read?: boolean
-}
-
-type Conversation = {
-  id: string
-  name: string
-  handle: string
-  avatar: string
-  avatarFallback: string
-  avatarColor: string
-  online: boolean
-  lastMessage: string
-  lastTime: string
-  unread: number
-  messages: Message[]
-}
+import { Bubble } from "./_components/bubble"
+import { ConversationItem } from "./_components/conversation-item"
+import type { Conversation } from "./_components/types"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -396,87 +376,6 @@ const CONVERSATIONS: Conversation[] = [
     ],
   },
 ]
-
-// ─── Conversation item ────────────────────────────────────────────────────────
-
-const ConversationItem = ({
-  conv,
-  active,
-  onClick,
-}: {
-  conv: Conversation
-  active: boolean
-  onClick: () => void
-}) => (
-  <button
-    onClick={onClick}
-    className={cn(
-      "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors",
-      active ? "bg-muted" : "hover:bg-muted/60"
-    )}
-  >
-    <div className="relative shrink-0">
-      <Avatar className="h-10 w-10">
-        <AvatarImage src={conv.avatar} alt={conv.name} />
-        <AvatarFallback className={cn("text-xs font-semibold text-white", conv.avatarColor)}>
-          {conv.avatarFallback}
-        </AvatarFallback>
-      </Avatar>
-      {conv.online && (
-        <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-background" />
-      )}
-    </div>
-    <div className="flex-1 min-w-0">
-      <div className="flex items-center justify-between gap-1">
-        <span className="text-sm font-medium truncate">{conv.name}</span>
-        <span className="text-[10px] text-muted-foreground shrink-0">{conv.lastTime}</span>
-      </div>
-      <div className="flex items-center justify-between gap-1 mt-0.5">
-        <span className="text-xs text-muted-foreground truncate">{conv.lastMessage}</span>
-        {conv.unread > 0 && (
-          <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-primary-foreground">
-            {conv.unread}
-          </span>
-        )}
-      </div>
-    </div>
-  </button>
-)
-
-// ─── Message bubble ───────────────────────────────────────────────────────────
-
-const Bubble = ({ msg, conv }: { msg: Message; conv: Conversation }) => (
-  <div className={cn("flex items-end gap-2 max-w-[75%]", msg.sent ? "ml-auto flex-row-reverse" : "")}>
-    {!msg.sent && (
-      <Avatar className="h-7 w-7 shrink-0 mb-1">
-        <AvatarImage src={conv.avatar} alt={conv.name} />
-        <AvatarFallback className={cn("text-[10px] font-semibold text-white", conv.avatarColor)}>
-          {conv.avatarFallback}
-        </AvatarFallback>
-      </Avatar>
-    )}
-    <div>
-      <div
-        className={cn(
-          "rounded-2xl px-3.5 py-2 text-sm leading-relaxed",
-          msg.sent
-            ? "bg-primary text-primary-foreground rounded-br-sm"
-            : "bg-muted text-foreground rounded-bl-sm"
-        )}
-      >
-        {msg.text}
-      </div>
-      <div className={cn("flex items-center gap-1 mt-1", msg.sent ? "justify-end" : "")}>
-        <span className="text-[10px] text-muted-foreground">{msg.time}</span>
-        {msg.sent && (
-          msg.read
-            ? <CheckCheck className="h-3 w-3 text-primary" />
-            : <Check className="h-3 w-3 text-muted-foreground" />
-        )}
-      </div>
-    </div>
-  </div>
-)
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 

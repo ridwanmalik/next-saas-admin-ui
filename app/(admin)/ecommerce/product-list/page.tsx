@@ -132,8 +132,6 @@ const ProductListPage = () => {
       <DataTable
         columns={columns}
         data={filtered}
-        searchKey="name"
-        searchPlaceholder="Search products…"
         toolbarFilters={[
           <MultiSelectFilter
             key="status"

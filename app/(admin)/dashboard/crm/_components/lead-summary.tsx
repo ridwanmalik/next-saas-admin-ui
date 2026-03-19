@@ -4,6 +4,7 @@ import { useState } from "react"
 import { TrendingDown, UserCheck, UserPlus, Users } from "lucide-react"
 import { Bar, ComposedChart, CartesianGrid, Line, XAxis, YAxis } from "recharts"
 
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { ChartConfig } from "@/components/ui/chart"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
@@ -51,19 +52,16 @@ export const LeadSummary = () => {
           <CardTitle>Lead Summary</CardTitle>
           <div className="flex items-center gap-1 flex-wrap">
             {LEAD_TABS.map((tab) => (
-              <button
+              <Button
                 key={tab.key}
+                variant="ghost"
+                size="sm"
                 onClick={() => setActiveTab(tab.key)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
-                  activeTab === tab.key
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}
+                className={cn(activeTab === tab.key && "bg-primary/10 text-primary hover:bg-primary/10 hover:text-primary")}
               >
                 <tab.icon className="h-3.5 w-3.5" />
                 {tab.label}
-              </button>
+              </Button>
             ))}
           </div>
         </div>

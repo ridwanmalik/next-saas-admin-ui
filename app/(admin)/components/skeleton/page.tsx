@@ -15,8 +15,8 @@ const SkeletonPage = () => (
         <div className="flex items-center gap-4">
           <Skeleton className="h-12 w-12 rounded-full" />
           <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-4 w-62.5" />
+            <Skeleton className="h-4 w-50" />
           </div>
         </div>
       </ShowCard>
@@ -25,8 +25,8 @@ const SkeletonPage = () => (
         <div className="flex w-fit items-center gap-4">
           <Skeleton className="size-10 shrink-0 rounded-full" />
           <div className="grid gap-2">
-            <Skeleton className="h-4 w-[150px]" />
-            <Skeleton className="h-4 w-[100px]" />
+            <Skeleton className="h-4 w-37.5" />
+            <Skeleton className="h-4 w-25" />
           </div>
         </div>
       </ShowCard>

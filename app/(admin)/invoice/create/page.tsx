@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
@@ -106,14 +107,16 @@ const CreateInvoicePage = () => {
             <div className="space-y-1.5">
               <Label htmlFor="select-client">Select Client</Label>
               <div className="flex gap-2">
-                <select
-                  id="select-client"
-                  className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                >
-                  {CLIENT_OPTIONS.map(c => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
+                <Select defaultValue={CLIENT_OPTIONS[0]}>
+                  <SelectTrigger id="select-client">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CLIENT_OPTIONS.map(c => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <Button variant="outline" size="sm" className="shrink-0 gap-1 text-xs h-9">
                   <Plus className="h-3.5 w-3.5" />
                   New Client
@@ -168,14 +171,16 @@ const CreateInvoicePage = () => {
               <Label htmlFor="invoice-status">
                 Status <span className="text-destructive">*</span>
               </Label>
-              <select
-                id="invoice-status"
-                className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              >
-                {STATUS_OPTIONS.map(s => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
+              <Select defaultValue={STATUS_OPTIONS[0]}>
+                <SelectTrigger id="invoice-status">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {STATUS_OPTIONS.map(s => (
+                    <SelectItem key={s} value={s}>{s}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -212,12 +217,14 @@ const CreateInvoicePage = () => {
                         <td className="px-4 py-3 text-right tabular-nums">${item.unitPrice.toFixed(2)}</td>
                         <td className="px-4 py-3 text-right tabular-nums font-medium">${(item.qty * item.unitPrice).toFixed(2)}</td>
                         <td className="px-4 py-3 text-center">
-                          <button
+                          <Button
+                            variant="ghost"
+                            size="icon"
                             onClick={() => handleRemoveItem(i)}
-                            className="text-muted-foreground hover:text-destructive transition-colors"
+                            className="h-7 w-7 text-muted-foreground hover:text-destructive"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     ))
@@ -230,15 +237,16 @@ const CreateInvoicePage = () => {
             <div className="flex items-end gap-2 flex-wrap">
               <div className="flex-1 min-w-44 space-y-1.5">
                 <Label className="text-xs">Item</Label>
-                <select
-                  value={selectedItemName}
-                  onChange={e => setSelectedItemName(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                >
-                  {ITEM_OPTIONS.map(o => (
-                    <option key={o.name} value={o.name}>{o.name}</option>
-                  ))}
-                </select>
+                <Select value={selectedItemName} onValueChange={setSelectedItemName}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ITEM_OPTIONS.map(o => (
+                      <SelectItem key={o.name} value={o.name}>{o.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="w-20 space-y-1.5">
                 <Label className="text-xs">Qty</Label>

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { RichEditor } from "@/components/ui/rich-editor"
 import { FileUploader } from "@/components/ui/file-uploader"
 import { Save, Send, X } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const CATEGORIES = ["Tutorial", "Technology", "Design", "Business", "News"]
 
@@ -85,17 +86,15 @@ const AddNewPostPage = () => {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {CATEGORIES.map(cat => (
-                <button
+                <Button
                   key={cat}
+                  variant="outline"
+                  size="sm"
                   onClick={() => setSelectedCategory(cat === selectedCategory ? null : cat)}
-                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
-                    selectedCategory === cat
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-muted/30 hover:bg-muted"
-                  }`}
+                  className={cn(selectedCategory === cat && "border-primary bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground")}
                 >
                   {cat}
-                </button>
+                </Button>
               ))}
             </CardContent>
           </Card>

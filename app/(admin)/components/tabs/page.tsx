@@ -19,7 +19,7 @@ const TabsPage = () => (
     </div>
     <div className="space-y-4">
       <ShowCard>
-        <Tabs defaultValue="overview" className="w-[400px]">
+        <Tabs defaultValue="overview" className="w-100">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>

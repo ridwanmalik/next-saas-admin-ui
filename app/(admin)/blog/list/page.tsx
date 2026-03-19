@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Eye, MessageSquare, ThumbsUp, Plus, Search, LayoutGrid, List, Edit, Calendar } from "lucide-react"
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 
 type Post = {
@@ -85,34 +86,39 @@ const BlogListPage = () => {
         {/* Status filter tabs */}
         <div className="flex items-center rounded-md border bg-muted/40 p-0.5 gap-0.5">
           {STATUS_FILTERS.map(s => (
-            <button
+            <Button
               key={s}
+              variant="ghost"
+              size="sm"
               onClick={() => setStatusFilter(s)}
-              className={`rounded px-3 py-1 text-sm font-medium transition-colors ${
-                statusFilter === s
-                  ? "bg-background shadow-sm text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={cn(
+                "h-auto rounded px-3 py-1 text-sm font-medium",
+                statusFilter === s ? "bg-background shadow-sm text-foreground hover:bg-background" : "text-muted-foreground"
+              )}
             >
               {s}
-            </button>
+            </Button>
           ))}
         </div>
 
         {/* View toggle */}
         <div className="flex items-center rounded-md border bg-muted/40 p-0.5">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setView("grid")}
-            className={`rounded p-1.5 transition-colors ${view === "grid" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={cn("h-7 w-7 rounded", view === "grid" ? "bg-background shadow-sm text-foreground hover:bg-background" : "text-muted-foreground")}
           >
             <LayoutGrid className="h-4 w-4" />
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setView("list")}
-            className={`rounded p-1.5 transition-colors ${view === "list" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={cn("h-7 w-7 rounded", view === "list" ? "bg-background shadow-sm text-foreground hover:bg-background" : "text-muted-foreground")}
           >
             <List className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       </div>
 

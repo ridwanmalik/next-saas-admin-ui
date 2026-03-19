@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
@@ -58,12 +59,14 @@ const InteractiveMap = () => {
             {[...selected].map(name => (
               <Badge key={name} variant="secondary" className="gap-1 pr-1.5 text-xs">
                 {name}
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={() => toggle(name)}
-                  className="ml-0.5 rounded-full opacity-60 hover:opacity-100"
+                  className="ml-0.5 h-3.5 w-3.5 rounded-full opacity-60 hover:opacity-100 hover:bg-transparent"
                 >
                   <X className="size-3" />
-                </button>
+                </Button>
               </Badge>
             ))}
           </div>

@@ -19,14 +19,14 @@ const AspectRatioPage = () => (
         </div>
       </ShowCard>
       <ShowCard title="Square" description="A square aspect ratio component using the ratio={1 / 1} prop. This is useful for displaying images in a square format.">
-        <div className="w-full max-w-[12rem]">
+        <div className="w-full max-w-48">
           <AspectRatio ratio={1 / 1} className="bg-muted rounded-lg">
             <Image src="https://avatar.vercel.sh/shadcn1" alt="Photo" fill className="rounded-lg object-cover grayscale dark:brightness-20" />
           </AspectRatio>
         </div>
       </ShowCard>
       <ShowCard title="Portrait" description="A portrait aspect ratio component using the ratio={9 / 16} prop. This is useful for displaying images in a portrait format.">
-        <div className="w-full max-w-[10rem]">
+        <div className="w-full max-w-40">
           <AspectRatio ratio={9 / 16} className="bg-muted rounded-lg">
             <Image src="https://avatar.vercel.sh/shadcn1" alt="Photo" fill className="rounded-lg object-cover grayscale dark:brightness-20" />
           </AspectRatio>

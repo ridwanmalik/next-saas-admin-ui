@@ -33,7 +33,7 @@ const ChartPage = () => {
       </div>
       <div className="space-y-4">
         <ShowCard title="Bar Chart" description="Wrap Recharts in ChartContainer and pass a ChartConfig for theming.">
-          <ChartContainer config={barConfig} className="h-[200px] w-full">
+          <ChartContainer config={barConfig} className="h-50 w-full">
             <BarChart data={monthlyData}>
               <CartesianGrid vertical={false} />
               <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
@@ -44,7 +44,7 @@ const ChartPage = () => {
         </ShowCard>
 
         <ShowCard title="Line Chart" description="Multiple series with ChartTooltipContent.">
-          <ChartContainer config={lineConfig} className="h-[200px] w-full">
+          <ChartContainer config={lineConfig} className="h-50 w-full">
             <LineChart data={monthlyData}>
               <CartesianGrid vertical={false} />
               <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
@@ -57,7 +57,7 @@ const ChartPage = () => {
         </ShowCard>
 
         <ShowCard title="Area Chart" description="Stacked area chart with fill opacity.">
-          <ChartContainer config={areaConfig} className="h-[200px] w-full">
+          <ChartContainer config={areaConfig} className="h-50 w-full">
             <AreaChart data={monthlyData}>
               <CartesianGrid vertical={false} />
               <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />

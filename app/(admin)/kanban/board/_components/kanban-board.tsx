@@ -27,6 +27,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
+import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
 import {
@@ -439,7 +440,7 @@ const KanbanColumn = ({
       {/* Add task */}
       {isAdding ? (
         <div className="mt-2.5 space-y-2">
-          <textarea
+          <Textarea
             autoFocus
             value={newTitle}
             onChange={e => setNewTitle(e.target.value)}
@@ -449,7 +450,7 @@ const KanbanColumn = ({
             }}
             placeholder="Task title…"
             rows={2}
-            className="w-full rounded-lg border bg-card px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-muted-foreground"
+            className="resize-none text-sm"
           />
           <div className="flex items-center gap-2">
             <Button size="sm" className="h-7 text-xs" onClick={handleAdd}>Add</Button>
@@ -457,13 +458,15 @@ const KanbanColumn = ({
           </div>
         </div>
       ) : (
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => setIsAdding(true)}
-          className="mt-2.5 flex items-center justify-center gap-1.5 rounded-xl border border-dashed border-border/60 py-2.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+          className="mt-2.5 w-full rounded-xl border border-dashed border-border/60 py-2.5 h-auto text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60"
         >
           <Plus className="h-3.5 w-3.5" />
           Add task
-        </button>
+        </Button>
       )}
     </div>
   )

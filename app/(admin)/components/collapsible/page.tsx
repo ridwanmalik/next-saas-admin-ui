@@ -116,7 +116,7 @@ const CollapsiblePage = () => {
           <Collapsible
             open={heroOpen}
             onOpenChange={setHeroOpen}
-            className="flex w-[350px] flex-col gap-2"
+            className="flex w-87.5 flex-col gap-2"
           >
             <div className="flex items-center justify-between gap-4 px-4">
               <h4 className="text-sm font-semibold">Order #4189</h4>
@@ -216,7 +216,7 @@ const CollapsiblePage = () => {
         </ShowCard>
 
         <ShowCard title="File Tree" description="Use nested collapsibles to build a file tree.">
-          <Card className="mx-auto w-full max-w-[16rem] gap-2" size="sm">
+          <Card className="mx-auto w-full max-w-64 gap-2" size="sm">
             <CardHeader>
               <Tabs defaultValue="explorer">
                 <TabsList className="w-full">

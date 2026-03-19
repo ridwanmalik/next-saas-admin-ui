@@ -110,25 +110,29 @@ const ProductDetailsPage = () => {
                   fill
                   className="object-cover transition-opacity duration-200"
                 />
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={() => setWishlisted(p => !p)}
-                  className="absolute right-3 top-3 rounded-full bg-background/80 p-2 backdrop-blur-sm hover:bg-background transition-colors"
+                  className="absolute right-3 top-3 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
                 >
                   <Heart className={cn("h-5 w-5", wishlisted ? "fill-rose-500 text-rose-500" : "text-muted-foreground")} />
-                </button>
+                </Button>
               </div>
               <div className="flex gap-2">
                 {PRODUCT.images.map((img, i) => (
-                  <button
+                  <Button
                     key={i}
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setSelectedImage(i)}
                     className={cn(
-                      "relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 transition-colors",
+                      "relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 p-0 transition-colors",
                       selectedImage === i ? "border-primary" : "border-transparent hover:border-muted-foreground/30"
                     )}
                   >
                     <Image src={img} alt="" fill className="object-cover" />
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -171,12 +175,14 @@ const ProductDetailsPage = () => {
                 <p className="text-sm font-medium">Colors <span className="text-destructive">*</span></p>
                 <div className="flex items-center gap-2">
                   {PRODUCT.colors.map((color, i) => (
-                    <button
+                    <Button
                       key={i}
+                      variant="ghost"
+                      size="icon"
                       onClick={() => setSelectedColor(i)}
                       style={{ backgroundColor: color }}
                       className={cn(
-                        "h-7 w-7 rounded-full transition-all",
+                        "h-7 w-7 rounded-full p-0 transition-all",
                         selectedColor === i ? "ring-2 ring-offset-2 ring-foreground" : "hover:scale-110"
                       )}
                     />
@@ -188,22 +194,21 @@ const ProductDetailsPage = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium">Size <span className="text-destructive">*</span></p>
-                  <button className="text-xs text-primary underline underline-offset-2">Size Chart?</button>
+                  <Button variant="link" size="sm" className="h-auto p-0 text-xs">Size Chart?</Button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {PRODUCT.sizes.map(size => (
-                    <button
+                    <Button
                       key={size}
+                      variant="outline"
+                      size="sm"
                       onClick={() => setSelectedSize(size)}
                       className={cn(
-                        "rounded-md border px-3 py-1.5 text-sm font-medium transition-colors",
-                        selectedSize === size
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 hover:bg-muted"
+                        selectedSize === size && "border-primary bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
                       )}
                     >
                       {size}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>
@@ -213,19 +218,23 @@ const ProductDetailsPage = () => {
                 <p className="text-sm font-medium">Quantity</p>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center rounded-md border">
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                      className="flex h-9 w-9 items-center justify-center hover:bg-muted transition-colors rounded-l-md"
+                      className="h-9 w-9 rounded-r-none"
                     >
                       <Minus className="h-3.5 w-3.5" />
-                    </button>
+                    </Button>
                     <span className="w-10 text-center text-sm font-medium">{quantity}</span>
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       onClick={() => setQuantity(q => q + 1)}
-                      className="flex h-9 w-9 items-center justify-center hover:bg-muted transition-colors rounded-r-md"
+                      className="h-9 w-9 rounded-l-none"
                     >
                       <Plus className="h-3.5 w-3.5" />
-                    </button>
+                    </Button>
                   </div>
                   <span className="text-xs text-muted-foreground">Only 12 items left</span>
                 </div>
@@ -268,11 +277,13 @@ const ProductDetailsPage = () => {
         {/* Tab bar */}
         <div className="flex border-b px-6">
           {(["description", "reviews"] as const).map(tab => (
-            <button
+            <Button
               key={tab}
+              variant="ghost"
+              size="sm"
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "relative py-3 pr-6 text-sm font-medium capitalize transition-colors",
+                "relative h-auto rounded-none py-3 pr-6 text-sm font-medium capitalize transition-colors",
                 activeTab === tab
                   ? "text-foreground after:absolute after:bottom-0 after:left-0 after:right-6 after:h-0.5 after:bg-primary"
                   : "text-muted-foreground hover:text-foreground"
@@ -284,7 +295,7 @@ const ProductDetailsPage = () => {
                   {PRODUCT.reviews_list.length}
                 </span>
               )}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -348,13 +359,14 @@ const ProductDetailsPage = () => {
                 },
               ].map(section => (
                 <div key={section.label} className="rounded-lg border">
-                  <button
+                  <Button
+                    variant="ghost"
                     onClick={section.toggle}
-                    className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium hover:bg-muted/50 transition-colors rounded-lg"
+                    className="flex w-full items-center justify-between px-4 py-3 h-auto text-sm font-medium rounded-lg"
                   >
                     {section.label}
                     {section.open ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
-                  </button>
+                  </Button>
                   {section.open && (
                     <div className="px-4 pb-4">
                       <Separator className="mb-0" />
@@ -443,7 +455,7 @@ const ProductDetailsPage = () => {
                         <span className="text-xs text-muted-foreground line-through">${p.originalPrice}</span>
                       )}
                     </div>
-                    <Button size="sm" variant="outline" className="h-7 w-7 p-0">
+                    <Button size="icon" variant="outline" className="h-7 w-7">
                       <ShoppingCart className="h-3.5 w-3.5" />
                     </Button>
                   </div>

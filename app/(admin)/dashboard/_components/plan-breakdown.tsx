@@ -8,10 +8,10 @@ type Plan = "Free" | "Pro" | "Enterprise"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const PLAN_BREAKDOWN: { name: Plan; count: number; pct: number; dot: string }[] = [
-  { name: "Free", count: 8240, pct: 66.8, dot: "bg-muted-foreground/50" },
-  { name: "Pro", count: 3200, pct: 25.9, dot: "bg-primary" },
-  { name: "Enterprise", count: 900, pct: 7.3, dot: "bg-amber-500" },
+const PLAN_BREAKDOWN: { name: Plan; count: number; pct: number; dot: string; bar: string }[] = [
+  { name: "Free", count: 8240, pct: 66.8, dot: "bg-muted-foreground/50", bar: "bg-muted-foreground/40" },
+  { name: "Pro", count: 3200, pct: 25.9, dot: "bg-primary", bar: "bg-primary" },
+  { name: "Enterprise", count: 900, pct: 7.3, dot: "bg-amber-500", bar: "bg-amber-500" },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -25,9 +25,13 @@ export const PlanBreakdown = () => (
     <CardContent className="space-y-5">
       {/* Stacked bar */}
       <div className="flex h-2 w-full overflow-hidden rounded-full gap-px">
-        <div className="bg-muted-foreground/40 rounded-l-full" style={{ width: "66.8%" }} />
-        <div className="bg-primary" style={{ width: "25.9%" }} />
-        <div className="bg-amber-500 rounded-r-full" style={{ width: "7.3%" }} />
+        {PLAN_BREAKDOWN.map((p, i) => (
+          <div
+            key={p.name}
+            className={cn(p.bar, i === 0 && "rounded-l-full", i === PLAN_BREAKDOWN.length - 1 && "rounded-r-full")}
+            style={{ width: `${p.pct}%` }}
+          />
+        ))}
       </div>
 
       {/* Rows */}

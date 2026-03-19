@@ -14,7 +14,7 @@ const BlogDashboardPage = () => (
     <div className="flex items-start justify-between gap-4 flex-wrap">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Blog Dashboard</h2>
-        <p className="text-sm text-muted-foreground mt-0.5">December 2025 · 284 posts published</p>
+        <p className="text-sm text-muted-foreground mt-0.5">{new Date().toLocaleString("default", { month: "long", year: "numeric" })} · 284 posts published</p>
       </div>
       <Button size="sm">
         <PenLine className="h-3.5 w-3.5" />

@@ -24,6 +24,7 @@ interface Plan {
   features: { text: string; included: boolean }[]
   cta: string
   current: boolean
+  popular?: boolean
 }
 
 const PLANS: Record<TabId, Plan[]> = {

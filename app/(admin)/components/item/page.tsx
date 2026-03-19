@@ -267,7 +267,7 @@ const ItemPage = () => (
             <DropdownMenuGroup>
               {people.map((person) => (
                 <DropdownMenuItem key={person.username}>
-                  <Item size="xs" className="w-full p-2">
+                  <Item size="sm" className="w-full p-2">
                     <ItemMedia>
                       <Avatar className="size-[--spacing(6.5)]">
                         <AvatarImage src={person.avatar} className="grayscale" />

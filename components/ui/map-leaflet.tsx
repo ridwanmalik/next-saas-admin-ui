@@ -80,7 +80,7 @@ const MapLeaflet = ({
         <Marker key={m.id} position={[m.lat, m.lng]}>
           <Popup>
             {renderPopup ? renderPopup(m) : (
-              <div className={cn("min-w-[140px]", darkMode && "text-white")}>
+              <div className={cn("min-w-35", darkMode && "text-white")}>
                 <p className="font-semibold">{m.name}</p>
                 {m.category && (
                   <p className={cn("text-xs", darkMode ? "text-white/60" : "text-gray-500")}>

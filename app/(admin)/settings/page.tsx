@@ -69,7 +69,7 @@ const THEME_OPTIONS = [
 
 // ─── Notification row ──────────────────────────────────────────────────────
 
-function NotificationRow({
+const NotificationRow = ({
   id,
   label,
   description,
@@ -79,7 +79,7 @@ function NotificationRow({
   label: string
   description: string
   defaultChecked?: boolean
-}) {
+}) => {
   const [checked, setChecked] = useState(defaultChecked)
   return (
     <div className="flex items-center justify-between gap-4 py-3">
@@ -94,7 +94,7 @@ function NotificationRow({
 
 // ─── Page ──────────────────────────────────────────────────────────────────
 
-export default function SettingsPage() {
+const SettingsPage = () => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
@@ -127,9 +127,9 @@ export default function SettingsPage() {
               <Avatar className="h-16 w-16">
                 <AvatarFallback className="text-lg font-semibold">AL</AvatarFallback>
               </Avatar>
-              <button className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-2 ring-background hover:bg-primary/90 transition-colors">
+              <Button size="icon" className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full shadow-sm ring-2 ring-background">
                 <Camera className="h-3 w-3" />
-              </button>
+              </Button>
             </div>
             <div>
               <p className="text-sm font-medium">Profile photo</p>
@@ -215,11 +215,12 @@ export default function SettingsPage() {
                 const Icon = opt.icon
                 const isActive = mounted && theme === opt.value
                 return (
-                  <button
+                  <Button
                     key={opt.value}
+                    variant="ghost"
                     onClick={() => setTheme(opt.value)}
                     className={cn(
-                      "flex flex-col gap-2 rounded-lg border-2 p-3 text-left transition-all hover:border-primary/60",
+                      "h-auto flex-col gap-2 rounded-lg border-2 p-3 text-left transition-all hover:border-primary/60",
                       isActive ? "border-primary" : "border-border",
                     )}
                   >
@@ -231,7 +232,7 @@ export default function SettingsPage() {
                       <Icon className="h-3 w-3" />
                       {opt.label}
                     </span>
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -251,11 +252,12 @@ export default function SettingsPage() {
               {COLOR_THEMES.map(t => {
                 const isActive = colorTheme === t.id
                 return (
-                  <button
+                  <Button
                     key={t.id}
+                    variant="ghost"
                     onClick={() => setColorTheme(t.id)}
                     title={t.label}
-                    className="group flex flex-col items-center gap-1.5"
+                    className="group h-auto flex-col items-center gap-1.5 p-1"
                   >
                     <span
                       className={cn(
@@ -274,7 +276,7 @@ export default function SettingsPage() {
                     )}>
                       {t.label}
                     </span>
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -294,11 +296,12 @@ export default function SettingsPage() {
               {SURFACE_THEMES.map(t => {
                 const isActive = surfaceTheme === t.id
                 return (
-                  <button
+                  <Button
                     key={t.id}
+                    variant="ghost"
                     onClick={() => setSurfaceTheme(t.id)}
                     title={t.label}
-                    className="group flex flex-col items-center gap-1.5"
+                    className="group h-auto flex-col items-center gap-1.5 p-1"
                   >
                     <span
                       className={cn(
@@ -317,7 +320,7 @@ export default function SettingsPage() {
                     )}>
                       {t.label}
                     </span>
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -478,3 +481,5 @@ export default function SettingsPage() {
     </PageContainer>
   )
 }
+
+export default SettingsPage

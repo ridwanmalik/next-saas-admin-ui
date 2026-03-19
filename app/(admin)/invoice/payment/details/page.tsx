@@ -99,9 +99,9 @@ const PaymentDetailsPage = () => (
             <div>
               <p className="text-sm font-semibold">{RECEIPT.client.name}</p>
               <p className="text-xs text-muted-foreground">{RECEIPT.client.code}</p>
-              <button className="flex items-center gap-1 text-xs text-primary mt-1 hover:underline">
+              <Button variant="link" size="sm" className="h-auto p-0 text-xs mt-1 gap-1">
                 Get Link <Link2 className="h-3 w-3" />
-              </button>
+              </Button>
             </div>
           </div>
 

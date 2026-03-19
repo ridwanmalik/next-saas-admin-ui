@@ -76,7 +76,7 @@ const DrawerPage = () => {
                       <span className="sr-only">Increase</span>
                     </Button>
                   </div>
-                  <div className="mt-3 h-[120px]">
+                  <div className="mt-3 h-30">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={GOAL_DATA}>
                         <Bar dataKey="goal" style={{ fill: "var(--chart-1)" } as React.CSSProperties} />

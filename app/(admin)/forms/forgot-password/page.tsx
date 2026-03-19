@@ -9,20 +9,18 @@ import { Input } from "@/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/components/ui/input-otp"
 import { Label } from "@/components/ui/label"
 
-function Variant({ label, description, children }: { label: string; description?: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4">
-      <div className="flex items-center gap-3">
-        <h3 className="text-sm font-semibold">{label}</h3>
-        <div className="h-px flex-1 bg-border" />
-      </div>
-      {description && <p className="text-sm text-muted-foreground">{description}</p>}
-      {children}
-    </section>
-  )
-}
+const Variant = ({ label, description, children }: { label: string; description?: string; children: React.ReactNode }) => (
+  <section className="space-y-4">
+    <div className="flex items-center gap-3">
+      <h3 className="text-sm font-semibold">{label}</h3>
+      <div className="h-px flex-1 bg-border" />
+    </div>
+    {description && <p className="text-sm text-muted-foreground">{description}</p>}
+    {children}
+  </section>
+)
 
-function PasswordStrength({ password }: { password: string }) {
+const PasswordStrength = ({ password }: { password: string }) => {
   const score = Math.min(
     [/.{8,}/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((r) => r.test(password)).length * 25,
     100
@@ -41,7 +39,7 @@ function PasswordStrength({ password }: { password: string }) {
   ) : null
 }
 
-export default function ForgotPasswordPage() {
+const ForgotPasswordPage = () => {
   const [showNew, setShowNew] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [newPw, setNewPw] = useState("")
@@ -109,9 +107,9 @@ export default function ForgotPasswordPage() {
             </div>
             <p className="text-center text-sm text-muted-foreground">
               Didn&apos;t receive a code?{" "}
-              <button className="font-medium text-foreground hover:underline inline-flex items-center gap-1">
+              <Button variant="link" size="sm" className="h-auto p-0 font-medium gap-1">
                 <RefreshCw className="size-3" />Resend
-              </button>
+              </Button>
             </p>
           </CardContent>
           <CardFooter className="flex-col gap-3">
@@ -145,13 +143,14 @@ export default function ForgotPasswordPage() {
                   onChange={(e) => setNewPw(e.target.value)}
                   className="pr-10"
                 />
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={() => setShowNew((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
                 >
                   {showNew ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                </button>
+                </Button>
               </div>
               <PasswordStrength password={newPw} />
             </div>
@@ -164,13 +163,14 @@ export default function ForgotPasswordPage() {
                   placeholder="••••••••"
                   className="pr-10"
                 />
-                <button
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={() => setShowConfirm((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
                 >
                   {showConfirm ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -196,3 +196,5 @@ export default function ForgotPasswordPage() {
     </div>
   )
 }
+
+export default ForgotPasswordPage

@@ -122,13 +122,15 @@ const ContactFormsPage = () => (
 
           <div className="flex gap-3">
             {SOCIAL_LINKS.map(({ icon, label }) => (
-              <button
+              <Button
                 key={label}
+                variant="ghost"
+                size="icon"
                 aria-label={label}
-                className="flex size-8 items-center justify-center rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+                className="size-8 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20"
               >
                 <SimpleIconSvg icon={icon} className="size-4 fill-primary-foreground" />
-              </button>
+              </Button>
             ))}
           </div>
         </div>
