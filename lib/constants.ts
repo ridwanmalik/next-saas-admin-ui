@@ -31,6 +31,7 @@ import {
   Newspaper,
   Receipt,
   BookUser,
+  Search,
 } from "lucide-react"
 import type { NavGroup } from "@/types"
 
@@ -111,6 +112,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Account",
     items: [
       { icon: CreditCard, title: "Pricing", href: "/pricing" },
+      { icon: Search,   title: "Search",   href: "/search"   },
       { icon: Activity, title: "Activity", href: "/activity" },
       { icon: Shield, title: "Security", href: "/security" },
       { icon: Settings, title: "Settings", href: "/settings" },

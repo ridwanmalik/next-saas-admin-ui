@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search, Globe, Check, Home, Info, DollarSign, Mail, Clock, Wrench, AlertTriangle, ServerCrash, ShieldOff } from "lucide-react"
+import { Search, Globe, Check, Home, Info, DollarSign, Mail, Clock, Wrench, AlertTriangle, ServerCrash, ShieldOff, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -26,6 +26,7 @@ const LANDING_COMMANDS: PaletteCommand[] = [
   { id: "home",         label: "Home",            icon: Home,          group: "Pages",  href: "/landing/home"         },
   { id: "about",        label: "About",           icon: Info,          group: "Pages",  href: "/landing/about"        },
   { id: "pricing",      label: "Pricing",         icon: DollarSign,    group: "Pages",  href: "/landing/pricing"      },
+  { id: "faq",          label: "FAQ",             icon: HelpCircle,    group: "Pages",  href: "/landing/faq"          },
   { id: "contact",      label: "Contact",         icon: Mail,          group: "Pages",  href: "/landing/contact"      },
   { id: "coming-soon",  label: "Coming Soon",     icon: Clock,         group: "Status", href: "/landing/coming-soon"  },
   { id: "maintenance",  label: "Maintenance",     icon: Wrench,        group: "Status", href: "/landing/maintenance"  },

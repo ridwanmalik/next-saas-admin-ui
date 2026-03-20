@@ -19,6 +19,7 @@ const NAV_LINKS = [
   { title: "Home",    href: "/landing/home"    },
   { title: "About",   href: "/landing/about"   },
   { title: "Pricing", href: "/landing/pricing" },
+  { title: "FAQ",     href: "/landing/faq"     },
   { title: "Contact", href: "/landing/contact" },
 ]
 
@@ -122,7 +123,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <span>© 2025 {APP_NAME}. All rights reserved.</span>
           <div className="flex items-center gap-4">
-            {NAV_LINKS.slice(0, 4).map(({ title, href }) => (
+            {NAV_LINKS.map(({ title, href }) => (
               <Link key={href} href={href} className="hover:text-foreground transition-colors">
                 {title}
               </Link>
